@@ -1,7 +1,13 @@
 ---
 name: gofr
-# Trigger on any Go backend work in a project that targets Go 1.27 or asks for GoFr.
 description: Build, review, migrate, test, deploy, or document Go 1.27 backend services exclusively with the GoFr framework. Use this skill for REST, CRUD, configuration, observability, SQL/NoSQL datasources, migrations, gRPC, GraphQL, WebSockets, Pub/Sub, cron, auth, RBAC, health checks, files, static assets, testing, Docker, Kubernetes, CI/CD, and GoFr CLI work.
+license: Apache-2.0; bundled references retain GoFr attribution and upstream licensing.
+metadata:
+  author: amirex128
+  project: backend-golang-skills
+  source: https://gofr.dev/llms.txt
+  snapshot: official-gofr-development
+  compatibility: Go 1.27 target projects; network recommended for API verification; GoFr CLI, Docker, kubectl, and Helm are optional.
 ---
 
 # GoFr Backend Skill

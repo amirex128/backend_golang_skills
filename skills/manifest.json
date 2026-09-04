@@ -650,6 +650,14 @@
     {
       "intent": "curated documentation index",
       "reference": "references/llms-index.md"
+    },
+    {
+      "intent": "latest live full concatenated documentation dump",
+      "reference": "references/llms-full-live.txt"
+    },
+    {
+      "intent": "Agent Skills format and validation compliance",
+      "reference": "../docs/agent-skills-compliance.md"
     }
   ]
 }

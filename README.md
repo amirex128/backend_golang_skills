@@ -6,12 +6,12 @@ A multi-skill, installable knowledge base for building Go backends. The first in
 
 ```bash
 npx backend-golang-skills --list
-npx backend-golang-skills gofr --target .agent
+npx backend-golang-skills gofr --target .agents
 # or install every available skill
-npx backend-golang-skills --all --target .agent
+npx backend-golang-skills --all --target .agents
 ```
 
-The default target is `./.agent/skills`. The installer is intentionally skill-agnostic so future skills can be added under `skills/<skill-name>/` without changing the command.
+The default target is `./.agents/skills`, matching the Agent Skills quickstart convention. The installer is intentionally skill-agnostic so future skills can be added under `skills/<skill-name>/` without changing the command.
 
 ## GoFr skill
 
