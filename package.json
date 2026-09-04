@@ -1,0 +1,25 @@
+{
+  "name": "backend-golang-skills",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Installable AI coding skills for Go backend development; currently includes the GoFr skill.",
+  "bin": {
+    "backend-golang-skills": "./installer/index.js"
+  },
+  "files": [
+    "skills",
+    "installer",
+    "README.md",
+    "LICENSE",
+    "docs"
+  ],
+  "keywords": [
+    "golang",
+    "go",
+    "backend",
+    "skills",
+    "gofr",
+    "ai-coding-assistant"
+  ],
+  "license": "Apache-2.0"
+}

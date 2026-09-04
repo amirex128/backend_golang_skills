@@ -1,0 +1,655 @@
+{
+  "name": "gofr",
+  "display_name": "GoFr Backend Skill",
+  "source": "https://gofr.dev/llms.txt",
+  "repository": "https://github.com/gofr-dev/gofr",
+  "snapshot_date": "2026-09-04",
+  "go_target": "1.27",
+  "page_count": 105,
+  "references": [
+    {
+      "source_path": "advanced-guide/authentication/page.md",
+      "reference": "references/advanced-guide-authentication.md",
+      "url": "https://gofr.dev/docs/advanced-guide/authentication",
+      "sha256": "5de02838a8d96af26ab97980bde9c797b6b41444e50e41193fc9869798c0499b"
+    },
+    {
+      "source_path": "advanced-guide/building-cli-applications/page.md",
+      "reference": "references/advanced-guide-building-cli-applications.md",
+      "url": "https://gofr.dev/docs/advanced-guide/building-cli-applications",
+      "sha256": "0f227bf092c95804dc4960feff0ad4818db6058ddb3306da8d7643399ad77869"
+    },
+    {
+      "source_path": "advanced-guide/circuit-breaker/page.md",
+      "reference": "references/advanced-guide-circuit-breaker.md",
+      "url": "https://gofr.dev/docs/advanced-guide/circuit-breaker",
+      "sha256": "7418c02fc06768e54c8a4f8c617a14d6a4d840474012f48bcd62b690707de68a"
+    },
+    {
+      "source_path": "advanced-guide/custom-spans-in-tracing/page.md",
+      "reference": "references/advanced-guide-custom-spans-in-tracing.md",
+      "url": "https://gofr.dev/docs/advanced-guide/custom-spans-in-tracing",
+      "sha256": "a8b53824870e9d58695cdfff3cb7c125f7a0b9f16c69268ce30814f4f27535a7"
+    },
+    {
+      "source_path": "advanced-guide/dealing-with-sql/page.md",
+      "reference": "references/advanced-guide-dealing-with-sql.md",
+      "url": "https://gofr.dev/docs/advanced-guide/dealing-with-sql",
+      "sha256": "48d2a39d82c5671c7e55215434b712f15af190f58d5c9efded77b3c244fbb96c"
+    },
+    {
+      "source_path": "advanced-guide/debugging/page.md",
+      "reference": "references/advanced-guide-debugging.md",
+      "url": "https://gofr.dev/docs/advanced-guide/debugging",
+      "sha256": "58351a4761734b927e2638c0b60a5dcc36bf8f1fc96a3bafaaa713c73f414212"
+    },
+    {
+      "source_path": "advanced-guide/gofr-errors/page.md",
+      "reference": "references/advanced-guide-gofr-errors.md",
+      "url": "https://gofr.dev/docs/advanced-guide/gofr-errors",
+      "sha256": "31f899eda0a5245c60158be8080a951143844db7912b078d3b80d19ac925e35c"
+    },
+    {
+      "source_path": "advanced-guide/graphql/page.md",
+      "reference": "references/advanced-guide-graphql.md",
+      "url": "https://gofr.dev/docs/advanced-guide/graphql",
+      "sha256": "f01dbb22908d239ad3a206c98494b0386f3e8899ce8ce59ad1217808e07748ad"
+    },
+    {
+      "source_path": "advanced-guide/grpc/page.md",
+      "reference": "references/advanced-guide-grpc.md",
+      "url": "https://gofr.dev/docs/advanced-guide/grpc",
+      "sha256": "b6332ab5996f88243e4601fa1600be1f2cec6f4167ef4cfe792e8aca464e788c"
+    },
+    {
+      "source_path": "advanced-guide/grpc-streaming/page.md",
+      "reference": "references/advanced-guide-grpc-streaming.md",
+      "url": "https://gofr.dev/docs/advanced-guide/grpc-streaming",
+      "sha256": "6b9e49523bef2c468e79498fec2855297d35c3379be21c1eeb47dd7f6c6feb02"
+    },
+    {
+      "source_path": "advanced-guide/handling-data-migrations/page.md",
+      "reference": "references/advanced-guide-handling-data-migrations.md",
+      "url": "https://gofr.dev/docs/advanced-guide/handling-data-migrations",
+      "sha256": "1c48f5adf5e5e26d6f0bfcf293d743988d593b002e83f70524838718879f1653"
+    },
+    {
+      "source_path": "advanced-guide/handling-file/page.md",
+      "reference": "references/advanced-guide-handling-file.md",
+      "url": "https://gofr.dev/docs/advanced-guide/handling-file",
+      "sha256": "d0fbf223f36094232087b2634b6da69ea588ad0c872eff5997c90ae882e8701b"
+    },
+    {
+      "source_path": "advanced-guide/http-communication/page.md",
+      "reference": "references/advanced-guide-http-communication.md",
+      "url": "https://gofr.dev/docs/advanced-guide/http-communication",
+      "sha256": "827e442d5cb204d4dd8ddbf94a0d9fc89fa62233b282e48db1ffd1f861c2509e"
+    },
+    {
+      "source_path": "advanced-guide/injecting-databases-drivers/page.md",
+      "reference": "references/advanced-guide-injecting-databases-drivers.md",
+      "url": "https://gofr.dev/docs/advanced-guide/injecting-databases-drivers",
+      "sha256": "e614d5e69dd1442b13e41e2a0097c1d3665ec23e7e143e693717df2e1961a29b"
+    },
+    {
+      "source_path": "advanced-guide/key-value-store/page.md",
+      "reference": "references/advanced-guide-key-value-store.md",
+      "url": "https://gofr.dev/docs/advanced-guide/key-value-store",
+      "sha256": "2a6655b8911335b631b0829661003b0e2385a8233cea9b3e298113a50f3bc7fc"
+    },
+    {
+      "source_path": "advanced-guide/llm/page.md",
+      "reference": "references/advanced-guide-llm.md",
+      "url": "https://gofr.dev/docs/advanced-guide/llm",
+      "sha256": "d43e59783f74c60a195e321bcf886fe316a6de20082831f6e7392af566272895"
+    },
+    {
+      "source_path": "advanced-guide/mcp/page.md",
+      "reference": "references/advanced-guide-mcp.md",
+      "url": "https://gofr.dev/docs/advanced-guide/mcp",
+      "sha256": "19ccfbc6e73f434f8e35fe48cc77cafc341e9997c563f6b9f696377b3d73d428"
+    },
+    {
+      "source_path": "advanced-guide/middlewares/page.md",
+      "reference": "references/advanced-guide-middlewares.md",
+      "url": "https://gofr.dev/docs/advanced-guide/middlewares",
+      "sha256": "9e20e18993297ec013ff8a1f44e9764260b4a483b86d49a475f7f5312d86e0e8"
+    },
+    {
+      "source_path": "advanced-guide/monitoring-service-health/page.md",
+      "reference": "references/advanced-guide-monitoring-service-health.md",
+      "url": "https://gofr.dev/docs/advanced-guide/monitoring-service-health",
+      "sha256": "70981fae47dcbee7a7dad952f8d05e0c95cd474cb60d9150859edb2ebb2bab6e"
+    },
+    {
+      "source_path": "advanced-guide/overriding-default/page.md",
+      "reference": "references/advanced-guide-overriding-default.md",
+      "url": "https://gofr.dev/docs/advanced-guide/overriding-default",
+      "sha256": "5c6f50ca4f126fe9b2dab9aa589a4c94ef55e54e90b403231703a1e1b4dbd88f"
+    },
+    {
+      "source_path": "advanced-guide/publishing-custom-metrics/page.md",
+      "reference": "references/advanced-guide-publishing-custom-metrics.md",
+      "url": "https://gofr.dev/docs/advanced-guide/publishing-custom-metrics",
+      "sha256": "d05fd163d013716a81262dd2a28406729eb899f8e4f215915fa4f470f18fd87d"
+    },
+    {
+      "source_path": "advanced-guide/rbac/page.md",
+      "reference": "references/advanced-guide-rbac.md",
+      "url": "https://gofr.dev/docs/advanced-guide/rbac",
+      "sha256": "8ba033607b03dcbdc7a3c590cb41ebc9c3ede4d803753f2d2503978d7d2b34bf"
+    },
+    {
+      "source_path": "advanced-guide/remote-log-level-change/page.md",
+      "reference": "references/advanced-guide-remote-log-level-change.md",
+      "url": "https://gofr.dev/docs/advanced-guide/remote-log-level-change",
+      "sha256": "4a085b6259789470dab19e9f62ac90395ae28135bd014ec3871259ef4d8afb64"
+    },
+    {
+      "source_path": "advanced-guide/routing-performance/page.md",
+      "reference": "references/advanced-guide-routing-performance.md",
+      "url": "https://gofr.dev/docs/advanced-guide/routing-performance",
+      "sha256": "c9d355afce0c6b77f51c0f5474914a515a689baa9e213de5ad66fe2891a20b0c"
+    },
+    {
+      "source_path": "advanced-guide/serving-static-files/page.md",
+      "reference": "references/advanced-guide-serving-static-files.md",
+      "url": "https://gofr.dev/docs/advanced-guide/serving-static-files",
+      "sha256": "a0e64ebdd0b8d2cdaa278bc63f23bbc65ca571ddc53b8d36bb8af255fa830e41"
+    },
+    {
+      "source_path": "advanced-guide/setting-custom-response-headers/page.md",
+      "reference": "references/advanced-guide-setting-custom-response-headers.md",
+      "url": "https://gofr.dev/docs/advanced-guide/setting-custom-response-headers",
+      "sha256": "7fecd6a19c25ba1b1ef9b6b2a41fb4251ca993ae4183b9daa0852e3c0e43024d"
+    },
+    {
+      "source_path": "advanced-guide/startup-hooks/page.md",
+      "reference": "references/advanced-guide-startup-hooks.md",
+      "url": "https://gofr.dev/docs/advanced-guide/startup-hooks",
+      "sha256": "8f4dada8a00fedb6a293211d419fe6f5339235dc100235a7d515d25fcf387093"
+    },
+    {
+      "source_path": "advanced-guide/streaming/page.md",
+      "reference": "references/advanced-guide-streaming.md",
+      "url": "https://gofr.dev/docs/advanced-guide/streaming",
+      "sha256": "f390a9ed4a1137bec068d86e1bf1bf586469c5d0660110f9c48130eff9828e15"
+    },
+    {
+      "source_path": "advanced-guide/swagger-documentation/page.md",
+      "reference": "references/advanced-guide-swagger-documentation.md",
+      "url": "https://gofr.dev/docs/advanced-guide/swagger-documentation",
+      "sha256": "75b17d5a9b813d54d06d4dcb3833085d4933fba2dc2c5ca48e1ef5edbd3bc48e"
+    },
+    {
+      "source_path": "advanced-guide/using-cron/page.md",
+      "reference": "references/advanced-guide-using-cron.md",
+      "url": "https://gofr.dev/docs/advanced-guide/using-cron",
+      "sha256": "5745597482aac1a3015b11b3764a659f8340b152783587793681319653382778"
+    },
+    {
+      "source_path": "advanced-guide/using-publisher-subscriber/page.md",
+      "reference": "references/advanced-guide-using-publisher-subscriber.md",
+      "url": "https://gofr.dev/docs/advanced-guide/using-publisher-subscriber",
+      "sha256": "d6fcfd2c470e506dcd7366f07161624fb6932cccc8d8cc5c6193de62f2f2efa0"
+    },
+    {
+      "source_path": "advanced-guide/websocket/page.md",
+      "reference": "references/advanced-guide-websocket.md",
+      "url": "https://gofr.dev/docs/advanced-guide/websocket",
+      "sha256": "0e1dafb94ebf2093e274df2de5667db4cf89b0e77dac096e2899d0ee79bdc91c"
+    },
+    {
+      "source_path": "comparison/gofr-vs-chi/page.md",
+      "reference": "references/comparison-gofr-vs-chi.md",
+      "url": "https://gofr.dev/docs/comparison/gofr-vs-chi",
+      "sha256": "60fe6e83f1aa50e871bbdf44a133f2daeedb43c29e3e0b90d7b30addd1eaed66"
+    },
+    {
+      "source_path": "comparison/gofr-vs-echo/page.md",
+      "reference": "references/comparison-gofr-vs-echo.md",
+      "url": "https://gofr.dev/docs/comparison/gofr-vs-echo",
+      "sha256": "640c3bdc927b4c2da331bcfff98fb23924e171cf66061f7329d961c9df854f9d"
+    },
+    {
+      "source_path": "comparison/gofr-vs-fiber/page.md",
+      "reference": "references/comparison-gofr-vs-fiber.md",
+      "url": "https://gofr.dev/docs/comparison/gofr-vs-fiber",
+      "sha256": "5082aa347df9e026f32ed6ad758d773addec175f64602b336ed33695b87e068c"
+    },
+    {
+      "source_path": "comparison/gofr-vs-gin/page.md",
+      "reference": "references/comparison-gofr-vs-gin.md",
+      "url": "https://gofr.dev/docs/comparison/gofr-vs-gin",
+      "sha256": "1fdf8a2acbe5bc7253b815e7f23ba0efef21685e0dd5542e12d410922d248917"
+    },
+    {
+      "source_path": "comparison/page.md",
+      "reference": "references/comparison.md",
+      "url": "https://gofr.dev/docs/comparison",
+      "sha256": "c573cd6c9e712c00766eb353cbdd3e930409329562608f955cf73740e2b88a50"
+    },
+    {
+      "source_path": "datasources/arangodb/page.md",
+      "reference": "references/datasources-arangodb.md",
+      "url": "https://gofr.dev/docs/datasources/arangodb",
+      "sha256": "cd710d4be1843ec7c2bd4d88f4854238e113f602952cf2761865c4ac65b0bee3"
+    },
+    {
+      "source_path": "datasources/cassandra/page.md",
+      "reference": "references/datasources-cassandra.md",
+      "url": "https://gofr.dev/docs/datasources/cassandra",
+      "sha256": "8a1bdb371b8da0704597b671b34688fd6e406b3bc4f2bf93c3788edc80a98623"
+    },
+    {
+      "source_path": "datasources/clickhouse/page.md",
+      "reference": "references/datasources-clickhouse.md",
+      "url": "https://gofr.dev/docs/datasources/clickhouse",
+      "sha256": "5f7127d7b7ae7420ed3c7d2c07e6c1dd930eec680cc7dccc27a75923c23d2282"
+    },
+    {
+      "source_path": "datasources/cloudsql/page.md",
+      "reference": "references/datasources-cloudsql.md",
+      "url": "https://gofr.dev/docs/datasources/cloudsql",
+      "sha256": "49834df97c861e2ec077628805315426c6c5dd90961e35a6a59f37df7af39e5c"
+    },
+    {
+      "source_path": "datasources/cockroachdb/page.md",
+      "reference": "references/datasources-cockroachdb.md",
+      "url": "https://gofr.dev/docs/datasources/cockroachdb",
+      "sha256": "34884e103dc637100278ec4d448628c534a31e1a3b3b3f384fb4566ffc0d29bd"
+    },
+    {
+      "source_path": "datasources/couchbase/page.md",
+      "reference": "references/datasources-couchbase.md",
+      "url": "https://gofr.dev/docs/datasources/couchbase",
+      "sha256": "ef8a6b667d554732345317b0813e8532ad61452c5b3ed33f78d551733c03cbbb"
+    },
+    {
+      "source_path": "datasources/dgraph/page.md",
+      "reference": "references/datasources-dgraph.md",
+      "url": "https://gofr.dev/docs/datasources/dgraph",
+      "sha256": "0c43a12631c696865ac6d27f7308098fdb47c48ac185f37c3ba9c825baea719f"
+    },
+    {
+      "source_path": "datasources/elasticsearch/page.md",
+      "reference": "references/datasources-elasticsearch.md",
+      "url": "https://gofr.dev/docs/datasources/elasticsearch",
+      "sha256": "43de819fa7c45c7393aab10a0e75163f810fbb347fca02903b1075ebd8101499"
+    },
+    {
+      "source_path": "datasources/getting-started/page.md",
+      "reference": "references/datasources-getting-started.md",
+      "url": "https://gofr.dev/docs/datasources/getting-started",
+      "sha256": "6b7619c3f4686872092cf4df3134d12cdfee5d20c62b18779f4caa897d1138d9"
+    },
+    {
+      "source_path": "datasources/influxdb/page.md",
+      "reference": "references/datasources-influxdb.md",
+      "url": "https://gofr.dev/docs/datasources/influxdb",
+      "sha256": "b996024dc9a8ba4242a9239a3692f89dd68e6f380f208521a39534b55797d838"
+    },
+    {
+      "source_path": "datasources/migrations/elasticsearch/page.md",
+      "reference": "references/datasources-migrations-elasticsearch.md",
+      "url": "https://gofr.dev/docs/datasources/migrations/elasticsearch",
+      "sha256": "3f4c698ac9602a9a984820e983a7a5afeb5272bd47bd806c6b49f51d43f7cd6d"
+    },
+    {
+      "source_path": "datasources/mongodb/page.md",
+      "reference": "references/datasources-mongodb.md",
+      "url": "https://gofr.dev/docs/datasources/mongodb",
+      "sha256": "f396773c276166b1a261d5a00a7ab857891860018f44fcf7245ab1231dac8b1b"
+    },
+    {
+      "source_path": "datasources/opentsdb/page.md",
+      "reference": "references/datasources-opentsdb.md",
+      "url": "https://gofr.dev/docs/datasources/opentsdb",
+      "sha256": "ad777a89fb4fe13c9ed6623d11599e3b1d649bb442ea8cbc6f75d9560d4841de"
+    },
+    {
+      "source_path": "datasources/oracle/page.md",
+      "reference": "references/datasources-oracle.md",
+      "url": "https://gofr.dev/docs/datasources/oracle",
+      "sha256": "8dc695e5b6cce3e0346f98ee23e128c7900557df2e69873c518cfad79bc91cc8"
+    },
+    {
+      "source_path": "datasources/scylladb/page.md",
+      "reference": "references/datasources-scylladb.md",
+      "url": "https://gofr.dev/docs/datasources/scylladb",
+      "sha256": "f8c27958a99f95b16d8438d619ab14ad9773aff8ae40936fbae4e09f8ce75200"
+    },
+    {
+      "source_path": "datasources/solr/page.md",
+      "reference": "references/datasources-solr.md",
+      "url": "https://gofr.dev/docs/datasources/solr",
+      "sha256": "b54e1cdf40ef761dc5b4235b83e0f27a49f47c47e9643a900b3b9750b28e2825"
+    },
+    {
+      "source_path": "datasources/surrealdb/page.md",
+      "reference": "references/datasources-surrealdb.md",
+      "url": "https://gofr.dev/docs/datasources/surrealdb",
+      "sha256": "196de07d1bc8699cff79a7cf8d082c7df03227012ed3e0a21cd0283b4ec9587b"
+    },
+    {
+      "source_path": "faq/page.md",
+      "reference": "references/faq.md",
+      "url": "https://gofr.dev/docs/faq",
+      "sha256": "5cd0aa3eb759ac95c94d22608850c74576eac9f98a352bf531153de90aa59464"
+    },
+    {
+      "source_path": "guides/auth-in-kubernetes/page.md",
+      "reference": "references/guides-auth-in-kubernetes.md",
+      "url": "https://gofr.dev/docs/guides/auth-in-kubernetes",
+      "sha256": "d84f31b530a59881299ac213afc62063bbbd8c6027e8ef1d5d6cfeadfe7342a8"
+    },
+    {
+      "source_path": "guides/cicd-recipes/page.md",
+      "reference": "references/guides-cicd-recipes.md",
+      "url": "https://gofr.dev/docs/guides/cicd-recipes",
+      "sha256": "7fcceb536fd85d868ba5a61161463b29b649018c012c68f4ca75f9172d6d5a38"
+    },
+    {
+      "source_path": "guides/cloud-deployment/page.md",
+      "reference": "references/guides-cloud-deployment.md",
+      "url": "https://gofr.dev/docs/guides/cloud-deployment",
+      "sha256": "e0e8e550b1fe837a1997261cfc8f46326e2f9ea17b9760e67dc0e72c7f32f424"
+    },
+    {
+      "source_path": "guides/connection-pooling/page.md",
+      "reference": "references/guides-connection-pooling.md",
+      "url": "https://gofr.dev/docs/guides/connection-pooling",
+      "sha256": "c88b1a62eeb9720787a30d6e0738eb2e8688674d51bdcd22dee7d7c85fb10d15"
+    },
+    {
+      "source_path": "guides/db-migrations-in-cicd/page.md",
+      "reference": "references/guides-db-migrations-in-cicd.md",
+      "url": "https://gofr.dev/docs/guides/db-migrations-in-cicd",
+      "sha256": "213224854c1e94ef74e354d13585ba5c63fd951bdf21136844291da8f210b49f"
+    },
+    {
+      "source_path": "guides/deploying-to-kubernetes/page.md",
+      "reference": "references/guides-deploying-to-kubernetes.md",
+      "url": "https://gofr.dev/docs/guides/deploying-to-kubernetes",
+      "sha256": "801ad6c34bc53f656f33babcc8813671f9332b7f72cffa9675f6de4f5386ecb4"
+    },
+    {
+      "source_path": "guides/distributed-tracing/page.md",
+      "reference": "references/guides-distributed-tracing.md",
+      "url": "https://gofr.dev/docs/guides/distributed-tracing",
+      "sha256": "cbf96c03ab14f6b66e3790469ada3c69c66147d7a1cf2ff8a7a2224d0be6b9cf"
+    },
+    {
+      "source_path": "guides/dockerizing-gofr-services/page.md",
+      "reference": "references/guides-dockerizing-gofr-services.md",
+      "url": "https://gofr.dev/docs/guides/dockerizing-gofr-services",
+      "sha256": "309982bba310cf4c7ec0b101237624fb50f7ff744c12dea00ee1ae2a851a6ade"
+    },
+    {
+      "source_path": "guides/graceful-shutdown/page.md",
+      "reference": "references/guides-graceful-shutdown.md",
+      "url": "https://gofr.dev/docs/guides/graceful-shutdown",
+      "sha256": "515645e8896d15f2ae6660ef9b1bcdcc4be22ec1a9d73e27990b307b7ceb3c7a"
+    },
+    {
+      "source_path": "guides/helm-chart-starter/page.md",
+      "reference": "references/guides-helm-chart-starter.md",
+      "url": "https://gofr.dev/docs/guides/helm-chart-starter",
+      "sha256": "4814efa4ae349d6a3c2b74fdedcd9f620578be4dabbee1cf4abbabd7a0cc4871"
+    },
+    {
+      "source_path": "guides/horizontal-pod-autoscaler/page.md",
+      "reference": "references/guides-horizontal-pod-autoscaler.md",
+      "url": "https://gofr.dev/docs/guides/horizontal-pod-autoscaler",
+      "sha256": "ecba88e68a1acc7dcc4b892179fcf1bfaf374e998aad0a0f15d64205e6b409c4"
+    },
+    {
+      "source_path": "guides/load-testing/page.md",
+      "reference": "references/guides-load-testing.md",
+      "url": "https://gofr.dev/docs/guides/load-testing",
+      "sha256": "822c59943fc0b9d1e196c40769c247f86ded954bac7218eb962afeada97cb840"
+    },
+    {
+      "source_path": "guides/multi-environment-deployment/page.md",
+      "reference": "references/guides-multi-environment-deployment.md",
+      "url": "https://gofr.dev/docs/guides/multi-environment-deployment",
+      "sha256": "407770f9addd23c71f9196f9596e11de3ec9e8260217ee99fe6b707cf1a92598"
+    },
+    {
+      "source_path": "guides/production-logging/page.md",
+      "reference": "references/guides-production-logging.md",
+      "url": "https://gofr.dev/docs/guides/production-logging",
+      "sha256": "adabe9a11d8147b9541ea2eae7392ca317e5405e46f7096ed79b91a46356a498"
+    },
+    {
+      "source_path": "guides/production-prometheus-kubernetes/page.md",
+      "reference": "references/guides-production-prometheus-kubernetes.md",
+      "url": "https://gofr.dev/docs/guides/production-prometheus-kubernetes",
+      "sha256": "61ec17987d4201bdcf1b84af2d06822443c9c3a3da5e493d14bf78696e4b62aa"
+    },
+    {
+      "source_path": "guides/production-tracing/page.md",
+      "reference": "references/guides-production-tracing.md",
+      "url": "https://gofr.dev/docs/guides/production-tracing",
+      "sha256": "e2311a5cc40b6cc4306ec2f066dacf046c791a2192cb3138ef01e1be93fe50ea"
+    },
+    {
+      "source_path": "guides/service-mesh-integration/page.md",
+      "reference": "references/guides-service-mesh-integration.md",
+      "url": "https://gofr.dev/docs/guides/service-mesh-integration",
+      "sha256": "3215861b7b2c6f17e9605c8204dfad6360634567e0b0319318deaaa3ebbe6400"
+    },
+    {
+      "source_path": "guides/twelve-factor-config/page.md",
+      "reference": "references/guides-twelve-factor-config.md",
+      "url": "https://gofr.dev/docs/guides/twelve-factor-config",
+      "sha256": "1718c62f672423d07886094b8e05738f21c7e57c34bf05954b99927f70ef9794"
+    },
+    {
+      "source_path": "learn/page.md",
+      "reference": "references/learn.md",
+      "url": "https://gofr.dev/docs/learn",
+      "sha256": "fba422bcefa44db1df7af81665dbebd398d0f6e8fd56c95ddf4b1e821ed20fad"
+    },
+    {
+      "source_path": "migrate/from-aspnet-core/page.md",
+      "reference": "references/migrate-from-aspnet-core.md",
+      "url": "https://gofr.dev/docs/migrate/from-aspnet-core",
+      "sha256": "5934dde0a88bfef608e0c79b2ced61427fdb876036e1e4027aac448b21354006"
+    },
+    {
+      "source_path": "migrate/from-chi/page.md",
+      "reference": "references/migrate-from-chi.md",
+      "url": "https://gofr.dev/docs/migrate/from-chi",
+      "sha256": "3ff6ed37374ddc971abfc254ddd9cc4e78dbb247c522c7c26aecc23b4b44fa54"
+    },
+    {
+      "source_path": "migrate/from-django-rest/page.md",
+      "reference": "references/migrate-from-django-rest.md",
+      "url": "https://gofr.dev/docs/migrate/from-django-rest",
+      "sha256": "69dc02ae69f57d1dce8405e91ff4607af9634c91eb9ad8c7c6e424ed0f3500c0"
+    },
+    {
+      "source_path": "migrate/from-echo/page.md",
+      "reference": "references/migrate-from-echo.md",
+      "url": "https://gofr.dev/docs/migrate/from-echo",
+      "sha256": "5cbab4c89bd4579979e01169811b5fc030cef01f6b9c55f879060d294639ff16"
+    },
+    {
+      "source_path": "migrate/from-express/page.md",
+      "reference": "references/migrate-from-express.md",
+      "url": "https://gofr.dev/docs/migrate/from-express",
+      "sha256": "268efa7f5ab916d6c8289ba48a1464ed4c00b60295ad8e0399664215122b7e62"
+    },
+    {
+      "source_path": "migrate/from-fastapi/page.md",
+      "reference": "references/migrate-from-fastapi.md",
+      "url": "https://gofr.dev/docs/migrate/from-fastapi",
+      "sha256": "f3ca2ab78ca95ca05eba1a68a03c2846ff2d4f95e3b2646188aecc779a600cfd"
+    },
+    {
+      "source_path": "migrate/from-fiber/page.md",
+      "reference": "references/migrate-from-fiber.md",
+      "url": "https://gofr.dev/docs/migrate/from-fiber",
+      "sha256": "c16682b4b605c6616a7961bb7abbbd687c5c1b97f76304f1aa7dcf550f0a3aa9"
+    },
+    {
+      "source_path": "migrate/from-flask/page.md",
+      "reference": "references/migrate-from-flask.md",
+      "url": "https://gofr.dev/docs/migrate/from-flask",
+      "sha256": "496dc44d4dbb8810b396cdba19d7874f3ca92f9c826a3ee87cb961623146821d"
+    },
+    {
+      "source_path": "migrate/from-gin/page.md",
+      "reference": "references/migrate-from-gin.md",
+      "url": "https://gofr.dev/docs/migrate/from-gin",
+      "sha256": "aea3a73192010e3e899000c1dd2ae71987d3dde4375275cfc6eb510d81c1f531"
+    },
+    {
+      "source_path": "migrate/from-laravel/page.md",
+      "reference": "references/migrate-from-laravel.md",
+      "url": "https://gofr.dev/docs/migrate/from-laravel",
+      "sha256": "4611f307a41b5ec376dd170d2100661d181037933da3cc2823785f8efa95def9"
+    },
+    {
+      "source_path": "migrate/from-nestjs/page.md",
+      "reference": "references/migrate-from-nestjs.md",
+      "url": "https://gofr.dev/docs/migrate/from-nestjs",
+      "sha256": "27aab195a5dc001e004357fc5d2723fd0c512b6550089b91add44f23bf87e418"
+    },
+    {
+      "source_path": "migrate/from-rails/page.md",
+      "reference": "references/migrate-from-rails.md",
+      "url": "https://gofr.dev/docs/migrate/from-rails",
+      "sha256": "41a73ef21bb6063e07348f9dba32ffa69842e8f3b7d606029df02c6a5daeb8d0"
+    },
+    {
+      "source_path": "migrate/from-spring-boot/page.md",
+      "reference": "references/migrate-from-spring-boot.md",
+      "url": "https://gofr.dev/docs/migrate/from-spring-boot",
+      "sha256": "bf7ad97f6247a04dd260b84e39f29a6037acbc95a0711452b5ebbcabec6a6a71"
+    },
+    {
+      "source_path": "migrate/page.md",
+      "reference": "references/migrate.md",
+      "url": "https://gofr.dev/docs/migrate",
+      "sha256": "a232667b89d4cd46122ef41b2eda3f39076d11cdf0be4450ee970aa012a1f61c"
+    },
+    {
+      "source_path": "page.md",
+      "reference": "references/index.md",
+      "url": "https://gofr.dev/docs/",
+      "sha256": "ace10932809331995615fd89008c69eef8ddca2ec59217c09a93e02d042f3bd8"
+    },
+    {
+      "source_path": "quick-start/add-rest-handlers/page.md",
+      "reference": "references/quick-start-add-rest-handlers.md",
+      "url": "https://gofr.dev/docs/quick-start/add-rest-handlers",
+      "sha256": "edeb8739116f6b01ccb1e898ba18c55ea9408036b64204e53f725ebae9e97e27"
+    },
+    {
+      "source_path": "quick-start/cli/page.md",
+      "reference": "references/quick-start-cli.md",
+      "url": "https://gofr.dev/docs/quick-start/cli",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_path": "quick-start/configuration/page.md",
+      "reference": "references/quick-start-configuration.md",
+      "url": "https://gofr.dev/docs/quick-start/configuration",
+      "sha256": "62fd774cca49ba74e7e45122ab501f44399215718a9519919b5ca2dae09d6069"
+    },
+    {
+      "source_path": "quick-start/connecting-mysql/page.md",
+      "reference": "references/quick-start-connecting-mysql.md",
+      "url": "https://gofr.dev/docs/quick-start/connecting-mysql",
+      "sha256": "0eacf93945306556696acdaee73783d5446de8f9e186dbb8fb0ec64b215c86ba"
+    },
+    {
+      "source_path": "quick-start/connecting-redis/page.md",
+      "reference": "references/quick-start-connecting-redis.md",
+      "url": "https://gofr.dev/docs/quick-start/connecting-redis",
+      "sha256": "290135ed50d6dd9108a894e42cb7ce7961b9ac9221fef2b7c40ee0e0802c0f04"
+    },
+    {
+      "source_path": "quick-start/introduction/page.md",
+      "reference": "references/quick-start-introduction.md",
+      "url": "https://gofr.dev/docs/quick-start/introduction",
+      "sha256": "afa15e0e0bc4d74f144e551bc86ccbd395eb8755f7b8d2183924f7ff1cab2daa"
+    },
+    {
+      "source_path": "quick-start/observability/page.md",
+      "reference": "references/quick-start-observability.md",
+      "url": "https://gofr.dev/docs/quick-start/observability",
+      "sha256": "881b1030d3ab99347a4fedd9fb733e716626ce13bb465eb50b0643e52bf5d5ee"
+    },
+    {
+      "source_path": "references/configs/page.md",
+      "reference": "references/references-configs.md",
+      "url": "https://gofr.dev/docs/references/configs",
+      "sha256": "51f956509fd7e909fa036ffe03c6e9923489b5189ac8dead74a90aa5b654f5c2"
+    },
+    {
+      "source_path": "references/context/page.md",
+      "reference": "references/references-context.md",
+      "url": "https://gofr.dev/docs/references/context",
+      "sha256": "264fa54a866f3fd7d49f8a529c9275a15267e449db2dc8e1cbdb515fe87ce45c"
+    },
+    {
+      "source_path": "references/gofrcli/init/page.md",
+      "reference": "references/references-gofrcli-init.md",
+      "url": "https://gofr.dev/docs/references/gofrcli/init",
+      "sha256": "a55827efc1a09fece006795b6765fe9b99e46ce222c2979c041093bbc8160cba"
+    },
+    {
+      "source_path": "references/gofrcli/migrate/page.md",
+      "reference": "references/references-gofrcli-migrate.md",
+      "url": "https://gofr.dev/docs/references/gofrcli/migrate",
+      "sha256": "4d9b8de2f912b994a1ac44c7ca0869fe4ef852e87082976feca69b59e58a3c63"
+    },
+    {
+      "source_path": "references/gofrcli/page.md",
+      "reference": "references/references-gofrcli.md",
+      "url": "https://gofr.dev/docs/references/gofrcli",
+      "sha256": "35916f4f5e26afc8d3ed11cf531b3d254d235c9c82b91a1546ea71aeacefaeb0"
+    },
+    {
+      "source_path": "references/gofrcli/store/page.md",
+      "reference": "references/references-gofrcli-store.md",
+      "url": "https://gofr.dev/docs/references/gofrcli/store",
+      "sha256": "3351d54051d4c4fe59d405ee208e7ce0722c011dea405d8e35160fb6c79c97f5"
+    },
+    {
+      "source_path": "references/gofrcli/wrap-grpc/page.md",
+      "reference": "references/references-gofrcli-wrap-grpc.md",
+      "url": "https://gofr.dev/docs/references/gofrcli/wrap-grpc",
+      "sha256": "b98bc1920ac2903a8238f4a5f48366fe286acf8d1477ec6acd0bf860f2ee7c77"
+    },
+    {
+      "source_path": "references/testing/page.md",
+      "reference": "references/references-testing.md",
+      "url": "https://gofr.dev/docs/references/testing",
+      "sha256": "76ecbfb9b1dad900bc60f0ac977271fa6b8beafe07ea8361b25d8ca74ff6fa84"
+    },
+    {
+      "source_path": "why-gofr/page.md",
+      "reference": "references/why-gofr.md",
+      "url": "https://gofr.dev/docs/why-gofr",
+      "sha256": "108b2d15805a16e54c5339c7c34acf721a9d0dece1a945a0228063a65b765207"
+    }
+  ],
+  "special_references": [
+    {
+      "intent": "ai-assistant rules and non-obvious conventions",
+      "reference": "references/AGENTS.md"
+    },
+    {
+      "intent": "full concatenated documentation fallback",
+      "reference": "references/llms-full.md"
+    },
+    {
+      "intent": "curated documentation index",
+      "reference": "references/llms-index.md"
+    }
+  ]
+}
