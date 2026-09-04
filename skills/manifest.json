@@ -5,7 +5,7 @@
   "repository": "https://github.com/gofr-dev/gofr",
   "snapshot_date": "2026-09-04",
   "go_target": "1.27",
-  "page_count": 105,
+  "page_count": 86,
   "references": [
     {
       "source_path": "advanced-guide/authentication/page.md",
@@ -198,36 +198,6 @@
       "reference": "references/advanced-guide-websocket.md",
       "url": "https://gofr.dev/docs/advanced-guide/websocket",
       "sha256": "0e1dafb94ebf2093e274df2de5667db4cf89b0e77dac096e2899d0ee79bdc91c"
-    },
-    {
-      "source_path": "comparison/gofr-vs-chi/page.md",
-      "reference": "references/comparison-gofr-vs-chi.md",
-      "url": "https://gofr.dev/docs/comparison/gofr-vs-chi",
-      "sha256": "60fe6e83f1aa50e871bbdf44a133f2daeedb43c29e3e0b90d7b30addd1eaed66"
-    },
-    {
-      "source_path": "comparison/gofr-vs-echo/page.md",
-      "reference": "references/comparison-gofr-vs-echo.md",
-      "url": "https://gofr.dev/docs/comparison/gofr-vs-echo",
-      "sha256": "640c3bdc927b4c2da331bcfff98fb23924e171cf66061f7329d961c9df854f9d"
-    },
-    {
-      "source_path": "comparison/gofr-vs-fiber/page.md",
-      "reference": "references/comparison-gofr-vs-fiber.md",
-      "url": "https://gofr.dev/docs/comparison/gofr-vs-fiber",
-      "sha256": "5082aa347df9e026f32ed6ad758d773addec175f64602b336ed33695b87e068c"
-    },
-    {
-      "source_path": "comparison/gofr-vs-gin/page.md",
-      "reference": "references/comparison-gofr-vs-gin.md",
-      "url": "https://gofr.dev/docs/comparison/gofr-vs-gin",
-      "sha256": "1fdf8a2acbe5bc7253b815e7f23ba0efef21685e0dd5542e12d410922d248917"
-    },
-    {
-      "source_path": "comparison/page.md",
-      "reference": "references/comparison.md",
-      "url": "https://gofr.dev/docs/comparison",
-      "sha256": "c573cd6c9e712c00766eb353cbdd3e930409329562608f955cf73740e2b88a50"
     },
     {
       "source_path": "datasources/arangodb/page.md",
@@ -452,90 +422,6 @@
       "sha256": "fba422bcefa44db1df7af81665dbebd398d0f6e8fd56c95ddf4b1e821ed20fad"
     },
     {
-      "source_path": "migrate/from-aspnet-core/page.md",
-      "reference": "references/migrate-from-aspnet-core.md",
-      "url": "https://gofr.dev/docs/migrate/from-aspnet-core",
-      "sha256": "5934dde0a88bfef608e0c79b2ced61427fdb876036e1e4027aac448b21354006"
-    },
-    {
-      "source_path": "migrate/from-chi/page.md",
-      "reference": "references/migrate-from-chi.md",
-      "url": "https://gofr.dev/docs/migrate/from-chi",
-      "sha256": "3ff6ed37374ddc971abfc254ddd9cc4e78dbb247c522c7c26aecc23b4b44fa54"
-    },
-    {
-      "source_path": "migrate/from-django-rest/page.md",
-      "reference": "references/migrate-from-django-rest.md",
-      "url": "https://gofr.dev/docs/migrate/from-django-rest",
-      "sha256": "69dc02ae69f57d1dce8405e91ff4607af9634c91eb9ad8c7c6e424ed0f3500c0"
-    },
-    {
-      "source_path": "migrate/from-echo/page.md",
-      "reference": "references/migrate-from-echo.md",
-      "url": "https://gofr.dev/docs/migrate/from-echo",
-      "sha256": "5cbab4c89bd4579979e01169811b5fc030cef01f6b9c55f879060d294639ff16"
-    },
-    {
-      "source_path": "migrate/from-express/page.md",
-      "reference": "references/migrate-from-express.md",
-      "url": "https://gofr.dev/docs/migrate/from-express",
-      "sha256": "268efa7f5ab916d6c8289ba48a1464ed4c00b60295ad8e0399664215122b7e62"
-    },
-    {
-      "source_path": "migrate/from-fastapi/page.md",
-      "reference": "references/migrate-from-fastapi.md",
-      "url": "https://gofr.dev/docs/migrate/from-fastapi",
-      "sha256": "f3ca2ab78ca95ca05eba1a68a03c2846ff2d4f95e3b2646188aecc779a600cfd"
-    },
-    {
-      "source_path": "migrate/from-fiber/page.md",
-      "reference": "references/migrate-from-fiber.md",
-      "url": "https://gofr.dev/docs/migrate/from-fiber",
-      "sha256": "c16682b4b605c6616a7961bb7abbbd687c5c1b97f76304f1aa7dcf550f0a3aa9"
-    },
-    {
-      "source_path": "migrate/from-flask/page.md",
-      "reference": "references/migrate-from-flask.md",
-      "url": "https://gofr.dev/docs/migrate/from-flask",
-      "sha256": "496dc44d4dbb8810b396cdba19d7874f3ca92f9c826a3ee87cb961623146821d"
-    },
-    {
-      "source_path": "migrate/from-gin/page.md",
-      "reference": "references/migrate-from-gin.md",
-      "url": "https://gofr.dev/docs/migrate/from-gin",
-      "sha256": "aea3a73192010e3e899000c1dd2ae71987d3dde4375275cfc6eb510d81c1f531"
-    },
-    {
-      "source_path": "migrate/from-laravel/page.md",
-      "reference": "references/migrate-from-laravel.md",
-      "url": "https://gofr.dev/docs/migrate/from-laravel",
-      "sha256": "4611f307a41b5ec376dd170d2100661d181037933da3cc2823785f8efa95def9"
-    },
-    {
-      "source_path": "migrate/from-nestjs/page.md",
-      "reference": "references/migrate-from-nestjs.md",
-      "url": "https://gofr.dev/docs/migrate/from-nestjs",
-      "sha256": "27aab195a5dc001e004357fc5d2723fd0c512b6550089b91add44f23bf87e418"
-    },
-    {
-      "source_path": "migrate/from-rails/page.md",
-      "reference": "references/migrate-from-rails.md",
-      "url": "https://gofr.dev/docs/migrate/from-rails",
-      "sha256": "41a73ef21bb6063e07348f9dba32ffa69842e8f3b7d606029df02c6a5daeb8d0"
-    },
-    {
-      "source_path": "migrate/from-spring-boot/page.md",
-      "reference": "references/migrate-from-spring-boot.md",
-      "url": "https://gofr.dev/docs/migrate/from-spring-boot",
-      "sha256": "bf7ad97f6247a04dd260b84e39f29a6037acbc95a0711452b5ebbcabec6a6a71"
-    },
-    {
-      "source_path": "migrate/page.md",
-      "reference": "references/migrate.md",
-      "url": "https://gofr.dev/docs/migrate",
-      "sha256": "a232667b89d4cd46122ef41b2eda3f39076d11cdf0be4450ee970aa012a1f61c"
-    },
-    {
       "source_path": "page.md",
       "reference": "references/index.md",
       "url": "https://gofr.dev/docs/",
@@ -658,6 +544,13 @@
     {
       "intent": "Agent Skills format and validation compliance",
       "reference": "../docs/agent-skills-compliance.md"
+    },
+    {
+      "intent": "official non-API project pages from llms.txt",
+      "reference": "references/project-pages.md"
     }
+  ],
+  "excluded_sections": [
+    "Comparison and migration pages intentionally excluded by project scope."
   ]
 }

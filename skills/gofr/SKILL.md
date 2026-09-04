@@ -1,6 +1,6 @@
 ---
 name: gofr
-description: Build, review, migrate, test, deploy, or document Go 1.27 backend services exclusively with the GoFr framework. Use this skill for REST, CRUD, configuration, observability, SQL/NoSQL datasources, migrations, gRPC, GraphQL, WebSockets, Pub/Sub, cron, auth, RBAC, health checks, files, static assets, testing, Docker, Kubernetes, CI/CD, and GoFr CLI work.
+description: Build, review, test, deploy, and document Go 1.27 backend services with GoFr only. Use for GoFr REST/CRUD, routing, configuration, Context, SQL and NoSQL datasources, migrations, observability, authentication, RBAC, HTTP clients, resilience, gRPC, GraphQL, WebSockets, streaming, Pub/Sub, cron, files, CLI, Docker, Kubernetes, CI/CD, and production operations.
 license: Apache-2.0; bundled references retain GoFr attribution and upstream licensing.
 metadata:
   author: amirex128
@@ -12,63 +12,111 @@ metadata:
 
 # GoFr Backend Skill
 
-Use GoFr as the mandatory backend framework for this project. Do not silently substitute Gin, Fiber, Echo, Chi, net/http-only scaffolding, an ORM-first architecture, or a second application framework. When a requirement is not covered by GoFr, explain the boundary and use the smallest standard-library or well-supported companion component while preserving GoFr's lifecycle, context, observability, and error conventions.
+Use GoFr as the mandatory backend framework. Do not silently replace it with another web framework, an ORM-first architecture, or net/http-only scaffolding. If a requirement is outside GoFr, preserve GoFr's lifecycle, `*gofr.Context`, configuration, error, health, and observability conventions and use the smallest compatible companion component.
 
-## Mandatory operating procedure
+## Required workflow
 
-1. Read `references/AGENTS.md` first for non-obvious invariants.
-2. Route the request to exactly one or more relevant files in `references/` using `manifest.json`; read the entire selected file before writing code. For cross-cutting work, also read `references/context.md`, `references/configs.md`, `references/testing.md`, and the relevant guide.
-3. Treat the reference snapshot as source material, not as permission to invent APIs. Verify uncertain or version-sensitive APIs against the installed GoFr module, GoDoc, examples, or the live source repository.
-4. Target Go 1.27 in `go.mod`, while checking the current GoFr module requirement. Never claim an API is supported merely because it existed in an older snapshot.
-5. Build through GoFr's `gofr.New()` lifecycle and preserve `*gofr.Context` end-to-end. Pass the request context to downstream calls for cancellation and trace propagation.
-6. Keep secrets, ports, hosts, credentials, feature flags, and datasource settings in configuration. Never hardcode them or commit real secrets.
-7. Add tests using the patterns in `references/testing.md`; run `gofmt`, `go vet`, targeted tests, and the full test suite when practical.
-8. For production-facing work, include health/readiness, structured logs, traces, metrics, graceful shutdown, configuration validation, and deployment concerns appropriate to the request.
-9. Before finishing, report which reference files were used, what was implemented, validation commands and results, and any version caveats.
+1. **Classify the request.** Match it to the routing table below before writing code.
+2. **Read every listed reference completely.** References are relative to this skill directory. Use `skills/manifest.json` from the repository root to resolve the authoritative source URL and exact filename. Never guess an API from memory.
+3. **Read `references/AGENTS.md`** for every implementation. For uncertain or version-sensitive behavior, verify against the installed GoFr module, GoDoc, official examples, and current source.
+4. **Implement with GoFr.** Start from `gofr.New()`, use the standard GoFr handler shape, preserve the request context through downstream calls, and keep handlers thin.
+5. **Validate.** Run `gofmt`, `go vet`, targeted tests, and the full test suite when practical. Check configuration, health/readiness, logs, traces, metrics, graceful shutdown, and deployment concerns for production work.
+6. **Report references used, implementation decisions, commands/results, and version caveats.** Do not claim an API is supported only because it appears in an old snapshot.
 
-## Non-negotiable GoFr conventions
+## GoFr invariants
 
-- Standard handler shape: `func(c *gofr.Context) (any, error)` for HTTP, gRPC, GraphQL, WebSocket, cron, and CLI integrations where GoFr exposes a handler.
-- Path parameters use `{name}` and `c.PathParam("name")`; query values use `c.Param("name")`; decode bodies with `c.Bind(&value)` and check the returned error.
-- Return data and errors; do not manually create framework response envelopes when GoFr can do it.
-- `gofr.New()` wires the standard logging, metrics, tracing, and health behavior. Do not manually duplicate OpenTelemetry, Prometheus, or structured logging setup without a documented reason.
-- Use `c.Config.Get(...)` and the configuration references. Do not hardcode datasource URLs, ports, tokens, or credentials.
-- GoFr does not bundle an ORM. Prefer `c.SQL` and plain SQL, or explicitly justify a companion such as sqlc or GORM.
-- Middleware follows standard `net/http` middleware shape and is registered with GoFr's middleware API.
-- Use GoFr health endpoints and datasource health checks; do not hand-roll competing health endpoints unless the requirement explicitly needs one.
+- Use `func(c *gofr.Context) (any, error)` wherever GoFr exposes a handler: HTTP, gRPC, GraphQL, WebSocket, cron, and CLI.
+- Use `{name}` route parameters, `c.PathParam("name")` for paths, `c.Param("name")` for query values, and `c.Bind(&value)` for request bodies. Always check bind errors.
+- Return values and errors to GoFr; do not manually duplicate its response envelope.
+- `gofr.New()` provides the framework's standard logging, Prometheus metrics, OpenTelemetry tracing, and health behavior. Do not duplicate these integrations without a documented reason.
+- Read ports, hosts, credentials, tokens, feature flags, and datasource settings through configuration. Never hardcode secrets.
+- Pass `*gofr.Context` to datasource and downstream calls for cancellation and trace propagation.
+- GoFr does not bundle an ORM. Prefer `c.SQL` and plain SQL; use a companion such as sqlc or GORM only when justified.
+- Middleware uses standard `net/http` middleware shape and GoFr registration.
+- Use GoFr's health endpoints and datasource checks; do not create competing health endpoints without a requirement.
 - Return errors instead of using `panic` for control flow.
-- Use GoFr's built-in migration runner and forward-only migrations. Do not introduce golang-migrate or goose when GoFr migrations meet the requirement.
+- Use GoFr's built-in forward-only migration runner when it satisfies the requirement.
 
-## Capability router
+## Exact capability router
 
-| Request | Read these references first |
-|---|---|
-| New service, route, CRUD, request binding | `quick-start-introduction.md`, `quick-start-add-rest-handlers.md`, `context.md` |
-| Environment, ports, secrets, twelve-factor config | `quick-start-configuration.md`, `configs.md`, `guides-twelve-factor-config.md` |
-| SQL, NoSQL, cache, search, time series | `datasources-getting-started.md` plus the exact datasource file |
-| Schema/data migration | `advanced-guide-handling-data-migrations.md`, `references-gofrcli-migrate.md`, `guides-db-migrations-in-cicd.md` |
-| Logs, metrics, traces, profiling | `quick-start-observability.md`, the matching advanced guide, and production guides |
-| AuthN/AuthZ | `advanced-guide-authentication.md`, `advanced-guide-rbac.md`, `guides-auth-in-kubernetes.md` |
-| Internal HTTP, resilience, service mesh | `advanced-guide-http-communication.md`, `advanced-guide-circuit-breaker.md`, `guides-service-mesh-integration.md` |
-| gRPC, GraphQL, WebSocket, streaming | the matching `advanced-guide-*.md` file |
-| Events, queues, scheduled work | `advanced-guide-using-publisher-subscriber.md`, `advanced-guide-using-cron.md` |
-| Files and static content | `advanced-guide-handling-file.md`, `advanced-guide-serving-static-files.md` |
-| Deployment | the matching `guides-*.md` file plus `docs/` deployment material |
-| Tests, CLI, debugging | `testing.md`, the relevant `gofrcli-*.md`, `advanced-guide-debugging.md` |
-| Migration from another framework | the relevant `migrate-*.md` and `comparison-*.md` files |
+Read the **Required references** first. Read **Additional references** when the request includes that concern. If several capabilities are present, read all matching rows before implementation.
 
-## Reference loading rules
+| Capability / user intent | Required references | Additional references |
+|---|---|---|
+| New service, first endpoint, server lifecycle | `references/quick-start-introduction.md`, `references/references-context.md`, `references/AGENTS.md` | `references/quick-start-configuration.md` |
+| Routing, path/query params, request binding, response handling | `references/quick-start-add-rest-handlers.md`, `references/references-context.md` | `references/advanced-guide-routing-performance.md`, `references/advanced-guide-setting-custom-response-headers.md` |
+| Auto CRUD REST handlers | `references/quick-start-add-rest-handlers.md` | `references/advanced-guide-dealing-with-sql.md`, exact datasource reference |
+| Configuration, environment variables, ports, secrets | `references/quick-start-configuration.md`, `references/references-configs.md` | `references/guides-twelve-factor-config.md`, `references/guides-multi-environment-deployment.md` |
+| Observability baseline | `references/quick-start-observability.md` | `references/advanced-guide-custom-spans-in-tracing.md`, `references/advanced-guide-publishing-custom-metrics.md`, `references/advanced-guide-remote-log-level-change.md`, production tracing/logging/Prometheus references |
+| Logging in production | `references/quick-start-observability.md`, `references/guides-production-logging.md` | `references/advanced-guide-remote-log-level-change.md` |
+| Metrics / Prometheus | `references/quick-start-observability.md`, `references/advanced-guide-publishing-custom-metrics.md` | `references/guides-production-prometheus-kubernetes.md` |
+| Tracing / spans / trace propagation | `references/quick-start-observability.md`, `references/advanced-guide-custom-spans-in-tracing.md` | `references/guides-distributed-tracing.md`, `references/guides-production-tracing.md` |
+| SQL queries, transactions, connection behavior | `references/advanced-guide-dealing-with-sql.md`, `references/datasources-getting-started.md` | `references/quick-start-connecting-mysql.md`, `references/guides-connection-pooling.md` |
+| Redis connection / cache / key-value | `references/quick-start-connecting-redis.md`, `references/advanced-guide-key-value-store.md` | `references/datasources-getting-started.md` |
+| Any datasource | `references/datasources-getting-started.md`, the exact datasource file below | `references/advanced-guide-monitoring-service-health.md`, `references/references-context.md` |
+| ArangoDB | `references/datasources-arangodb.md` | `references/datasources-getting-started.md` |
+| Cassandra | `references/datasources-cassandra.md` | `references/datasources-getting-started.md` |
+| ClickHouse | `references/datasources-clickhouse.md` | `references/datasources-getting-started.md` |
+| Cloud SQL | `references/datasources-cloudsql.md` | `references/datasources-getting-started.md`, deployment guides |
+| CockroachDB | `references/datasources-cockroachdb.md` | `references/datasources-getting-started.md` |
+| Couchbase | `references/datasources-couchbase.md` | `references/datasources-getting-started.md` |
+| DGraph | `references/datasources-dgraph.md` | `references/datasources-getting-started.md` |
+| Elasticsearch | `references/datasources-elasticsearch.md` | `references/datasources-migrations-elasticsearch.md`, `references/datasources-getting-started.md` |
+| InfluxDB | `references/datasources-influxdb.md` | `references/datasources-getting-started.md` |
+| MongoDB | `references/datasources-mongodb.md` | `references/datasources-getting-started.md` |
+| OpenTSDB | `references/datasources-opentsdb.md` | `references/datasources-getting-started.md` |
+| Oracle | `references/datasources-oracle.md` | `references/datasources-getting-started.md` |
+| ScyllaDB | `references/datasources-scylladb.md` | `references/datasources-getting-started.md` |
+| Solr | `references/datasources-solr.md` | `references/datasources-getting-started.md` |
+| SurrealDB | `references/datasources-surrealdb.md` | `references/datasources-getting-started.md` |
+| Schema or data migrations | `references/advanced-guide-handling-data-migrations.md`, `references/references-gofrcli-migrate.md` | `references/guides-db-migrations-in-cicd.md`, exact datasource reference |
+| Authentication | `references/advanced-guide-authentication.md` | `references/references-context.md`, `references/guides-auth-in-kubernetes.md` |
+| Authorization / RBAC | `references/advanced-guide-rbac.md` | `references/advanced-guide-authentication.md`, `references/guides-auth-in-kubernetes.md` |
+| Service-to-service HTTP | `references/advanced-guide-http-communication.md` | `references/advanced-guide-circuit-breaker.md`, `references/guides-service-mesh-integration.md` |
+| Circuit breaker / resilience | `references/advanced-guide-circuit-breaker.md`, `references/advanced-guide-http-communication.md` | `references/guides-service-mesh-integration.md` |
+| Health, readiness, liveness | `references/advanced-guide-monitoring-service-health.md` | deployment and graceful-shutdown references |
+| gRPC server or client | `references/advanced-guide-grpc.md` | `references/advanced-guide-grpc-streaming.md`, `references/references-gofrcli-wrap-grpc.md` |
+| gRPC streaming | `references/advanced-guide-grpc-streaming.md`, `references/advanced-guide-grpc.md` | `references/references-gofrcli-wrap-grpc.md` |
+| GraphQL | `references/advanced-guide-graphql.md`, `references/references-context.md` | `references/advanced-guide-authentication.md` |
+| WebSocket | `references/advanced-guide-websocket.md`, `references/references-context.md` | `references/advanced-guide-authentication.md` |
+| HTTP streaming | `references/advanced-guide-streaming.md`, `references/references-context.md` | `references/advanced-guide-setting-custom-response-headers.md` |
+| Pub/Sub, events, queues | `references/advanced-guide-using-publisher-subscriber.md` | `references/advanced-guide-monitoring-service-health.md`, production deployment references |
+| Cron / scheduled jobs | `references/advanced-guide-using-cron.md`, `references/references-context.md` | `references/advanced-guide-monitoring-service-health.md` |
+| File upload/download/storage | `references/advanced-guide-handling-file.md`, `references/references-context.md` | configuration and datasource references |
+| Static assets | `references/advanced-guide-serving-static-files.md` | deployment references |
+| Swagger / API documentation | `references/advanced-guide-swagger-documentation.md` | `references/quick-start-add-rest-handlers.md` |
+| Startup initialization | `references/advanced-guide-startup-hooks.md` | `references/advanced-guide-monitoring-service-health.md` |
+| Errors and error responses | `references/advanced-guide-gofr-errors.md`, `references/references-context.md` | `references/quick-start-add-rest-handlers.md` |
+| Custom database driver | `references/advanced-guide-injecting-databases-drivers.md` | `references/datasources-getting-started.md` |
+| LLM integration | `references/advanced-guide-llm.md` | `references/references-context.md`, `references/quick-start-configuration.md` |
+| MCP integration | `references/advanced-guide-mcp.md` | `references/references-context.md`, `references/quick-start-configuration.md` |
+| Debugging / profiling / pprof | `references/advanced-guide-debugging.md` | `references/quick-start-observability.md` |
+| CLI application | `references/advanced-guide-building-cli-applications.md`, `references/quick-start-cli.md`, `references/references-gofrcli.md` | the exact CLI command reference |
+| Testing and mocks | `references/references-testing.md` | `references/references-context.md`, the feature reference under test |
+| Docker image | `references/guides-dockerizing-gofr-services.md` | `references/guides-graceful-shutdown.md`, configuration and observability references |
+| Kubernetes deployment | `references/guides-deploying-to-kubernetes.md` | `references/guides-auth-in-kubernetes.md`, `references/guides-production-prometheus-kubernetes.md`, `references/guides-horizontal-pod-autoscaler.md` |
+| Helm | `references/guides-helm-chart-starter.md` | `references/guides-deploying-to-kubernetes.md` |
+| Cloud deployment | `references/guides-cloud-deployment.md` | `references/guides-deploying-to-kubernetes.md` |
+| CI/CD | `references/guides-cicd-recipes.md` | `references/guides-db-migrations-in-cicd.md`, `references/guides-dockerizing-gofr-services.md` |
+| Graceful shutdown | `references/guides-graceful-shutdown.md` | `references/advanced-guide-monitoring-service-health.md` |
+| Load testing | `references/guides-load-testing.md` | `references/guides-connection-pooling.md`, production observability references |
+| HPA | `references/guides-horizontal-pod-autoscaler.md` | `references/guides-deploying-to-kubernetes.md`, `references/guides-production-prometheus-kubernetes.md` |
+| GoFr examples, changelog, roadmap, FAQ, Learn, showcase, team, or events | `references/project-pages.md`, then the relevant implementation reference | `references/llms-index.md`, `references/llms-full-live.txt` |
 
-Reference filenames are generated from the authoritative repository path: directory names are joined with hyphens and `page.md` is removed. Examples: `docs/advanced-guide/grpc/page.md` becomes `references/advanced-guide-grpc.md`; `docs/datasources/mongodb/page.md` becomes `references/datasources-mongodb.md`. Use `skills/manifest.json` rather than guessing when a path is ambiguous. The full snapshot is intentionally split one page per file so future skills can be added without changing this router.
+## Reference index and scope
 
-## Delivery rules for generated backends
+The exact page-to-file mapping is in `skills/manifest.json` at the repository root. The bundled references correspond to the official GoFr Quick Start, Advanced Guide, Datasources, Production Guides, and References sections from `https://gofr.dev/llms.txt`. `references/project-pages.md` covers the official non-API project links from that index. `references/llms-full-live.txt` is the complete concatenated fallback; `references/AGENTS.md` is the official AI-assistant guidance.
 
-Create a conventional Go module, a small `cmd/` entrypoint when appropriate, internal packages for domain logic, explicit interfaces around external systems, migrations, configuration documentation, tests, and deployment files. Prefer boring, composable code. Keep handlers thin: bind/validate, call a service, map the result, and return. Keep SQL and datasource access behind repositories or focused adapters. Include a README with local run commands and environment variables.
+This Skill intentionally excludes all GoFr framework/language migration and comparison materials: do not load or use `migrate-*`, `comparison-*`, or framework-comparison pages. The remaining GoFr project pages such as FAQ and Learn may be used only for conceptual clarification, never as an implementation API source.
 
-## Version and source policy
+## Generated backend quality bar
 
-This package is a documentation snapshot of the official GoFr repository and public GoFr documentation. APIs change. For every implementation, compare this snapshot with the project's pinned GoFr version and the current official sources. The target application language version for this repository is Go 1.27; if GoFr's module requires a different minimum, use the compatible release and record it rather than forcing an invalid combination.
+Create a conventional Go module targeting Go 1.27, a small `cmd/` entrypoint when appropriate, internal packages for domain logic, explicit interfaces around external systems, tests, configuration documentation, migrations, and deployment files. Keep handlers thin: bind and validate, call a service, map the result, and return. Keep datasource access behind focused repositories or adapters. Include a README with local commands and environment variables.
+
+## Version policy
+
+This package is a documentation snapshot. Always compare the snapshot with the project's pinned GoFr version and current official sources. If the installed GoFr release requires a different minimum Go version, use a compatible release and record the decision; do not force an invalid Go 1.27 combination.
 
 ## Maintenance
 
-When updating this skill, refresh `references/` from the official GoFr sources, update `skills/manifest.json`, run the installer tests, and preserve source attribution. Add future backend skills under `skills/<name>/` without changing the common installer contract.
+When refreshing this Skill, fetch `https://gofr.dev/llms.txt`, update every non-migration page reference and `skills/manifest.json`, preserve one focused reference file per page, run the Agent Skills validator and installer tests, and verify that no `migrate-*` or `comparison-*` reference remains.

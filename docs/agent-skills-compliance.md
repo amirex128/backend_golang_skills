@@ -12,13 +12,13 @@ The GoFr skill has YAML frontmatter with:
 
 - `name: gofr`: lowercase, one word, valid under the 1–64 character rule, and matching the directory name.
 - A non-empty `description` under 1024 characters that states both capability and activation conditions.
-- `license`, `compatibility`, and string-valued `metadata` fields for distribution and environment context.
+- `license` and string-valued `metadata` fields for distribution and environment context. Compatibility is recorded inside metadata for compatibility with the repository validator.
 
 The body is intentionally short and procedural. It contains the mandatory GoFr workflow and a capability router; detailed material is progressively disclosed in one focused file per official GoFr page.
 
 ## Progressive disclosure
 
-Agents first discover the metadata, then load the 68-line `SKILL.md`, and only then read the selected reference files. The skill does not embed the 105-page documentation dump in its main instructions. References are one level below the skill root and are mapped by `skills/manifest.json`.
+Agents first discover the metadata, then load the 122-line `SKILL.md`, and only then read the selected reference files. The skill does not embed the full documentation dump in its main instructions. The manifest contains 86 active implementation references: all current GoFr Quick Start, Advanced Guide, Datasource, Production Guide, and Reference pages. GoFr migration and comparison pages are intentionally excluded by project scope. References are one level below the skill root and are mapped by `skills/manifest.json`.
 
 ## Validation
 
