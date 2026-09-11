@@ -566,6 +566,15 @@
     "gofr": {
       "path": "skills/gofr",
       "scope": "GoFr framework only"
+    },
+    "gofr-golang": {
+      "path": "skills/gofr-golang",
+      "scope": "Exactly 19 Golang engineering references rewritten for GoFr implementation, Clean Architecture, CQRS, and Repository Pattern",
+      "source_count": 19,
+      "reference_count": 19,
+      "gofr_pages_used_for_adaptation": "docs/gofr-golang-source-map.json",
+      "golang_source": "skills/golang",
+      "framework_source": "skills/gofr"
     }
   }
 }

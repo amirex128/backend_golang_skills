@@ -1,0 +1,236 @@
+{
+  "skill": "gofr-golang",
+  "reference_count": 19,
+  "source_golang_references": [
+    {
+      "source": "skills/golang/references/code-style.md",
+      "target": "skills/gofr-golang/references/gofr-golang-code-style.md",
+      "sha256": "effc6fa4124fbfc8f3c7ac23ac27d9eb4f3057528e4ba96343b8719f30696938",
+      "gofr_pages": [
+        "quick-start-introduction",
+        "quick-start-add-rest-handlers",
+        "references-context",
+        "quick-start-observability"
+      ]
+    },
+    {
+      "source": "skills/golang/references/concurrency.md",
+      "target": "skills/gofr-golang/references/gofr-golang-concurrency.md",
+      "sha256": "52db52fbb7687def71fb03a9c615d84fc3b4bc9892104ea67be40866be810eb6",
+      "gofr_pages": [
+        "references-context",
+        "advanced-guide-using-cron",
+        "advanced-guide-using-publisher-subscriber",
+        "guides-graceful-shutdown"
+      ]
+    },
+    {
+      "source": "skills/golang/references/context.md",
+      "target": "skills/gofr-golang/references/gofr-golang-context.md",
+      "sha256": "c7ed4ae9aee5635b7dfcffdab35d616b346f07ad50d710d897be7b1e1119351e",
+      "gofr_pages": [
+        "references-context",
+        "quick-start-observability",
+        "advanced-guide-http-communication"
+      ]
+    },
+    {
+      "source": "skills/golang/references/data-structures.md",
+      "target": "skills/gofr-golang/references/gofr-golang-data-structures.md",
+      "sha256": "97ae93016ef3e7d87047fb6430da685321d875e91a0f5daaf12b8103267f8c34",
+      "gofr_pages": [
+        "quick-start-add-rest-handlers",
+        "references-context",
+        "advanced-guide-dealing-with-sql"
+      ]
+    },
+    {
+      "source": "skills/golang/references/database.md",
+      "target": "skills/gofr-golang/references/gofr-golang-database.md",
+      "sha256": "2d1bcedf257b2db6ef130a2e142ba71560366d87c576d10941c0b936398aead5",
+      "gofr_pages": [
+        "advanced-guide-dealing-with-sql",
+        "datasources-getting-started",
+        "guides-connection-pooling",
+        "advanced-guide-handling-data-migrations",
+        "references-testing"
+      ]
+    },
+    {
+      "source": "skills/golang/references/design-patterns.md",
+      "target": "skills/gofr-golang/references/gofr-golang-design-patterns.md",
+      "sha256": "fd501977ace61d205e29cfe4a3a2361da2131c38eb19e85ee763877ad29be269",
+      "gofr_pages": [
+        "quick-start-introduction",
+        "references-context",
+        "advanced-guide-dealing-with-sql"
+      ]
+    },
+    {
+      "source": "skills/golang/references/documentation.md",
+      "target": "skills/gofr-golang/references/gofr-golang-documentation.md",
+      "sha256": "32faa69f9c037959d6754c5cb3cf876a144cf615550b916599bd0a7aae316e90",
+      "gofr_pages": [
+        "advanced-guide-swagger-documentation",
+        "quick-start-configuration",
+        "quick-start-observability",
+        "guides-production-logging"
+      ]
+    },
+    {
+      "source": "skills/golang/references/error-handling.md",
+      "target": "skills/gofr-golang/references/gofr-golang-error-handling.md",
+      "sha256": "23854ba3ad0cc176e10d0f33c7aedb309c984a4c41fc861cae710b8cf0a546c0",
+      "gofr_pages": [
+        "advanced-guide-gofr-errors",
+        "references-context",
+        "quick-start-add-rest-handlers"
+      ]
+    },
+    {
+      "source": "skills/golang/references/how-to.md",
+      "target": "skills/gofr-golang/references/gofr-golang-how-to.md",
+      "sha256": "feed95f3e3a5b01deb8444863ebd6c827346d99eb4b031fa9670b15abc66e8cd",
+      "gofr_pages": [
+        "quick-start-introduction",
+        "quick-start-add-rest-handlers",
+        "quick-start-configuration",
+        "references-context"
+      ]
+    },
+    {
+      "source": "skills/golang/references/modernize.md",
+      "target": "skills/gofr-golang/references/gofr-golang-modernize.md",
+      "sha256": "3a61ae32d38d412de7d443e3e0ea2c0c3f0119af4436a12296722988cc462cde",
+      "gofr_pages": [
+        "quick-start-introduction",
+        "advanced-guide-debugging",
+        "references-gofrcli"
+      ]
+    },
+    {
+      "source": "skills/golang/references/naming.md",
+      "target": "skills/gofr-golang/references/gofr-golang-naming.md",
+      "sha256": "06cdeba183fefec45e1c194645d58526fc59d5c0228e8a9a10146c4100643808",
+      "gofr_pages": [
+        "quick-start-add-rest-handlers",
+        "advanced-guide-swagger-documentation",
+        "references-context"
+      ]
+    },
+    {
+      "source": "skills/golang/references/project-layout.md",
+      "target": "skills/gofr-golang/references/gofr-golang-project-layout.md",
+      "sha256": "4176063ebbfd33cc424511e77e1098d1a6fe41b04ccc7abb5f203fb6886fef80",
+      "gofr_pages": [
+        "quick-start-introduction",
+        "quick-start-configuration",
+        "references-context",
+        "advanced-guide-dealing-with-sql",
+        "references-testing",
+        "guides-graceful-shutdown"
+      ]
+    },
+    {
+      "source": "skills/golang/references/refactoring.md",
+      "target": "skills/gofr-golang/references/gofr-golang-refactoring.md",
+      "sha256": "5959f30e9362de56124bda0ee49f805f296fac5c12327d2b334a75b2cc744791",
+      "gofr_pages": [
+        "quick-start-introduction",
+        "references-context",
+        "advanced-guide-dealing-with-sql",
+        "references-testing"
+      ]
+    },
+    {
+      "source": "skills/golang/references/safety.md",
+      "target": "skills/gofr-golang/references/gofr-golang-safety.md",
+      "sha256": "214ccb2a26de845718c40e6a123abca2f42458edc2213c0207c0f934cfc4194c",
+      "gofr_pages": [
+        "references-context",
+        "advanced-guide-monitoring-service-health",
+        "guides-graceful-shutdown",
+        "advanced-guide-debugging"
+      ]
+    },
+    {
+      "source": "skills/golang/references/security.md",
+      "target": "skills/gofr-golang/references/gofr-golang-security.md",
+      "sha256": "4871199bf8ec4c856002ac60beb79f3084c15f7f65fe9537b701525368c2c794",
+      "gofr_pages": [
+        "advanced-guide-authentication",
+        "advanced-guide-rbac",
+        "references-context",
+        "guides-auth-in-kubernetes",
+        "quick-start-configuration"
+      ]
+    },
+    {
+      "source": "skills/golang/references/swagger.md",
+      "target": "skills/gofr-golang/references/gofr-golang-swagger.md",
+      "sha256": "d0ec884d2501a0ad3eef25f22d818d6da353493f7dd38bc282aeb47153d2deb3",
+      "gofr_pages": [
+        "advanced-guide-swagger-documentation",
+        "quick-start-add-rest-handlers"
+      ]
+    },
+    {
+      "source": "skills/golang/references/testify.md",
+      "target": "skills/gofr-golang/references/gofr-golang-testify.md",
+      "sha256": "68fec9d54b56ad537a8e0d510c5aa0d2ca36ad5c1f4f6afe9560d776b29093c3",
+      "gofr_pages": [
+        "references-testing",
+        "references-context",
+        "quick-start-add-rest-handlers"
+      ]
+    },
+    {
+      "source": "skills/golang/references/testing.md",
+      "target": "skills/gofr-golang/references/gofr-golang-testing.md",
+      "sha256": "e75e7f79951591cc0e3926b169fe3f898f9d7f4ad51c50b0647dbe45467489bf",
+      "gofr_pages": [
+        "references-testing",
+        "references-context",
+        "quick-start-add-rest-handlers",
+        "advanced-guide-dealing-with-sql"
+      ]
+    },
+    {
+      "source": "skills/golang/references/troubleshooting.md",
+      "target": "skills/gofr-golang/references/gofr-golang-troubleshooting.md",
+      "sha256": "11c85ff42e2187280320eaa1c6a6db189c3641b649c3bf46847beb0e18830054",
+      "gofr_pages": [
+        "advanced-guide-debugging",
+        "references-context",
+        "quick-start-observability",
+        "advanced-guide-monitoring-service-health",
+        "guides-graceful-shutdown"
+      ]
+    }
+  ],
+  "gofr_pages_read_for_adaptation": [
+    "advanced-guide-authentication",
+    "advanced-guide-dealing-with-sql",
+    "advanced-guide-debugging",
+    "advanced-guide-gofr-errors",
+    "advanced-guide-handling-data-migrations",
+    "advanced-guide-http-communication",
+    "advanced-guide-monitoring-service-health",
+    "advanced-guide-rbac",
+    "advanced-guide-swagger-documentation",
+    "advanced-guide-using-cron",
+    "advanced-guide-using-publisher-subscriber",
+    "datasources-getting-started",
+    "guides-auth-in-kubernetes",
+    "guides-connection-pooling",
+    "guides-graceful-shutdown",
+    "guides-production-logging",
+    "quick-start-add-rest-handlers",
+    "quick-start-configuration",
+    "quick-start-introduction",
+    "quick-start-observability",
+    "references-context",
+    "references-gofrcli",
+    "references-testing"
+  ]
+}

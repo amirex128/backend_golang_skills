@@ -37,11 +37,13 @@ npx skills add amirex128/backend_golang_skills --skill golang
 ```
 
 Install the GoFr framework skill:
-
 ```bash
 npx skills add amirex128/backend_golang_skills --skill gofr
 ```
-
+Install the GoFr-Golang combined skill. It contains exactly the 19 Golang references rewritten for GoFr, Clean Architecture, CQRS, and Repository Pattern implementation:
+```bash
+npx skills add amirex128/backend_golang_skills --skill gofr-golang
+```
 For a GoFr project, install both skills:
 
 ```bash
