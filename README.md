@@ -22,7 +22,7 @@ The reference snapshot is sourced from the official [GoFr repository](https://gi
 
 ## Unified Golang skill
 
-The `golang` skill is the default engineering skill for Go 1.27 work. It routes each task to only the references it needs: style and naming, design and layout, data structures, concurrency and context, errors and safety, databases, testing, security, refactoring/tooling, documentation, troubleshooting, performance, and Testify/Swagger. It consolidates all 19 supplied source skills into 13 compact topic references without bundling their eval fixtures or duplicating their separate orchestration layers. The provenance map is [`docs/unified-golang-source-map.json`](docs/unified-golang-source-map.json).
+The `golang` skill is the default engineering skill for Go 1.27 work. New backend projects and backend architecture changes follow **Clean Architecture with CQRS**: domain and application dependencies point inward, commands handle state changes, queries handle reads, and transport/infrastructure remain at the edge. It routes each task to only the references it needs: style and naming, Clean Architecture and project layout, data structures, concurrency and context, errors and safety, databases, testing, security, refactoring/tooling, documentation, troubleshooting, performance, and Testify/Swagger. It consolidates all 19 supplied source skills into 13 compact topic references without bundling their eval fixtures or duplicating their separate orchestration layers. The provenance map is [`docs/unified-golang-source-map.json`](docs/unified-golang-source-map.json).
 
 When implementing or reviewing Go code, install `golang`; when using GoFr, install both `golang` and `gofr` so general Go engineering rules and GoFr-specific APIs are available.
 

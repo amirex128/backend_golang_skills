@@ -20,7 +20,7 @@ Apply this skill to every Go task. Treat the routing table as mandatory: classif
 1. Inspect the repository first: `go.mod`, Go directive, packages, existing conventions, tests, CI, generated code, and configuration. Preserve established project conventions unless they violate correctness or security.
 2. Classify the request with the router below and read all **required** references completely. Read the relevant **additional** references for cross-cutting concerns. Do not load every reference by default.
 3. Prefer the standard library and the smallest dependency that solves the problem. Check the module's pinned versions and compatibility before using an API; use `go doc`, `gopls`, `go list`, and repository examples rather than guessing.
-4. Design for explicit dependencies, testability, cancellation, bounded resources, observable errors, and safe zero values. Avoid cleverness, premature abstractions, hidden globals, and unnecessary reflection.
+4. Build new backend work with the project's mandatory **Clean Architecture + CQRS** policy: domain rules point inward, application use cases own ports, adapters translate transport, infrastructure stays at the edge, commands handle state changes, and queries handle reads without hidden mutation. Avoid cleverness, premature abstractions, hidden globals, and unnecessary reflection.
 5. Implement in small, reviewable changes. Preserve behavior during refactors with a safety net; do not mix a large structural rewrite with unrelated feature work.
 6. Validate with `gofmt -w`, `go vet ./...`, targeted tests, `go test ./...`, `go test -race ./...` when concurrency or shared state is involved, fuzzing for parser/security boundaries, and `govulncheck ./...` for dependency/security work. Run relevant linters if configured.
 7. Review the final diff for API compatibility, error context, resource cleanup, goroutine termination, data races, secret leakage, input validation, documentation, and maintainability.
@@ -35,7 +35,7 @@ Apply this skill to every Go task. Treat the routing table as mandatory: classif
 - Every goroutine needs a clear owner, cancellation path, and termination condition. Bound queues, workers, buffers, retries, and connection pools.
 - Propagate context through every I/O boundary. Never store context in a struct, use it as a random parameter bag, or replace a request context with `context.Background()`.
 - Parameterize SQL and shell arguments. Validate untrusted input at boundaries. Keep secrets out of source, logs, URLs, config files, and error responses.
-- Prefer interfaces at consumption boundaries, not speculative abstractions. Use compile-time interface assertions where useful and avoid interface pollution.
+- Prefer interfaces at application consumption boundaries, not speculative abstractions. Keep domain/application independent of transport and infrastructure; use compile-time interface assertions where useful and avoid interface pollution.
 - Use `crypto/rand` for security randomness, modern authenticated cryptography, TLS 1.2+ (prefer 1.3), secure cookies, and least-privilege dependencies.
 
 ## Capability router
@@ -44,8 +44,9 @@ Apply this skill to every Go task. Treat the routing table as mandatory: classif
 |---|---|---|
 | Any new Go code or code review | `references/style-naming.md`, `references/errors-safety.md` | `references/design-layout.md`, topic-specific file |
 | Package/type/function naming | `references/style-naming.md` | `references/documentation.md`, `references/errors-safety.md` |
-| Structs, interfaces, receivers, generics, architecture | `references/design-layout.md` | `references/style-naming.md`, `references/data-structures.md` |
-| New project, module, monorepo, CLI layout | `references/design-layout.md` | `references/tooling-refactoring.md`, `references/documentation.md` |
+| Structs, interfaces, receivers, generics, Clean Architecture, CQRS | `references/design-layout.md` | `references/style-naming.md`, `references/data-structures.md` |
+| New project, module, backend layout, Clean Architecture structure | `references/design-layout.md` | `references/tooling-refactoring.md`, `references/documentation.md` |
+| Commands, queries, handlers, ports, projections, outbox | `references/design-layout.md` | `references/database.md`, `references/testing.md`, `references/concurrency-context.md` |
 | Slices, maps, arrays, containers, pointers, generics | `references/data-structures.md`, `references/errors-safety.md` | `references/performance-testing.md` |
 | Goroutines, channels, mutexes, worker pools, pipelines | `references/concurrency-context.md` | `references/errors-safety.md`, `references/testing.md`, `references/troubleshooting.md` |
 | Context, cancellation, deadlines, request values | `references/concurrency-context.md` | `references/testing.md`, `references/security.md` |
@@ -65,7 +66,7 @@ Apply this skill to every Go task. Treat the routing table as mandatory: classif
 ## Routing discipline
 
 - Read the primary topic first; do not substitute a similarly named file. The reference files are compact syntheses, not optional background.
-- For a new HTTP/database service, load `design-layout`, `concurrency-context`, `errors-safety`, `database`, `testing`, and `security` in addition to the API-specific material.
+- For a new HTTP/database service, load `design-layout` first; then load `concurrency-context`, `errors-safety`, `database`, `testing`, and `security` in addition to the API-specific material. All new backend services must follow the Clean Architecture + CQRS layout in that reference.
 - For a bug, start with `troubleshooting`, reproduce it with a focused test, then load the design topic that explains the root cause. Do not “fix” symptoms with arbitrary retries or sleeps.
 - For optimization, measure first with benchmarks/profiles; then change one bottleneck at a time and compare with `benchstat`.
 - For refactoring, establish tests and compile checks before changing structure; use semantic tooling such as `gopls` for renames and references.
