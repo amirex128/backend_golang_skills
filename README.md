@@ -37,11 +37,13 @@ npx skills add amirex128/backend_golang_skills --skill golang
 ```
 
 Install the GoFr framework skill:
-
 ```bash
 npx skills add amirex128/backend_golang_skills --skill gofr
 ```
-
+Install the combined GoFr-Golang skill, which includes GoFr framework guidance plus the complete Go 1.27, Clean Architecture, CQRS, Repository Pattern, security, testing, and production engineering standards:
+```bash
+npx skills add amirex128/backend_golang_skills --skill gofr-golang
+```
 For a GoFr project, install both skills:
 
 ```bash
@@ -120,18 +122,21 @@ npx skills add amirex128/backend_golang_skills --skill golang
 ```
 
 ### `gofr`
-
 A framework-specific GoFr skill for building Go 1.27 backend services with GoFr. It covers GoFr routing, handlers, configuration, Context, SQL and NoSQL datasources, migrations, authentication, RBAC, observability, tracing, metrics, resilience, gRPC, GraphQL, WebSockets, streaming, Pub/Sub, cron, file handling, CLI applications, Docker, Kubernetes, CI/CD, and production operations.
-
 Install it with:
-
 ```bash
 npx skills add amirex128/backend_golang_skills --skill gofr
+```
+### `gofr-golang`
+The recommended unified skill for GoFr backends. It combines the complete GoFr reference snapshot with all 19 Golang engineering domains and adapts every Go standard to GoFr lifecycle, `*gofr.Context`, datasources, configuration, observability, authentication, health, testing, and deployment. It enforces Clean Architecture, CQRS, Repository Pattern, bounded contexts, explicit commands and queries, and thin GoFr adapters.
+Install it with:
+```bash
+npx skills add amirex128/backend_golang_skills --skill gofr-golang
 ```
 
 ## How the skills work together
 
-Use `golang` for general Go engineering decisions and implementation quality. Add `gofr` when the project uses GoFr or the requested feature depends on GoFr APIs and conventions. The general skill provides the architectural and quality baseline; the GoFr skill provides framework-specific implementation rules.
+Use `gofr-golang` as the default for GoFr projects. Use `golang` for framework-neutral Go work and `gofr` when only the framework reference is needed. The combined Skill provides both the GoFr implementation rules and the complete Go engineering/architecture baseline in one context.
 
 For new backend services, the default architecture is **Clean Architecture with CQRS**:
 

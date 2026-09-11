@@ -1,0 +1,111 @@
+<!-- Source: https://gofr.dev/docs/advanced-guide/serving-static-files -->
+<!-- Snapshot: 2026-09-04 from gofr-dev/gofr development branch -->
+
+---
+description: "Serve static files such as images, favicons, and CSS from a GoFr service. Drop files into static/ and GoFr exposes them on a configurable route."
+nextjs:
+  metadata:
+    title: "Serving Static Files in GoFr — Assets, Images, Favicons"
+    description: "Serve static files such as images, favicons, and CSS from a GoFr service. Drop files into static/ and GoFr exposes them on a configurable route."
+---
+
+# Serving Static Files using GoFr
+
+Often, we are required to serve static content such as a default profile image, a favicon, or a background image for our 
+web application. We want to have a mechanism to serve that static content without the hassle of implementing it from scratch.
+
+GoFr provides a default mechanism where if a `static` folder is available in the directory of the application,
+it automatically provides an endpoint with `/static/<filename>`, here filename refers to the file we want to get static content to be served. 
+
+The endpoint's root — `/static` — serves that folder's `index.html`, as does the root of any
+subdirectory beneath it (`/static/docs` serves `static/docs/index.html`). A directory without an
+`index.html` returns 404 rather than a listing of its contents, so nothing is disclosed that was not
+deliberately published; if the served folder has a `404.html`, that page is returned as the body.
+
+Every one of these forms is answered with the file itself — `/static`, `/static/`, and
+`/static/index.html` all return the same page, and none of them redirects.
+
+Because `/static` is answered directly rather than redirected to `/static/`, a relative URL in a page
+served at the endpoint root resolves against the parent path: `<img src="logo.png">` requests
+`/logo.png` from `/static` and `/static/logo.png` from `/static/`. HTML served at an endpoint root
+should use root-relative URLs (`/static/logo.png`) or declare a `<base href="/static/">`.
+
+Only `GET` and `HEAD` are served. Any other method returns 405 with an `Allow: GET, HEAD` header. A
+file the process cannot read returns 403.
+
+Only regular files are served. A path that resolves to anything else — a directory, a named pipe —
+is treated as not found, and an `openapi.json` in a served folder returns 403 in any capitalization;
+the API specification is reachable only through `/.well-known/swagger` and
+`/.well-known/openapi.json`.
+
+Example project structure:
+
+```dotenv
+project_folder
+|
+|---configs
+|       .env
+|---static
+|       img1.jpeg
+|       img2.png
+|       img3.jpeg
+|   main.go
+|   main_test.go
+```
+
+main.go code:
+
+```go
+package main
+
+import "gofr.dev/pkg/gofr"
+
+func main() {
+	app := gofr.New()
+	app.Run()
+}
+```
+
+Additionally, if we want to serve more static endpoints, we have a dedicated function called `AddStaticFiles()`
+which takes 2 parameters `endpoint` and the `filepath` of the static folder which we want to serve. If the folder 
+contains a `404.html` file, GoFr returns that page as the body of any "Not Found" response. The `filepath` must be a
+directory; anything else is refused at registration and the endpoint is not served.
+
+Example project structure:
+
+```dotenv
+project_folder
+|
+|---configs
+|       .env
+|---static
+|       img1.jpeg
+|       img2.png
+|       img3.jpeg
+|---public
+|       |---css
+|       |       main.css
+|       |---js
+|       |       main.js
+|       |   index.html
+|       |   404.html
+|   main.go
+|   main_test.go
+```
+
+main.go file:
+
+```go
+package main
+
+import "gofr.dev/pkg/gofr"
+
+func main() {
+	app := gofr.New()
+	app.AddStaticFiles("public", "./public")
+	app.Run()
+}
+```
+
+In the above example, both endpoints `/public` and `/static` are available for the app to render the static content.
+`/public` serves `public/index.html`, while `/static` — whose folder has no `index.html` — returns 404.

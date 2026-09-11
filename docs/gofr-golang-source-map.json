@@ -1,0 +1,671 @@
+{
+  "source_skill": "gofr-golang",
+  "framework_source": "skills/gofr",
+  "golang_source": "skills/golang",
+  "gofr_reference_count": 91,
+  "golang_reference_count": 19,
+  "adapted_references": [
+    {
+      "source": "skills/golang/references/code-style.md",
+      "target": "skills/gofr-golang/references/gofr-golang-code-style.md",
+      "sha256": "effc6fa4124fbfc8f3c7ac23ac27d9eb4f3057528e4ba96343b8719f30696938",
+      "bytes": 11907
+    },
+    {
+      "source": "skills/golang/references/concurrency.md",
+      "target": "skills/gofr-golang/references/gofr-golang-concurrency.md",
+      "sha256": "52db52fbb7687def71fb03a9c615d84fc3b4bc9892104ea67be40866be810eb6",
+      "bytes": 29374
+    },
+    {
+      "source": "skills/golang/references/context.md",
+      "target": "skills/gofr-golang/references/gofr-golang-context.md",
+      "sha256": "c7ed4ae9aee5635b7dfcffdab35d616b346f07ad50d710d897be7b1e1119351e",
+      "bytes": 18825
+    },
+    {
+      "source": "skills/golang/references/data-structures.md",
+      "target": "skills/gofr-golang/references/gofr-golang-data-structures.md",
+      "sha256": "97ae93016ef3e7d87047fb6430da685321d875e91a0f5daaf12b8103267f8c34",
+      "bytes": 25442
+    },
+    {
+      "source": "skills/golang/references/database.md",
+      "target": "skills/gofr-golang/references/gofr-golang-database.md",
+      "sha256": "2d1bcedf257b2db6ef130a2e142ba71560366d87c576d10941c0b936398aead5",
+      "bytes": 30705
+    },
+    {
+      "source": "skills/golang/references/design-patterns.md",
+      "target": "skills/gofr-golang/references/gofr-golang-design-patterns.md",
+      "sha256": "fd501977ace61d205e29cfe4a3a2361da2131c38eb19e85ee763877ad29be269",
+      "bytes": 42978
+    },
+    {
+      "source": "skills/golang/references/documentation.md",
+      "target": "skills/gofr-golang/references/gofr-golang-documentation.md",
+      "sha256": "32faa69f9c037959d6754c5cb3cf876a144cf615550b916599bd0a7aae316e90",
+      "bytes": 50915
+    },
+    {
+      "source": "skills/golang/references/error-handling.md",
+      "target": "skills/gofr-golang/references/gofr-golang-error-handling.md",
+      "sha256": "23854ba3ad0cc176e10d0f33c7aedb309c984a4c41fc861cae710b8cf0a546c0",
+      "bytes": 20924
+    },
+    {
+      "source": "skills/golang/references/how-to.md",
+      "target": "skills/gofr-golang/references/gofr-golang-how-to.md",
+      "sha256": "feed95f3e3a5b01deb8444863ebd6c827346d99eb4b031fa9670b15abc66e8cd",
+      "bytes": 67339
+    },
+    {
+      "source": "skills/golang/references/modernize.md",
+      "target": "skills/gofr-golang/references/gofr-golang-modernize.md",
+      "sha256": "3a61ae32d38d412de7d443e3e0ea2c0c3f0119af4436a12296722988cc462cde",
+      "bytes": 52667
+    },
+    {
+      "source": "skills/golang/references/naming.md",
+      "target": "skills/gofr-golang/references/gofr-golang-naming.md",
+      "sha256": "06cdeba183fefec45e1c194645d58526fc59d5c0228e8a9a10146c4100643808",
+      "bytes": 30673
+    },
+    {
+      "source": "skills/golang/references/project-layout.md",
+      "target": "skills/gofr-golang/references/gofr-golang-project-layout.md",
+      "sha256": "4176063ebbfd33cc424511e77e1098d1a6fe41b04ccc7abb5f203fb6886fef80",
+      "bytes": 29332
+    },
+    {
+      "source": "skills/golang/references/refactoring.md",
+      "target": "skills/gofr-golang/references/gofr-golang-refactoring.md",
+      "sha256": "5959f30e9362de56124bda0ee49f805f296fac5c12327d2b334a75b2cc744791",
+      "bytes": 93199
+    },
+    {
+      "source": "skills/golang/references/safety.md",
+      "target": "skills/gofr-golang/references/gofr-golang-safety.md",
+      "sha256": "214ccb2a26de845718c40e6a123abca2f42458edc2213c0207c0f934cfc4194c",
+      "bytes": 21789
+    },
+    {
+      "source": "skills/golang/references/security.md",
+      "target": "skills/gofr-golang/references/gofr-golang-security.md",
+      "sha256": "4871199bf8ec4c856002ac60beb79f3084c15f7f65fe9537b701525368c2c794",
+      "bytes": 93229
+    },
+    {
+      "source": "skills/golang/references/swagger.md",
+      "target": "skills/gofr-golang/references/gofr-golang-swagger.md",
+      "sha256": "d0ec884d2501a0ad3eef25f22d818d6da353493f7dd38bc282aeb47153d2deb3",
+      "bytes": 13367
+    },
+    {
+      "source": "skills/golang/references/testify.md",
+      "target": "skills/gofr-golang/references/gofr-golang-testify.md",
+      "sha256": "68fec9d54b56ad537a8e0d510c5aa0d2ca36ad5c1f4f6afe9560d776b29093c3",
+      "bytes": 9601
+    },
+    {
+      "source": "skills/golang/references/testing.md",
+      "target": "skills/gofr-golang/references/gofr-golang-testing.md",
+      "sha256": "e75e7f79951591cc0e3926b169fe3f898f9d7f4ad51c50b0647dbe45467489bf",
+      "bytes": 35683
+    },
+    {
+      "source": "skills/golang/references/troubleshooting.md",
+      "target": "skills/gofr-golang/references/gofr-golang-troubleshooting.md",
+      "sha256": "11c85ff42e2187280320eaa1c6a6db189c3641b649c3bf46847beb0e18830054",
+      "bytes": 72356
+    }
+  ],
+  "copied_gofr_references": [
+    {
+      "source": "skills/gofr/references/AGENTS.md",
+      "target": "skills/gofr-golang/references/gofr-AGENTS.md",
+      "sha256": "1006ff213a57e246fec93840c82e96b0107c746de78988e9a78475df8460771f",
+      "bytes": 2246
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-authentication.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-authentication.md",
+      "sha256": "995e2ef85ca2f7c94ad10223d3f076a2a1586a78da1febff59bfb481b0e42eb9",
+      "bytes": 6515
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-building-cli-applications.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-building-cli-applications.md",
+      "sha256": "66a74f5cf65fd05a2af2134be9d9d05472db7ea0710cb2830b7070073b429e5e",
+      "bytes": 2339
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-circuit-breaker.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-circuit-breaker.md",
+      "sha256": "5ae46b7a961ee26c200f616c692a4054c5c56ab9b8247ff557f6386254b34be7",
+      "bytes": 7090
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-custom-spans-in-tracing.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-custom-spans-in-tracing.md",
+      "sha256": "e57245d312ef7250790dabe3402caed1b60e2bdfe5a9312a1fa0287762eb4990",
+      "bytes": 2474
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-dealing-with-sql.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-dealing-with-sql.md",
+      "sha256": "e3de2fa4b4bcde64794ba11a17f84f34fcf350b2201aa4a90a559bbe9cc4c1a2",
+      "bytes": 2160
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-debugging.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-debugging.md",
+      "sha256": "19efc281c36a97307517fbcd830fab594c66fe22329b984a45b4ba6e130acbe8",
+      "bytes": 4306
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-gofr-errors.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-gofr-errors.md",
+      "sha256": "c7502a5f54d0db2a6082019b18b3b2e2f4f3cd284a09908a09973ecfe069a90f",
+      "bytes": 4401
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-graphql.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-graphql.md",
+      "sha256": "53b97efcc8b89dd47c48e1e3f7f64e573d9c646ed9e478d35338eefb64ddadfa",
+      "bytes": 10849
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-grpc-streaming.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-grpc-streaming.md",
+      "sha256": "d5628536068e6ddea55ff5d5b18e041583b08f48d054507f8e5dfb054fd03cb8",
+      "bytes": 16567
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-grpc.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-grpc.md",
+      "sha256": "a9e085fd3a69a282105051880f664310c8558492e37b15d3fc5089f682765443",
+      "bytes": 20471
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-handling-data-migrations.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-handling-data-migrations.md",
+      "sha256": "fe6b5e6a3e94e01f9927f3f9d6f3dfe77ca5e3fa42afcaa2c4d2f20ac825ad0a",
+      "bytes": 15783
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-handling-file.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-handling-file.md",
+      "sha256": "458315ba0545c51060900e0eba463733324c0972ad81a716b2a802ce608da0d1",
+      "bytes": 19443
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-http-communication.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-http-communication.md",
+      "sha256": "578c572616e71cc4b5098892da1cdf28cc9708a9962550253b8978f95f4a0c46",
+      "bytes": 12461
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-injecting-databases-drivers.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-injecting-databases-drivers.md",
+      "sha256": "843432d59ca3121d618bb98dbe77983204efa8acdabdc2ada42a5cd7101de146",
+      "bytes": 1997
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-key-value-store.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-key-value-store.md",
+      "sha256": "735394735aec12179c0f4586108d5def10882cd473c9cd5e9259b7a347a43fbc",
+      "bytes": 11083
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-llm.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-llm.md",
+      "sha256": "ba5b0176ba80d1735c11185a8297b688d9a7c3d1072cb51684d9ccb0a7a5de0b",
+      "bytes": 12212
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-mcp.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-mcp.md",
+      "sha256": "76078bca123e95f1923380e66d217c212fdf99796ce7855314f476736ba835db",
+      "bytes": 4603
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-middlewares.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-middlewares.md",
+      "sha256": "98cdd6ce474d2cb2026d5038b0da73624cc02e34777c9f1f6cef927b31a894ac",
+      "bytes": 6572
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-monitoring-service-health.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-monitoring-service-health.md",
+      "sha256": "db7fb42cd6c53f00d046a97f2d0dea8d5a069492bc82bdc155256d1d3911e908",
+      "bytes": 3806
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-overriding-default.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-overriding-default.md",
+      "sha256": "2e9c04ce50be06e1559002a0a2f03b7e36ef5973f0c5d9e2e8909c1f8a4ec206",
+      "bytes": 5137
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-publishing-custom-metrics.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-publishing-custom-metrics.md",
+      "sha256": "33cfa5ce0ed1ba64e07dd0a0a17d128fb1b9f7f80cab4cf1d7bb2338c4b8e240",
+      "bytes": 7435
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-rbac.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-rbac.md",
+      "sha256": "c1a3a9c21a80be005635d9c16b38db7adcb38ca31e0b1a99d351a436ccce0c27",
+      "bytes": 17489
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-remote-log-level-change.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-remote-log-level-change.md",
+      "sha256": "14b42f6cd92dee5480d394884693ef18fef496395c460c55fddab25faf941da0",
+      "bytes": 2819
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-routing-performance.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-routing-performance.md",
+      "sha256": "5f2aba731e8712981255ad3d101dbea17c2ee77c0656d1824167888b01f671a8",
+      "bytes": 4592
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-serving-static-files.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-serving-static-files.md",
+      "sha256": "5bb06d46b3ba6c8721e43cf6cda7b0c2b891e914f70068eb85682fc0c9876836",
+      "bytes": 3919
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-setting-custom-response-headers.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-setting-custom-response-headers.md",
+      "sha256": "56e6306f9a22b2448fc4e66d8b1501388d33b2388fc0c07251b6424fc208cb1b",
+      "bytes": 3245
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-startup-hooks.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-startup-hooks.md",
+      "sha256": "ef6de3748cd9401a4fde98785d9702eea71de288301d8f493e5577f04f91dba1",
+      "bytes": 2624
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-streaming.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-streaming.md",
+      "sha256": "20a8479acda0aa30400e5e0dd289d84cca7cc459fcba191e8e578c296776e942",
+      "bytes": 4194
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-swagger-documentation.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-swagger-documentation.md",
+      "sha256": "d8ea410c6efae941766cdf6b8c91d2881cb5df9763eb6c5af48d52c4b9bf4416",
+      "bytes": 2179
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-using-cron.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-using-cron.md",
+      "sha256": "2a8cc299cbd01282f5ece31d2d9c186afdd8250a0c9c9cedbe26c1a3df753f52",
+      "bytes": 4190
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-using-publisher-subscriber.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-using-publisher-subscriber.md",
+      "sha256": "bfefd3a47119bb60539ec5a74f00b2d0e27fc8a0ac6a3937ccfdbb5c4f87b24a",
+      "bytes": 26015
+    },
+    {
+      "source": "skills/gofr/references/advanced-guide-websocket.md",
+      "target": "skills/gofr-golang/references/gofr-advanced-guide-websocket.md",
+      "sha256": "5cbc1c0000be819ddea0638fcd8f6d754fe15c07cf27a1b0dcb27964ab477fda",
+      "bytes": 5752
+    },
+    {
+      "source": "skills/gofr/references/datasources-arangodb.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-arangodb.md",
+      "sha256": "0b534d51585c059aa258f196ab98c68f2e053c89bbc2c04269ff0a3c1c8e1c50",
+      "bytes": 7191
+    },
+    {
+      "source": "skills/gofr/references/datasources-cassandra.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-cassandra.md",
+      "sha256": "0f620126f9ac65e43744c741c5081947570a1351fa9868966f9a4c371ff7b798",
+      "bytes": 3618
+    },
+    {
+      "source": "skills/gofr/references/datasources-clickhouse.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-clickhouse.md",
+      "sha256": "fca989487b462d7645456bb6984781df039d36e3eada88cf2e4b9851247357d5",
+      "bytes": 3475
+    },
+    {
+      "source": "skills/gofr/references/datasources-cloudsql.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-cloudsql.md",
+      "sha256": "bcab101df40c6af771c81674db4df103804055358a83d6db0a0071e6ee59b55f",
+      "bytes": 5130
+    },
+    {
+      "source": "skills/gofr/references/datasources-cockroachdb.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-cockroachdb.md",
+      "sha256": "ef7fb1924551ea1f693df23a4c33af3468adbe728427e67b22c7d4b3f5e3f63a",
+      "bytes": 1790
+    },
+    {
+      "source": "skills/gofr/references/datasources-couchbase.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-couchbase.md",
+      "sha256": "9ec2e2f0163b6e57b2e604b97513dcb5ed0ddfdc8850af1ce13076c92549ae14",
+      "bytes": 3951
+    },
+    {
+      "source": "skills/gofr/references/datasources-dgraph.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-dgraph.md",
+      "sha256": "66be078873d4dccae78d58bf187c2d95a399dfa3b3ff0990ccaaf65fb82c21ac",
+      "bytes": 4547
+    },
+    {
+      "source": "skills/gofr/references/datasources-elasticsearch.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-elasticsearch.md",
+      "sha256": "193a7cb620b26c5eb7a5fcdc38e8968ab4985b84c6bc2c9364361ccbed42501c",
+      "bytes": 5826
+    },
+    {
+      "source": "skills/gofr/references/datasources-getting-started.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-getting-started.md",
+      "sha256": "795eb87d9a896dfb98ac47fe0d511c589c3923297ec6d9ab9432eaa1540edfd1",
+      "bytes": 2515
+    },
+    {
+      "source": "skills/gofr/references/datasources-influxdb.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-influxdb.md",
+      "sha256": "146072cf3d2ca91342cff8f8a2dcc8c8857e14bd28f596f42c4bdba7f4646ce6",
+      "bytes": 3687
+    },
+    {
+      "source": "skills/gofr/references/datasources-migrations-elasticsearch.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-migrations-elasticsearch.md",
+      "sha256": "8771b88cb18b53ce98fdf76211c83a244c3949f8019a8c3db382c81d4b4b345e",
+      "bytes": 12795
+    },
+    {
+      "source": "skills/gofr/references/datasources-mongodb.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-mongodb.md",
+      "sha256": "ff4b6ad03dfbc5f13d11e17f870fe7034ebcc7454ea3ab5786d3caffc6e98e58",
+      "bytes": 3434
+    },
+    {
+      "source": "skills/gofr/references/datasources-opentsdb.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-opentsdb.md",
+      "sha256": "798fa1cff2b04c62a8806730d9c792affbb6a743954a04de894634f2bbae0e1c",
+      "bytes": 7529
+    },
+    {
+      "source": "skills/gofr/references/datasources-oracle.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-oracle.md",
+      "sha256": "23869eb00c95668e4e4ee4cc2ffe75fc9969ec0bef3d53eb27c4854d91f7db10",
+      "bytes": 6089
+    },
+    {
+      "source": "skills/gofr/references/datasources-scylladb.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-scylladb.md",
+      "sha256": "81ec94a1d30845a0adfa72daf26fe25209e9d7f0a1c5759aa0697aa2059d8b77",
+      "bytes": 4841
+    },
+    {
+      "source": "skills/gofr/references/datasources-solr.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-solr.md",
+      "sha256": "dff39d7c7b1ad99c3a55a848186c8351864fd47dd48484adc32ce3c46241d293",
+      "bytes": 3384
+    },
+    {
+      "source": "skills/gofr/references/datasources-surrealdb.md",
+      "target": "skills/gofr-golang/references/gofr-datasources-surrealdb.md",
+      "sha256": "76621b9856de4ee9d86378a99fd3cd536352678beb65c8aa804ccb58a053dbc4",
+      "bytes": 4727
+    },
+    {
+      "source": "skills/gofr/references/faq.md",
+      "target": "skills/gofr-golang/references/gofr-faq.md",
+      "sha256": "11878f1dd8b7ba25cc198204d8dc03e866df86b4a6f049ed4059984f503d4174",
+      "bytes": 6943
+    },
+    {
+      "source": "skills/gofr/references/guides-auth-in-kubernetes.md",
+      "target": "skills/gofr-golang/references/gofr-guides-auth-in-kubernetes.md",
+      "sha256": "2698158cfc01d8e25c0b5118680c263990bb64ed0628871061f3af1a05f32e42",
+      "bytes": 6376
+    },
+    {
+      "source": "skills/gofr/references/guides-cicd-recipes.md",
+      "target": "skills/gofr-golang/references/gofr-guides-cicd-recipes.md",
+      "sha256": "5f0ed8b3fa43ea11dd886d43ec94fc018001aee5d6570495d5bdadb37b2ed369",
+      "bytes": 6168
+    },
+    {
+      "source": "skills/gofr/references/guides-cloud-deployment.md",
+      "target": "skills/gofr-golang/references/gofr-guides-cloud-deployment.md",
+      "sha256": "7fe1cd419fcb5d10d3584e544b274cbc7d030802faf3d23e46019d111524e2ca",
+      "bytes": 10721
+    },
+    {
+      "source": "skills/gofr/references/guides-connection-pooling.md",
+      "target": "skills/gofr-golang/references/gofr-guides-connection-pooling.md",
+      "sha256": "f7ac5bf948be4c7afe3acb2102c9689b349ec16767f414e24645ef9c948c91ec",
+      "bytes": 7054
+    },
+    {
+      "source": "skills/gofr/references/guides-db-migrations-in-cicd.md",
+      "target": "skills/gofr-golang/references/gofr-guides-db-migrations-in-cicd.md",
+      "sha256": "8c5e1aaed61929ac6f8d26cdbcd70fb669738c3a6121c46ae38cffeb26354e99",
+      "bytes": 9474
+    },
+    {
+      "source": "skills/gofr/references/guides-deploying-to-kubernetes.md",
+      "target": "skills/gofr-golang/references/gofr-guides-deploying-to-kubernetes.md",
+      "sha256": "48c2558dc5bea1eb1da01fecff372122b35ae3c0439fdb5d734aa9a306d8fc88",
+      "bytes": 13684
+    },
+    {
+      "source": "skills/gofr/references/guides-distributed-tracing.md",
+      "target": "skills/gofr-golang/references/gofr-guides-distributed-tracing.md",
+      "sha256": "81f2aaba29120f2d5a607ebfe59795bc59392b3a4f594b663084d84d31568774",
+      "bytes": 7928
+    },
+    {
+      "source": "skills/gofr/references/guides-dockerizing-gofr-services.md",
+      "target": "skills/gofr-golang/references/gofr-guides-dockerizing-gofr-services.md",
+      "sha256": "67b013b238b3851364e47bade5e5757b0a4c84196bd0472180a025eeaa65f993",
+      "bytes": 13758
+    },
+    {
+      "source": "skills/gofr/references/guides-graceful-shutdown.md",
+      "target": "skills/gofr-golang/references/gofr-guides-graceful-shutdown.md",
+      "sha256": "87b8f041a692332e036d542467acfd190d4a70b0db56ce7529c6c4055cd0e4fd",
+      "bytes": 7610
+    },
+    {
+      "source": "skills/gofr/references/guides-helm-chart-starter.md",
+      "target": "skills/gofr-golang/references/gofr-guides-helm-chart-starter.md",
+      "sha256": "da1b3fe03f28e22abf4f658a0b0a4486f0a4cea876a4c4842bc73ac823dcdf6f",
+      "bytes": 10039
+    },
+    {
+      "source": "skills/gofr/references/guides-horizontal-pod-autoscaler.md",
+      "target": "skills/gofr-golang/references/gofr-guides-horizontal-pod-autoscaler.md",
+      "sha256": "81bfd40176615acb880ff43325dfe520c57841e5568093d8097ca25a520dcf7e",
+      "bytes": 7059
+    },
+    {
+      "source": "skills/gofr/references/guides-load-testing.md",
+      "target": "skills/gofr-golang/references/gofr-guides-load-testing.md",
+      "sha256": "f8b9ec054f8bb49a2cb5d02a5e0ac9a2ad1a643047e32ecb3b8e0bb7011f72eb",
+      "bytes": 6487
+    },
+    {
+      "source": "skills/gofr/references/guides-multi-environment-deployment.md",
+      "target": "skills/gofr-golang/references/gofr-guides-multi-environment-deployment.md",
+      "sha256": "5f0cad806988b9c3206358c8764eaa09b927c462a2a74570fbce6c1562b319a0",
+      "bytes": 7158
+    },
+    {
+      "source": "skills/gofr/references/guides-production-logging.md",
+      "target": "skills/gofr-golang/references/gofr-guides-production-logging.md",
+      "sha256": "2f698e14e2ffb788382f4dadac13494c10fb6178ef0de5e8861024bf7e0ddd74",
+      "bytes": 7937
+    },
+    {
+      "source": "skills/gofr/references/guides-production-prometheus-kubernetes.md",
+      "target": "skills/gofr-golang/references/gofr-guides-production-prometheus-kubernetes.md",
+      "sha256": "503255c57860ef0f5d7ade05066a9e38e89a97861ebce7aeda35c952f5146b7e",
+      "bytes": 11902
+    },
+    {
+      "source": "skills/gofr/references/guides-production-tracing.md",
+      "target": "skills/gofr-golang/references/gofr-guides-production-tracing.md",
+      "sha256": "2ab2b87a3c011eafba83834174f0c47f223c516e5f0b3b8ab4c8ecbfa6dc8f36",
+      "bytes": 10882
+    },
+    {
+      "source": "skills/gofr/references/guides-service-mesh-integration.md",
+      "target": "skills/gofr-golang/references/gofr-guides-service-mesh-integration.md",
+      "sha256": "0d9a5a2a9f85b58feea6a05c74712cb07a81e95312400fa6ad2021ac80c26e70",
+      "bytes": 5100
+    },
+    {
+      "source": "skills/gofr/references/guides-twelve-factor-config.md",
+      "target": "skills/gofr-golang/references/gofr-guides-twelve-factor-config.md",
+      "sha256": "444dd2121e8fe21660a4340225409e571497ef835d7b20ee6d5ed9327bfad506",
+      "bytes": 7024
+    },
+    {
+      "source": "skills/gofr/references/index.md",
+      "target": "skills/gofr-golang/references/gofr-index.md",
+      "sha256": "c6a19d4d1a1bae694bbaa48cf2d0af700191b1f5217254cf41e1b756cc41b0b0",
+      "bytes": 2165
+    },
+    {
+      "source": "skills/gofr/references/learn.md",
+      "target": "skills/gofr-golang/references/gofr-learn.md",
+      "sha256": "e1f41382b384de9382a3c89ab4368b5c46f4f9eaddbcc485f97aa51d6e7ab788",
+      "bytes": 3801
+    },
+    {
+      "source": "skills/gofr/references/llms-full-live.txt",
+      "target": "skills/gofr-golang/references/gofr-llms-full-live.txt",
+      "sha256": "c92cab3c25755922691e03fec78d6d3cae5a4ccabc145b22576f93c22b4b0746",
+      "bytes": 674289
+    },
+    {
+      "source": "skills/gofr/references/llms-full.md",
+      "target": "skills/gofr-golang/references/gofr-llms-full.md",
+      "sha256": "e2320826da02ddc50564a530cafc44d5450e382318154e922f045eadc86ef05b",
+      "bytes": 674288
+    },
+    {
+      "source": "skills/gofr/references/llms-index.md",
+      "target": "skills/gofr-golang/references/gofr-llms-index.md",
+      "sha256": "5e285a196e2b6e54d29ae04bbc16da06e70d0a8297603a056a0bd2cf89af5800",
+      "bytes": 308
+    },
+    {
+      "source": "skills/gofr/references/project-pages.md",
+      "target": "skills/gofr-golang/references/gofr-project-pages.md",
+      "sha256": "f569e39b5e12d8db7c26bca1748673bb41dfe4b41bf21041b261034f21fb17ba",
+      "bytes": 2194
+    },
+    {
+      "source": "skills/gofr/references/quick-start-add-rest-handlers.md",
+      "target": "skills/gofr-golang/references/gofr-quick-start-add-rest-handlers.md",
+      "sha256": "bd808d8452338ff2bb8276f85016592b9b60aab57912935450dcf30819d0aaf2",
+      "bytes": 6802
+    },
+    {
+      "source": "skills/gofr/references/quick-start-cli.md",
+      "target": "skills/gofr-golang/references/gofr-quick-start-cli.md",
+      "sha256": "fe2722f5a1fdf714d91744af6a297ad8f31aa2acf47795aff61f957c2e7d99cf",
+      "bytes": 124
+    },
+    {
+      "source": "skills/gofr/references/quick-start-configuration.md",
+      "target": "skills/gofr-golang/references/gofr-quick-start-configuration.md",
+      "sha256": "79faeb5814fc0bbb9b0926d002920162651393739750605eb79d14b929c83296",
+      "bytes": 2730
+    },
+    {
+      "source": "skills/gofr/references/quick-start-connecting-mysql.md",
+      "target": "skills/gofr-golang/references/gofr-quick-start-connecting-mysql.md",
+      "sha256": "ba8d68d505e965683da7187f6a4bc6e7fee80386417edf31f77b97af564ef0ea",
+      "bytes": 12842
+    },
+    {
+      "source": "skills/gofr/references/quick-start-connecting-redis.md",
+      "target": "skills/gofr-golang/references/gofr-quick-start-connecting-redis.md",
+      "sha256": "5d59b417781b3a10f32d09cdbf62aac9a1cb68c64fca115ce95b5a980a9fdb03",
+      "bytes": 3244
+    },
+    {
+      "source": "skills/gofr/references/quick-start-introduction.md",
+      "target": "skills/gofr-golang/references/gofr-quick-start-introduction.md",
+      "sha256": "ead1b170e4bee2442087303bb8f69a3bf70bacf1517091ece9a709ec6b4ff907",
+      "bytes": 6055
+    },
+    {
+      "source": "skills/gofr/references/quick-start-observability.md",
+      "target": "skills/gofr-golang/references/gofr-quick-start-observability.md",
+      "sha256": "23f403d204a43ebfe45f87982bcd261efa68cbc6cbf49a92b260b25f72c3d4e6",
+      "bytes": 14843
+    },
+    {
+      "source": "skills/gofr/references/references-configs.md",
+      "target": "skills/gofr-golang/references/gofr-references-configs.md",
+      "sha256": "dca668101cd54f2a160fe4eb9fb3b89ef785872c1d30d2ce8639f7b57e5559f9",
+      "bytes": 14668
+    },
+    {
+      "source": "skills/gofr/references/references-context.md",
+      "target": "skills/gofr-golang/references/gofr-references-context.md",
+      "sha256": "b904a55f82783d172bd7fe02eb050b69ea0797845dc7006c188a09fdd0910187",
+      "bytes": 6101
+    },
+    {
+      "source": "skills/gofr/references/references-gofrcli-init.md",
+      "target": "skills/gofr-golang/references/gofr-references-gofrcli-init.md",
+      "sha256": "e9c002d2e8a589e16d386abf8758c47e100aca7b634f520f57a18aacfc73cc31",
+      "bytes": 1038
+    },
+    {
+      "source": "skills/gofr/references/references-gofrcli-migrate.md",
+      "target": "skills/gofr-golang/references/gofr-references-gofrcli-migrate.md",
+      "sha256": "5f7914a145f54b4b5e8727a90b5e1f6bf71aec99e3cd2c526a6ce69ba8c2187d",
+      "bytes": 2439
+    },
+    {
+      "source": "skills/gofr/references/references-gofrcli-store.md",
+      "target": "skills/gofr-golang/references/gofr-references-gofrcli-store.md",
+      "sha256": "7518e9d51584b1c71fdaf006c2d968b619e9ded0b537fc749a3c08af48552290",
+      "bytes": 10643
+    },
+    {
+      "source": "skills/gofr/references/references-gofrcli-wrap-grpc.md",
+      "target": "skills/gofr-golang/references/gofr-references-gofrcli-wrap-grpc.md",
+      "sha256": "39ed71a1712b4742d988ecff79856094f51c138f61fb6327ea1a773822192ab3",
+      "bytes": 3958
+    },
+    {
+      "source": "skills/gofr/references/references-gofrcli.md",
+      "target": "skills/gofr-golang/references/gofr-references-gofrcli.md",
+      "sha256": "508c29c2f77058865c74a7475300a15a93f4138d6b9a44a16591bf834ad0699e",
+      "bytes": 2173
+    },
+    {
+      "source": "skills/gofr/references/references-testing.md",
+      "target": "skills/gofr-golang/references/gofr-references-testing.md",
+      "sha256": "deb39228ffa0bc414bae822f34d06f5d24456f6107d66e1395da17f2d44d6919",
+      "bytes": 14902
+    },
+    {
+      "source": "skills/gofr/references/why-gofr.md",
+      "target": "skills/gofr-golang/references/gofr-why-gofr.md",
+      "sha256": "f4011e9200e26ed6144796675b90560b8f5567256461a0ba717bdb127331bf0a",
+      "bytes": 7546
+    }
+  ]
+}

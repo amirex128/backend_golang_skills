@@ -566,6 +566,17 @@
     "gofr": {
       "path": "skills/gofr",
       "scope": "GoFr framework only"
+    },
+    "gofr-golang": {
+      "path": "skills/gofr-golang",
+      "scope": "GoFr-first Go 1.27 backend engineering combining the full GoFr snapshot with all 19 adapted Golang references, Clean Architecture, CQRS, and Repository Pattern",
+      "source_count": 1,
+      "gofr_reference_count": 91,
+      "adapted_golang_reference_count": 19,
+      "reference_count": 110,
+      "source_map": "docs/gofr-golang-source-map.json",
+      "framework_source": "skills/gofr",
+      "golang_source": "skills/golang"
     }
   }
 }
