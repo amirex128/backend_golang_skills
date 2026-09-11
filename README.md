@@ -89,6 +89,8 @@ npx skills add amirex128/backend_golang_skills --list
 
 The official `skills` CLI manages agent-specific directories, symlinks, copies, updates, and installation scope. Run `npx skills add --help` for the current list of supported agents and options.
 
+If npm reports `ENOTEMPTY` while preparing the `skills` package, follow the [installation troubleshooting guide](docs/installation-troubleshooting.md). That error normally indicates a stale local npx cache directory; it is not caused by this repository.
+
 ## Available skills
 
 ### `golang`
