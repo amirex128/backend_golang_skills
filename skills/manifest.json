@@ -552,5 +552,19 @@
   ],
   "excluded_sections": [
     "Comparison and migration pages intentionally excluded by project scope."
-  ]
+  ],
+  "skills": {
+    "golang": {
+      "path": "skills/golang",
+      "scope": "Unified Go engineering knowledge synthesized from all 19 supplied Golang skills",
+      "source_count": 19,
+      "source_knowledge_files": 100,
+      "reference_count": 13,
+      "source_map": "docs/unified-golang-source-map.json"
+    },
+    "gofr": {
+      "path": "skills/gofr",
+      "scope": "GoFr framework only"
+    }
+  }
 }

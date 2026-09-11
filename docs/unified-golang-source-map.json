@@ -1,0 +1,521 @@
+{
+  "source_skill_count": 19,
+  "source_file_count": 100,
+  "source_files": [
+    {
+      "source": "golang-code-style/SKILL.md",
+      "sha256": "459b984628cfcfa28c961e1a588e2eb23aa368155d57f699a52f4ee95c75b7ad",
+      "bytes": 10162
+    },
+    {
+      "source": "golang-code-style/references/details.md",
+      "sha256": "75696f77e95b5b0c2ab6b232b75e1f65f288de26fd0ab1bd7acf2306c9614e3c",
+      "bytes": 2797
+    },
+    {
+      "source": "golang-concurrency/SKILL.md",
+      "sha256": "6e450c1f54b697d1664cef5d7079fba8ee3cd7e4c526583e50f6c82606025769",
+      "bytes": 9262
+    },
+    {
+      "source": "golang-concurrency/references/channels-and-select.md",
+      "sha256": "1943f3d9805d29cb85a7bc664f3c2079e022594c004718a68091c04f42ccdfbb",
+      "bytes": 4620
+    },
+    {
+      "source": "golang-concurrency/references/pipelines.md",
+      "sha256": "cfaef3119f77d5519c7952ffc14d167ccc17fb2d71c5214865f9245a591d5543",
+      "bytes": 7656
+    },
+    {
+      "source": "golang-concurrency/references/sync-primitives.md",
+      "sha256": "ea7215d6101de3c1248a7f9e045d7b585a80c004158bebc8474c842546cdf2b2",
+      "bytes": 9192
+    },
+    {
+      "source": "golang-context/SKILL.md",
+      "sha256": "b5c7e0bea868ec122f714d83caa1e79a0ea11deefe3f641908095736b7980b6e",
+      "bytes": 6011
+    },
+    {
+      "source": "golang-context/references/cancellation.md",
+      "sha256": "31797e9fd826ad5446c2d0e0207be565f8869910c80368d87ac0c4b1817ae625",
+      "bytes": 6261
+    },
+    {
+      "source": "golang-context/references/http-services.md",
+      "sha256": "dad80514d49de98817e6d5fdf80419bea923f15f0b2a6d2c851b545322053dbe",
+      "bytes": 3918
+    },
+    {
+      "source": "golang-context/references/values-tracing.md",
+      "sha256": "0272e07868f23c427f30818023c0ea840d5c5739d055d3454dfa6166b47a7655",
+      "bytes": 3240
+    },
+    {
+      "source": "golang-data-structures/SKILL.md",
+      "sha256": "41e3bdd52f87daa1091d600a004b892be8fb3784eea37231867b05eb08d43528",
+      "bytes": 10814
+    },
+    {
+      "source": "golang-data-structures/references/containers.md",
+      "sha256": "7682845bde24c282152d3185851eef691d7b6eee95adafdc8ffd93e1ace1a808",
+      "bytes": 4186
+    },
+    {
+      "source": "golang-data-structures/references/generics.md",
+      "sha256": "08b8b143399e72786a30a4dde5adb55973d84177fc30eeeccea69d087a2d6ea3",
+      "bytes": 2661
+    },
+    {
+      "source": "golang-data-structures/references/map-internals.md",
+      "sha256": "2fc8ab5d9fa7fdfb370c74e4ab770c2e4c2fcd93fea6e9dfceafb3a9b85cb63b",
+      "bytes": 2646
+    },
+    {
+      "source": "golang-data-structures/references/pointers.md",
+      "sha256": "c9583db160722c946576c484e1bc3f96aeff0bca4c2a47864456de544b64a230",
+      "bytes": 4404
+    },
+    {
+      "source": "golang-data-structures/references/slice-internals.md",
+      "sha256": "7d662d21f15a1d3283a5b73c3e162b8258be44cf651cd3f14bc0566a33304e39",
+      "bytes": 2017
+    },
+    {
+      "source": "golang-database/SKILL.md",
+      "sha256": "a3c0724bd44ad28da787903201c664e5f48f0acca5cc0bda97e9f5de97dde77c",
+      "bytes": 11379
+    },
+    {
+      "source": "golang-database/references/performance.md",
+      "sha256": "825d15d46f737aab3e35794d923e59b4960f0f73f279a1ee68b266131fb0b5fb",
+      "bytes": 9488
+    },
+    {
+      "source": "golang-database/references/scanning.md",
+      "sha256": "3ef134664b40e03c8359b1381dc7c09e1831dbcc7f49bc2a869ae73fdbda2427",
+      "bytes": 2327
+    },
+    {
+      "source": "golang-database/references/testing.md",
+      "sha256": "566f5b4150cddcbd08171a10d433dec2ecb8150234a59338beb65667b81e72d1",
+      "bytes": 6899
+    },
+    {
+      "source": "golang-database/references/transactions.md",
+      "sha256": "3cfb178493766fa5f6526094eb362587b4edef169d4d085d13f63bec9d3f5db2",
+      "bytes": 1553
+    },
+    {
+      "source": "golang-design-patterns/SKILL.md",
+      "sha256": "6a264561c0d5e6764d480d1e5bee9b0531826039f4b4215d75ab8d8dc1bfbc0e",
+      "bytes": 11890
+    },
+    {
+      "source": "golang-design-patterns/references/architecture.md",
+      "sha256": "2059573e1f444be853db0036c0a2a7357ec8fd1b3ccaef248e425804054dca13",
+      "bytes": 5421
+    },
+    {
+      "source": "golang-design-patterns/references/clean-architecture.md",
+      "sha256": "7690431b44228498bbfcae4c3aef140ec35afb9a02bc19c67ec97a621825962e",
+      "bytes": 5905
+    },
+    {
+      "source": "golang-design-patterns/references/data-handling.md",
+      "sha256": "dd5966e53738e2af63d4eb07dcdb00c811245ecdacee3f7e2cb7d294cf91d846",
+      "bytes": 1730
+    },
+    {
+      "source": "golang-design-patterns/references/ddd.md",
+      "sha256": "876bc27fcaf2598fb83028b865e5b4d28824c5d26845b908b4385d8487c0c2f8",
+      "bytes": 7662
+    },
+    {
+      "source": "golang-design-patterns/references/hexagonal-architecture.md",
+      "sha256": "dd7b6e96e497b1b6b132ff699d34904ea0468fd0468ece3db402a122dfd779ca",
+      "bytes": 7163
+    },
+    {
+      "source": "golang-design-patterns/references/resource-management.md",
+      "sha256": "f98f96b573f9915f20c6f8349b5a417f767f823fdf94b4cb085a25682bb09ffd",
+      "bytes": 4533
+    },
+    {
+      "source": "golang-documentation/SKILL.md",
+      "sha256": "32539da24940540ad503dc08a3ff1332a2e71a694aa0771f48f5fe86f83cc390",
+      "bytes": 13796
+    },
+    {
+      "source": "golang-documentation/references/application.md",
+      "sha256": "8557ef331ad9bc4d5385ad82a62418579fa6ec9b2db6f4ffd0b910b825cc812b",
+      "bytes": 6178
+    },
+    {
+      "source": "golang-documentation/references/code-comments.md",
+      "sha256": "bce4f062ce49f4b894f0daea44096f6b0779968aef2c76aafa38f7f5fa4f6366",
+      "bytes": 12662
+    },
+    {
+      "source": "golang-documentation/references/library.md",
+      "sha256": "51c14754d7074f3527f91583c01156c97eaa5066789c76c862966baeb44db76c",
+      "bytes": 7642
+    },
+    {
+      "source": "golang-documentation/references/project-docs.md",
+      "sha256": "1b029b8fb754534a8321009eabeb4355ccbff0af5b453d35fb30a1a454f6b865",
+      "bytes": 4525
+    },
+    {
+      "source": "golang-error-handling/SKILL.md",
+      "sha256": "27fafa4ee708d88160f20b5e94603f76395bc9ec7432625fc1cdc0af5802827b",
+      "bytes": 7035
+    },
+    {
+      "source": "golang-error-handling/references/error-creation.md",
+      "sha256": "3e0067ebaaa44393c01d6f2a61fc1f68816cf352ea8980e5f43cd1367bb19b51",
+      "bytes": 5938
+    },
+    {
+      "source": "golang-error-handling/references/error-handling.md",
+      "sha256": "37eb9bd2d02e749c32712bada4d0951a511d53cc0f499269db3081f7ed882ac1",
+      "bytes": 4729
+    },
+    {
+      "source": "golang-error-handling/references/error-wrapping.md",
+      "sha256": "0f870ab180935c28e4802fe0000c27e8c45051f0112f46748c228d449ac9cd50",
+      "bytes": 3984
+    },
+    {
+      "source": "golang-how-to/SKILL.md",
+      "sha256": "abdb789c2a22e6189107fc178b4b0d6247addd72a84defcde79229302b1349c3",
+      "bytes": 15473
+    },
+    {
+      "source": "golang-how-to/references/by-category.md",
+      "sha256": "b696e17ac5dbcea10bb5d7f261240e2fedfa8d8a0320eb54d093a2a6ccbc7826",
+      "bytes": 21556
+    },
+    {
+      "source": "golang-how-to/references/disambiguation.md",
+      "sha256": "bb4896aba01334dede038152aca106a607b492d1ad356ad7f6c6a67e02ac321e",
+      "bytes": 20845
+    },
+    {
+      "source": "golang-how-to/references/project-config.md",
+      "sha256": "6ea6e813c333220b5e6b37be4b1e2757eb9765a5e76d65630560462a5cbad8df",
+      "bytes": 10293
+    },
+    {
+      "source": "golang-modernize/SKILL.md",
+      "sha256": "66e023d15520c269f36d22e0b8262460d0e4e2e66391b2a316e9aa874b2bf65b",
+      "bytes": 12956
+    },
+    {
+      "source": "golang-modernize/references/tooling.md",
+      "sha256": "bc996d7b78beef0f0a851db3090c4b58bf6f285d19ccdd99a231e5a2f8ff2b85",
+      "bytes": 4311
+    },
+    {
+      "source": "golang-modernize/references/versions.md",
+      "sha256": "436bcb65aef1daac84afd23e06f4dd43e41e2f1a11bc827a32b4a45066352ab1",
+      "bytes": 36856
+    },
+    {
+      "source": "golang-naming/SKILL.md",
+      "sha256": "8a068c2e5c02c8c06624409608fbde2fa4b93f3b0feaa95a840a9717b1c94043",
+      "bytes": 12305
+    },
+    {
+      "source": "golang-naming/references/functions-methods.md",
+      "sha256": "a836441fb9b5d596c5f235956e2b85bbf2c6e2fbb70e90e6a3447625e8b98795",
+      "bytes": 4442
+    },
+    {
+      "source": "golang-naming/references/identifiers.md",
+      "sha256": "9d60214f5d1fdea68e6a242f4069fc2426798a965adc8b32dc206fddc987a915",
+      "bytes": 5753
+    },
+    {
+      "source": "golang-naming/references/packages-files.md",
+      "sha256": "e9ee1c07db6c13e93b4ef0bc3490c34c8c3ddce302a908aa4c9e59c71d37375f",
+      "bytes": 3145
+    },
+    {
+      "source": "golang-naming/references/testing.md",
+      "sha256": "6aad3d5b5d3984262b043053ccfc383270685dfb49a3cd7741ce99f76cdf23ea",
+      "bytes": 1300
+    },
+    {
+      "source": "golang-naming/references/types-errors.md",
+      "sha256": "d6d27aae967ba6cd5f8e2e2c11d8982dc9ae4fcd285f857651f842375192aed1",
+      "bytes": 4829
+    },
+    {
+      "source": "golang-project-layout/SKILL.md",
+      "sha256": "29accc73a29199ccca4975cf84eae1a413bf5953d684d7a5f8640022b9801356",
+      "bytes": 7090
+    },
+    {
+      "source": "golang-project-layout/references/config.md",
+      "sha256": "d41776f7941e51d9afc89993dfff619e66e8ec3e2ea3ad0660c8447bd9715384",
+      "bytes": 1495
+    },
+    {
+      "source": "golang-project-layout/references/directory-layouts.md",
+      "sha256": "e3a81942aea9c7258972282f9d8a00acce34e366134b3e82068385eaa0fd913b",
+      "bytes": 5350
+    },
+    {
+      "source": "golang-project-layout/references/testing-layout.md",
+      "sha256": "64fa79d71d7dd5e8c7c44ebde9e122b9e3917b7d15517ac3b5e0e1846d3bda48",
+      "bytes": 5825
+    },
+    {
+      "source": "golang-project-layout/references/workspaces.md",
+      "sha256": "639821384e751af76dbf3753f6953f3855e827cff39e32abe3e5b543acf645cd",
+      "bytes": 2870
+    },
+    {
+      "source": "golang-refactoring/SKILL.md",
+      "sha256": "c50391262e71e581c2ea0338ceff497184c4948e6486951de55e1297cb75c4f5",
+      "bytes": 15720
+    },
+    {
+      "source": "golang-refactoring/references/catalog.md",
+      "sha256": "acb636db6318dc99a5d6dc6924911f0c82851694dd1527df422562e8a1cca64b",
+      "bytes": 21510
+    },
+    {
+      "source": "golang-refactoring/references/go-tooling.md",
+      "sha256": "a72a652f3c941b5904fcbe0435a383de559ef5b85d71f1bf6ec4fd6b6acfa3f6",
+      "bytes": 9358
+    },
+    {
+      "source": "golang-refactoring/references/safety-net.md",
+      "sha256": "d42ae54de24018f82ee5891f6365ebdf74b813d4fd3972df20246345121a9161",
+      "bytes": 10380
+    },
+    {
+      "source": "golang-refactoring/references/structural.md",
+      "sha256": "ae14858ab3c990ef44e8a63aa99e3dfa418573dd344aa2b154dcc98b8264a1e1",
+      "bytes": 18183
+    },
+    {
+      "source": "golang-refactoring/references/workflow.md",
+      "sha256": "8662a4dc383eb12920c03b6a48e13b461bdf501ecd94cf55d101e47ad46fb69a",
+      "bytes": 19435
+    },
+    {
+      "source": "golang-safety/SKILL.md",
+      "sha256": "c14c2d2af934e2fcce0993259bbea04afeaa95aab682844b44c234775077701f",
+      "bytes": 10668
+    },
+    {
+      "source": "golang-safety/references/nil-safety.md",
+      "sha256": "bb482b262eec41dcbb83f0bae8ef31bf6ec73ab328eb4d00da27e4fe42eb1cb6",
+      "bytes": 5928
+    },
+    {
+      "source": "golang-safety/references/slice-map-safety.md",
+      "sha256": "b011f2a298efbc4234d4ae9359f807e546535403445f27c475b1df575066766f",
+      "bytes": 6553
+    },
+    {
+      "source": "golang-security/SKILL.md",
+      "sha256": "f09bb9d68d6810f9d1e06bbe13921f1e66b65c70af356a7b57e0f737a564c438",
+      "bytes": 13901
+    },
+    {
+      "source": "golang-security/references/architecture.md",
+      "sha256": "c0380b966c5673faf7bb0152c4dc1ad5148b033631022be1844e9ff9e168488b",
+      "bytes": 10896
+    },
+    {
+      "source": "golang-security/references/checklist.md",
+      "sha256": "02d2524eb4ff6aa57d9dfbbfd65818a15dc9828a6b686136fbe3283e9b830128",
+      "bytes": 4185
+    },
+    {
+      "source": "golang-security/references/cookies.md",
+      "sha256": "6e2cc319bda4aa70acb68a47c7a03c2c8d390473ead28682af38d3265effcd45",
+      "bytes": 5083
+    },
+    {
+      "source": "golang-security/references/cryptography.md",
+      "sha256": "29ef346c7fd734de0bf57e1c27be77dabf2dd6a8b4583f8122613c3364b4b445",
+      "bytes": 11677
+    },
+    {
+      "source": "golang-security/references/filesystem.md",
+      "sha256": "c987ee35f39b441fc22d6affd7afdb3fc86ef9628f22866b9d962e57f1307d88",
+      "bytes": 7216
+    },
+    {
+      "source": "golang-security/references/injection.md",
+      "sha256": "706e3c504dec3c44607704faa42d764151920da601e96fb1fec7bb5aa54de4e8",
+      "bytes": 7811
+    },
+    {
+      "source": "golang-security/references/logging.md",
+      "sha256": "14775e1c8a5e5f523a6609f8d3da1c1a1b52d57a9ef38aafa1a7070ad918031b",
+      "bytes": 4189
+    },
+    {
+      "source": "golang-security/references/memory-safety.md",
+      "sha256": "6d8e5b3e23254a9a0cfe136a5577c265c608af39defa3458327a34a2fee59bd8",
+      "bytes": 5442
+    },
+    {
+      "source": "golang-security/references/network.md",
+      "sha256": "5b698c383b1ba050eb48fffc090bd238552a0d3f2cf4715e091ae2098bb4afdc",
+      "bytes": 6685
+    },
+    {
+      "source": "golang-security/references/secrets.md",
+      "sha256": "404a55f4ae387b40b255aa0dad719727f9edc8af313539ccbc2a14995ed2a9c8",
+      "bytes": 5094
+    },
+    {
+      "source": "golang-security/references/third-party.md",
+      "sha256": "5e7fc5f951c4c976e69824755ea3bc204f884bb288b4922cc3cae832b5916134",
+      "bytes": 5226
+    },
+    {
+      "source": "golang-security/references/threat-modeling.md",
+      "sha256": "2a18071fb723e7540bcf552bd90c35763ac49cae6edfb37518f778cf6d2347fc",
+      "bytes": 8842
+    },
+    {
+      "source": "golang-stretchr-testify/SKILL.md",
+      "sha256": "2ff0c1689f3632ef33da1c8c19d24809c08b8d5a65dd9f3d9fee7f6265771f40",
+      "bytes": 6879
+    },
+    {
+      "source": "golang-stretchr-testify/references/mock.md",
+      "sha256": "f51a725a44bc8923c62eb39c9f5b372d32d437cd304f8397f8916b67aacfe5fd",
+      "bytes": 3312
+    },
+    {
+      "source": "golang-swagger/SKILL.md",
+      "sha256": "9e86ab05627ba5ef76056109f6ffa120c9f8adc455701f686013b380a165e640",
+      "bytes": 8889
+    },
+    {
+      "source": "golang-swagger/references/swag-cli.md",
+      "sha256": "85e964ce38ea30875c15ea0697f50d7ae17690e0d575e3271f6ad6cb5323d22b",
+      "bytes": 5256
+    },
+    {
+      "source": "golang-testing/SKILL.md",
+      "sha256": "a6f18954d8a34ed1ec7ba569b4723a83aedf0b92add8de12f51b9717f1792a15",
+      "bytes": 17768
+    },
+    {
+      "source": "golang-testing/references/benchmarks.md",
+      "sha256": "4810b4bacc850c1149bf1209da8bd9947ab43888fc3a2d446b4b7ce87a99a255",
+      "bytes": 2022
+    },
+    {
+      "source": "golang-testing/references/coverage.md",
+      "sha256": "3c3171e2f14350c7ce6f4063bedb22516519c7afaeac99a025f09549f7ca645a",
+      "bytes": 1898
+    },
+    {
+      "source": "golang-testing/references/examples.md",
+      "sha256": "840e9315163459953bbff4cde5ecb6c2f6e3afedb1ea299ca2fa806abe47b17d",
+      "bytes": 1971
+    },
+    {
+      "source": "golang-testing/references/helpers.md",
+      "sha256": "b12942cc4c4e50a8c0f7e904579b3f53a48c625215c16495efb696a7567ee120",
+      "bytes": 1096
+    },
+    {
+      "source": "golang-testing/references/http-testing.md",
+      "sha256": "84e3ee42423e113d5440dc8d5feb319b13a1f0de5b173e51dcb99e3188e8b133",
+      "bytes": 2352
+    },
+    {
+      "source": "golang-testing/references/integration-testing.md",
+      "sha256": "703771f2a416bf368ff8fe5c95658b32b78fae4a915cc6ac825612f6c59de3d4",
+      "bytes": 4652
+    },
+    {
+      "source": "golang-testing/references/mocking.md",
+      "sha256": "d20ca4a2a3788d8bf79ea313f124fe4b3cd02ec1d654c6fcf20374be85e5c3fe",
+      "bytes": 4970
+    },
+    {
+      "source": "golang-troubleshooting/SKILL.md",
+      "sha256": "904be09c58a6b9f9de87a884b3a92051f62324287ef756c86b4399e99755f4ef",
+      "bytes": 12930
+    },
+    {
+      "source": "golang-troubleshooting/references/code-review-flags.md",
+      "sha256": "5577d68b496e0476950bd9d4130174ac499548c5e27faa72ec461518eac14d3a",
+      "bytes": 1968
+    },
+    {
+      "source": "golang-troubleshooting/references/common-go-bugs.md",
+      "sha256": "3928f6a4f792fd9af03e224d2db3cfdbc558a62b31c06404c558fb8ece1d155b",
+      "bytes": 26937
+    },
+    {
+      "source": "golang-troubleshooting/references/compilation.md",
+      "sha256": "efd7f6403f39bca09b35f627fbcdaa06beff98262354d034230c94d045ef6a70",
+      "bytes": 674
+    },
+    {
+      "source": "golang-troubleshooting/references/concurrency-debug.md",
+      "sha256": "a39159d0e5de4cd44266ecb7cde7630a9cc5884303603030ba66bcb274110cf0",
+      "bytes": 3215
+    },
+    {
+      "source": "golang-troubleshooting/references/diagnostic-tools.md",
+      "sha256": "b5992b0c32bf197a4b37dc10f6cf66dfc90fb698020d60d04b94ed307749dbb5",
+      "bytes": 3846
+    },
+    {
+      "source": "golang-troubleshooting/references/methodology.md",
+      "sha256": "4968c359f7626f53303989124cbaf6334031a88652bca062a68c3769954eb250",
+      "bytes": 10511
+    },
+    {
+      "source": "golang-troubleshooting/references/performance-debug.md",
+      "sha256": "2a595bc93ae0f3305541b373f993201554fc3cf4b798f9ef82cffe0f78df4bb7",
+      "bytes": 1560
+    },
+    {
+      "source": "golang-troubleshooting/references/pprof.md",
+      "sha256": "db468517b3967cc57aa1a98d91afa188563939a6b27e3ba9c167c2ac47e0a96f",
+      "bytes": 5375
+    },
+    {
+      "source": "golang-troubleshooting/references/production-debug.md",
+      "sha256": "7214bd707dc822776a95c8360d9a3ac0631d1cb46b472b9782579de3ebd57ce4",
+      "bytes": 3944
+    },
+    {
+      "source": "golang-troubleshooting/references/testing-debug.md",
+      "sha256": "91d2d5f723f2c0732eb10b1e02bfd7be4966b3a4e8f5db605cf321ebe6b0967b",
+      "bytes": 3326
+    }
+  ],
+  "unified_references": [
+    "concurrency-context.md",
+    "data-structures.md",
+    "database.md",
+    "design-layout.md",
+    "documentation.md",
+    "errors-safety.md",
+    "performance-testing.md",
+    "security.md",
+    "style-naming.md",
+    "testify-swagger.md",
+    "testing.md",
+    "tooling-refactoring.md",
+    "troubleshooting.md"
+  ]
+}

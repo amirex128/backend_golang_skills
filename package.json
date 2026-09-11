@@ -2,7 +2,7 @@
   "name": "backend-golang-skills",
   "version": "0.1.0",
   "private": false,
-  "description": "Installable AI coding skills for Go backend development; currently includes the GoFr skill.",
+  "description": "Installable AI coding skills for professional Go 1.27 development, including unified Golang engineering guidance and GoFr.",
   "bin": {
     "backend-golang-skills": "./installer/index.js"
   },
