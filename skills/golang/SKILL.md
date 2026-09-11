@@ -1,6 +1,6 @@
 ---
 name: golang
-description: Write, review, refactor, test, debug, secure, document, modernize, and architect production-quality Go 1.27 code. Use for any Golang task, including APIs, services, CLIs, libraries, concurrency, context, databases, errors, testing, security, performance, project layout, naming, documentation, Swagger, troubleshooting, and safe refactoring.
+description: Build, review, refactor, test, debug, secure, and architect production-ready Golang and Go 1.27 backends. Use for Go APIs, REST services, microservices, Clean Architecture, CQRS, concurrency, context, databases, errors, testing, security, performance, project layout, Swagger, documentation, and troubleshooting.
 license: MIT; synthesized from the supplied Golang skill collection. Retain upstream notices where source material is redistributed.
 metadata:
   author: amirex128

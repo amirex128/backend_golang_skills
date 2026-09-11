@@ -1,6 +1,6 @@
 ---
 name: gofr
-description: Build, review, test, deploy, and document Go 1.27 backend services with GoFr only. Use for GoFr REST/CRUD, routing, configuration, Context, SQL and NoSQL datasources, migrations, observability, authentication, RBAC, HTTP clients, resilience, gRPC, GraphQL, WebSockets, streaming, Pub/Sub, cron, files, CLI, Docker, Kubernetes, CI/CD, and production operations.
+description: Build, review, test, deploy, and document production-ready Go 1.27 backend services with the GoFr framework. Use for GoFr REST APIs, CRUD, routing, configuration, Context, SQL and NoSQL datasources, migrations, observability, authentication, RBAC, HTTP clients, resilience, gRPC, GraphQL, WebSockets, streaming, Pub/Sub, cron, files, CLI, Docker, Kubernetes, CI/CD, and production operations.
 license: Apache-2.0; bundled references retain GoFr attribution and upstream licensing.
 metadata:
   author: amirex128
