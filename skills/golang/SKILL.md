@@ -1,80 +1,91 @@
 ---
 name: golang
-description: Build, review, refactor, test, debug, secure, and architect production-ready Golang and Go 1.27 backends. Use for Go APIs, REST services, microservices, Clean Architecture, CQRS, concurrency, context, databases, errors, testing, security, performance, project layout, Swagger, documentation, and troubleshooting.
-license: MIT; synthesized from the supplied Golang skill collection. Retain upstream notices where source material is redistributed.
+description: Build, review, refactor, test, debug, secure, document, modernize, and architect production-ready Golang and Go 1.27 backends. Use for Go APIs, REST services, microservices, Clean Architecture, CQRS, concurrency, context, databases, errors, testing, security, performance, project layout, naming, Swagger, documentation, troubleshooting, and any professional Go coding task.
+license: MIT; synthesized from 19 supplied Golang skills. Retain upstream notices where source material is redistributed.
 metadata:
   author: amirex128
   project: backend-golang-skills
   source_skills: 19
-  source_files: 183
+  source_knowledge_files: 107
   target_go: "1.27"
   progressive_disclosure: topic-routed references
 ---
 
 # Unified Golang Engineering Skill
 
-Apply this skill to every Go task. Treat the routing table as mandatory: classify the work, read the indicated reference files before coding, then implement, test, inspect, and report. Load multiple references when a task crosses boundaries; most real changes require a primary topic plus testing, errors, safety, and security review.
+Apply this skill to every Go task. It consolidates 19 source skills into one coordinated engineering workflow. Classify the request, read the required topic reference completely before coding, load cross-cutting references when applicable, implement with the project architecture, validate the result, and report commands, assumptions, and remaining risks.
 
-## Operating procedure
+## Mandatory operating procedure
 
-1. Inspect the repository first: `go.mod`, Go directive, packages, existing conventions, tests, CI, generated code, and configuration. Preserve established project conventions unless they violate correctness or security.
-2. Classify the request with the router below and read all **required** references completely. Read the relevant **additional** references for cross-cutting concerns. Do not load every reference by default.
-3. Prefer the standard library and the smallest dependency that solves the problem. Check the module's pinned versions and compatibility before using an API; use `go doc`, `gopls`, `go list`, and repository examples rather than guessing.
-4. Build new backend work with the project's mandatory **Clean Architecture + CQRS** policy: domain rules point inward, application use cases own ports, adapters translate transport, infrastructure stays at the edge, commands handle state changes, and queries handle reads without hidden mutation. Avoid cleverness, premature abstractions, hidden globals, and unnecessary reflection.
-5. Implement in small, reviewable changes. Preserve behavior during refactors with a safety net; do not mix a large structural rewrite with unrelated feature work.
-6. Validate with `gofmt -w`, `go vet ./...`, targeted tests, `go test ./...`, `go test -race ./...` when concurrency or shared state is involved, fuzzing for parser/security boundaries, and `govulncheck ./...` for dependency/security work. Run relevant linters if configured.
-7. Review the final diff for API compatibility, error context, resource cleanup, goroutine termination, data races, secret leakage, input validation, documentation, and maintainability.
+1. Inspect the repository before changing code: `go.mod`, Go directive/toolchain, packages, module boundaries, tests, CI, generated code, configuration, dependencies, and existing conventions.
+2. Classify the task with the router below. Read the primary reference in full; read every listed cross-cutting reference that applies. Do not guess APIs from memory.
+3. Preserve established behavior and public contracts unless the request explicitly changes them. Prefer the standard library and existing project dependencies over new abstractions or libraries.
+4. For new backend architecture, follow **Clean Architecture with CQRS** from `references/project-layout.md`: domain rules point inward, application owns ports and use cases, adapters translate, infrastructure stays at the edge, commands change state, and queries read without hidden mutation.
+5. Implement small, reviewable changes. Keep dependencies explicit, contexts propagated, resources bounded and closed, errors observable, goroutines owned, and security boundaries validated.
+6. Format and validate: `gofmt`, `go vet ./...`, targeted tests, `go test ./...`, `go test -race ./...` for concurrent code, fuzzing for parsers/security boundaries, benchmarks for performance work, and `govulncheck ./...` for dependency/security work when available.
+7. Review the final diff for API compatibility, package direction, error context, cleanup, cancellation, races, secret leakage, input validation, documentation, generated files, and operational behavior.
 
-## Non-negotiable Go defaults
+## Mandatory project defaults
 
-- Use `gofmt`; never hand-format around it. Keep lines readable, break at semantic boundaries, and use early returns to keep the happy path flat.
-- Use MixedCaps identifiers, lowercase singular package names, no `ALL_CAPS`, no `Get` prefix for getters, and `Err...` for sentinel errors. Keep exported APIs small and document exported declarations.
-- Prefer `:=` for non-zero values and `var` for intentional zero values. Use keyed composite literals. Initialize maps and API-facing slices deliberately; never write to a nil map.
-- Keep functions focused and parameter lists small. Pass `context.Context` first, then inputs; use pointers for mutation, large structs, or meaningful nil, not for small read-only values.
-- Return errors for expected failures. Wrap with `%w` inside module boundaries, inspect with `errors.Is`/`errors.As`, aggregate independent failures with `errors.Join`, and do not log the same error at every layer.
-- Every goroutine needs a clear owner, cancellation path, and termination condition. Bound queues, workers, buffers, retries, and connection pools.
-- Propagate context through every I/O boundary. Never store context in a struct, use it as a random parameter bag, or replace a request context with `context.Background()`.
-- Parameterize SQL and shell arguments. Validate untrusted input at boundaries. Keep secrets out of source, logs, URLs, config files, and error responses.
-- Prefer interfaces at application consumption boundaries, not speculative abstractions. Keep domain/application independent of transport and infrastructure; use compile-time interface assertions where useful and avoid interface pollution.
-- Use `crypto/rand` for security randomness, modern authenticated cryptography, TLS 1.2+ (prefer 1.3), secure cookies, and least-privilege dependencies.
+- Target Go 1.27 unless the repository explicitly declares another supported version.
+- Use `gofmt`; keep control flow readable with early returns and focused functions.
+- Use MixedCaps identifiers, concise lowercase package names, documented exported declarations, and `Err...` sentinel names where appropriate.
+- Prefer interfaces at consumption boundaries. Do not create interfaces only because mocking feels convenient.
+- Return errors for expected failures; wrap with `%w`, inspect with `errors.Is`/`errors.As`, and avoid duplicate logging at every layer.
+- Pass `context.Context` first at I/O boundaries. Never store context in structs or replace request context with `context.Background()`.
+- Give every goroutine an owner, cancellation path, termination condition, and bounded resources.
+- Parameterize SQL and shell arguments. Validate untrusted input at boundaries. Keep secrets out of source, logs, URLs, configuration, and errors.
+- Do not use hidden global state, service locators, unnecessary reflection, speculative generics, or framework-driven business logic.
 
 ## Capability router
 
-| User intent | Read required references first | Then read when applicable |
+| Request or implementation area | Read first | Also read when applicable |
 |---|---|---|
-| Any new Go code or code review | `references/style-naming.md`, `references/errors-safety.md` | `references/design-layout.md`, topic-specific file |
-| Package/type/function naming | `references/style-naming.md` | `references/documentation.md`, `references/errors-safety.md` |
-| Structs, interfaces, receivers, generics, Clean Architecture, CQRS | `references/design-layout.md` | `references/style-naming.md`, `references/data-structures.md` |
-| New project, module, backend layout, Clean Architecture structure | `references/design-layout.md` | `references/tooling-refactoring.md`, `references/documentation.md` |
-| Commands, queries, handlers, ports, projections, outbox | `references/design-layout.md` | `references/database.md`, `references/testing.md`, `references/concurrency-context.md` |
-| Slices, maps, arrays, containers, pointers, generics | `references/data-structures.md`, `references/errors-safety.md` | `references/performance-testing.md` |
-| Goroutines, channels, mutexes, worker pools, pipelines | `references/concurrency-context.md` | `references/errors-safety.md`, `references/testing.md`, `references/troubleshooting.md` |
-| Context, cancellation, deadlines, request values | `references/concurrency-context.md` | `references/testing.md`, `references/security.md` |
-| Errors, panic/recover, wrapping, logging failures | `references/errors-safety.md` | `references/security.md`, `references/testing.md` |
-| SQL, database/sql, pgx/sqlx, transactions, locking, scanning | `references/database.md` | `references/security.md`, `references/testing.md`, `references/performance-testing.md` |
-| Tests, mocks, HTTP tests, integration, fuzzing | `references/testing.md` | `references/database.md`, `references/concurrency-context.md`, `references/security.md` |
-| Testify assertions, mocks, suites | `references/testing.md` | `references/testify-swagger.md` |
-| API docs, OpenAPI, Swagger, swaggo | `references/testify-swagger.md` | `references/documentation.md`, `references/security.md` |
-| Security audit, auth, crypto, cookies, SSRF, injection, secrets | `references/security.md` | `references/errors-safety.md`, `references/concurrency-context.md`, `references/testing.md` |
-| Refactor, rename, extract, move packages, break cycles | `references/tooling-refactoring.md`, `references/testing.md` | `references/design-layout.md`, `references/style-naming.md` |
-| Modernize Go or upgrade the Go/toolchain | `references/tooling-refactoring.md` | `references/testing.md`, `references/performance-testing.md` |
-| Debug panic, compile error, deadlock, race, flaky test | `references/troubleshooting.md` | `references/errors-safety.md`, `references/concurrency-context.md`, `references/performance-testing.md` |
-| Benchmark, profile, optimize, pprof | `references/performance-testing.md` | `references/troubleshooting.md`, `references/data-structures.md` |
-| README, godoc, examples, CHANGELOG, project docs | `references/documentation.md` | `references/style-naming.md`, topic-specific file |
-| Production readiness or CI quality gate | `references/security.md`, `references/testing.md`, `references/tooling-refactoring.md` | `references/troubleshooting.md`, `references/documentation.md` |
+| Any Go implementation or code review | `references/code-style.md`, `references/naming.md`, `references/error-handling.md`, `references/safety.md` | `references/testing.md`, topic reference |
+| Clean Architecture, CQRS, project layout, packages, modules, dependency direction | `references/project-layout.md` | `references/design-patterns.md`, `references/refactoring.md`, `references/testing.md` |
+| Interfaces, design patterns, dependency injection, lifecycle, API boundaries | `references/design-patterns.md` | `references/project-layout.md`, `references/data-structures.md`, `references/error-handling.md` |
+| Naming, API surface, Go idioms, readability, code style | `references/naming.md`, `references/code-style.md` | `references/documentation.md` |
+| Structs, slices, maps, pointers, generics, memory behavior | `references/data-structures.md` | `references/database.md`, `references/testing.md`, `references/troubleshooting.md` |
+| Goroutines, channels, select, mutexes, workers, pipelines | `references/concurrency.md` | `references/context.md`, `references/safety.md`, `references/testing.md`, `references/troubleshooting.md` |
+| Context, cancellation, deadlines, request values, tracing propagation | `references/context.md` | `references/concurrency.md`, `references/safety.md`, `references/testing.md` |
+| Errors, panics, wrapping, recovery, cleanup, resource safety | `references/error-handling.md`, `references/safety.md` | `references/security.md`, `references/testing.md` |
+| SQL, transactions, repositories, scanning, locking, database performance | `references/database.md` | `references/project-layout.md`, `references/security.md`, `references/testing.md` |
+| HTTP/API behavior, practical implementation how-to, integration recipes | `references/how-to.md` | `references/context.md`, `references/security.md`, `references/testing.md` |
+| Unit, HTTP, integration, mocks, race, fuzz, coverage, benchmarks | `references/testing.md` | `references/testify.md`, `references/database.md`, `references/concurrency.md`, `references/security.md` |
+| Testify assertions, mocks, suites | `references/testify.md` | `references/testing.md`, `references/design-patterns.md` |
+| Swagger/OpenAPI and swaggo | `references/swagger.md` | `references/documentation.md`, `references/security.md`, `references/testing.md` |
+| Authentication, authorization, secrets, crypto, injection, SSRF, supply chain | `references/security.md` | `references/safety.md`, `references/context.md`, `references/testing.md` |
+| Refactor, rename, extract, move packages, remove cycles | `references/refactoring.md` | `references/project-layout.md`, `references/testing.md`, `references/naming.md` |
+| Modernize Go, upgrade toolchain, deprecations, dependencies | `references/modernize.md` | `references/refactoring.md`, `references/testing.md`, `references/troubleshooting.md` |
+| Documentation, README, GoDoc, examples, CHANGELOG, project communication | `references/documentation.md` | `references/code-style.md`, `references/how-to.md` |
+| Production safety, defensive programming, nil/resource hazards | `references/safety.md` | `references/security.md`, `references/error-handling.md`, `references/concurrency.md` |
+| Diagnose build failures, panics, races, deadlocks, flaky tests, production incidents | `references/troubleshooting.md` | `references/error-handling.md`, `references/concurrency.md`, `references/modernize.md`, `references/testing.md` |
 
-## Routing discipline
+Every reference listed above exists under this Skill. Read the complete topic file, including its retained source guidance and source references, before making a decision in that topic.
 
-- Read the primary topic first; do not substitute a similarly named file. The reference files are compact syntheses, not optional background.
-- For a new HTTP/database service, load `design-layout` first; then load `concurrency-context`, `errors-safety`, `database`, `testing`, and `security` in addition to the API-specific material. All new backend services must follow the Clean Architecture + CQRS layout in that reference.
-- For a bug, start with `troubleshooting`, reproduce it with a focused test, then load the design topic that explains the root cause. Do not “fix” symptoms with arbitrary retries or sleeps.
-- For optimization, measure first with benchmarks/profiles; then change one bottleneck at a time and compare with `benchstat`.
-- For refactoring, establish tests and compile checks before changing structure; use semantic tooling such as `gopls` for renames and references.
-- If a source skill appears to recommend an external library, verify whether the project already uses it and whether the standard library is sufficient.
+## Clean Architecture and CQRS enforcement
+
+For a new backend or structural change, do not place business rules in HTTP handlers, database repositories, message consumers, or `main.go`. Use these boundaries:
+
+- **Domain:** entities, value objects, invariants, domain services, and domain errors; no transport or infrastructure imports.
+- **Application:** commands, queries, handlers, DTOs, ports, authorization decisions, transaction abstractions, and orchestration.
+- **Adapters:** HTTP/gRPC/GraphQL/messaging translation, validation, presenters, and protocol-specific error mapping.
+- **Infrastructure:** database, brokers, external clients, configuration, observability, migrations, projections, outbox, and concrete wiring.
+
+A command may mutate state and publish a durable outbox event within its transaction. A query must not mutate state or hide writes. Separate read models from domain aggregates where useful; do not require separate databases or event sourcing without a measured requirement. Keep `cmd/<service>/main.go` as a thin composition root.
 
 ## Completion checklist
 
-- `gofmt`/`goimports` where configured; `go vet`; relevant linter; tests and race tests as applicable.
-- No unchecked errors, accidental nil maps, leaked goroutines, unclosed resources, unbounded retries, context loss, data races, or secret exposure.
-- Public API, error strings, package docs, examples, configuration, migrations, and operational behavior are documented as applicable.
-- Report commands run, failures that remain, compatibility assumptions, and any intentionally deferred risks.
+- [ ] Correct topic references were read and implementation follows their guidance.
+- [ ] Clean Architecture dependency direction is preserved.
+- [ ] Commands and queries are explicit and have no hidden cross-responsibility.
+- [ ] Context, cancellation, transactions, cleanup, retries, and resource bounds are correct.
+- [ ] Errors are wrapped and mapped at the correct boundary without leaking secrets.
+- [ ] Inputs, authorization, dependencies, logs, and external calls were security-reviewed.
+- [ ] Tests cover behavior and relevant failure modes; race/fuzz/integration/benchmark tests run when appropriate.
+- [ ] Formatting, vetting, linting, documentation, generated code, and CI checks are complete.
+- [ ] Final response reports references used, commands run, results, assumptions, and deferred risks.
+
+## Source coverage
+
+This Skill was rebuilt from every non-evaluation knowledge file in the supplied ZIP: 19 original `SKILL.md` files, their complete `references/` content, and all 7 source assets/templates. Evaluation fixtures are intentionally not loaded by agents. See `docs/unified-golang-source-map.json` for per-file hashes and provenance.

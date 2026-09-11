@@ -1,6 +1,88 @@
 {
   "source_skill_count": 19,
-  "source_file_count": 100,
+  "source_knowledge_file_count": 107,
+  "excluded_file_types": [
+    "evals/evals.json"
+  ],
+  "source_archive": "/home/ubuntu/upload/skills.zip",
+  "topics": [
+    {
+      "source_skill": "golang-code-style",
+      "reference": "references/code-style.md"
+    },
+    {
+      "source_skill": "golang-concurrency",
+      "reference": "references/concurrency.md"
+    },
+    {
+      "source_skill": "golang-context",
+      "reference": "references/context.md"
+    },
+    {
+      "source_skill": "golang-data-structures",
+      "reference": "references/data-structures.md"
+    },
+    {
+      "source_skill": "golang-database",
+      "reference": "references/database.md"
+    },
+    {
+      "source_skill": "golang-design-patterns",
+      "reference": "references/design-patterns.md"
+    },
+    {
+      "source_skill": "golang-documentation",
+      "reference": "references/documentation.md"
+    },
+    {
+      "source_skill": "golang-error-handling",
+      "reference": "references/error-handling.md"
+    },
+    {
+      "source_skill": "golang-how-to",
+      "reference": "references/how-to.md"
+    },
+    {
+      "source_skill": "golang-modernize",
+      "reference": "references/modernize.md"
+    },
+    {
+      "source_skill": "golang-naming",
+      "reference": "references/naming.md"
+    },
+    {
+      "source_skill": "golang-project-layout",
+      "reference": "references/project-layout.md"
+    },
+    {
+      "source_skill": "golang-refactoring",
+      "reference": "references/refactoring.md"
+    },
+    {
+      "source_skill": "golang-safety",
+      "reference": "references/safety.md"
+    },
+    {
+      "source_skill": "golang-security",
+      "reference": "references/security.md"
+    },
+    {
+      "source_skill": "golang-stretchr-testify",
+      "reference": "references/testify.md"
+    },
+    {
+      "source_skill": "golang-swagger",
+      "reference": "references/swagger.md"
+    },
+    {
+      "source_skill": "golang-testing",
+      "reference": "references/testing.md"
+    },
+    {
+      "source_skill": "golang-troubleshooting",
+      "reference": "references/troubleshooting.md"
+    }
+  ],
   "source_files": [
     {
       "source": "golang-code-style/SKILL.md",
@@ -168,6 +250,26 @@
       "bytes": 4525
     },
     {
+      "source": "golang-documentation/assets/templates/CHANGELOG.md",
+      "sha256": "846412c763f91d62db74891eb155849ea15df3b83750c311d62818a464fbbd79",
+      "bytes": 711
+    },
+    {
+      "source": "golang-documentation/assets/templates/CONTRIBUTING.md",
+      "sha256": "e295aa765b5bd3011f648cb660409f99611804b7e8ec2da7947dc76bbba2e25c",
+      "bytes": 1218
+    },
+    {
+      "source": "golang-documentation/assets/templates/README.md",
+      "sha256": "5e92aca4dcd472747512a69857bf9ab0ec9c72f12bf585389486859e404d0a22",
+      "bytes": 3990
+    },
+    {
+      "source": "golang-documentation/assets/templates/llms.txt",
+      "sha256": "df807ea611180e25b9a171b8f4ad06f2ac0eb6fbf1dcff88465e461da98991ca",
+      "bytes": 1303
+    },
+    {
       "source": "golang-error-handling/SKILL.md",
       "sha256": "27fafa4ee708d88160f20b5e94603f76395bc9ec7432625fc1cdc0af5802827b",
       "bytes": 7035
@@ -206,6 +308,11 @@
       "source": "golang-how-to/references/project-config.md",
       "sha256": "6ea6e813c333220b5e6b37be4b1e2757eb9765a5e76d65630560462a5cbad8df",
       "bytes": 10293
+    },
+    {
+      "source": "golang-how-to/assets/cursor-go-skills.mdc",
+      "sha256": "3cb4d049565015b733d06f1347cb74315f77c4d9afed38e03af2f7710e6593b4",
+      "bytes": 674
     },
     {
       "source": "golang-modernize/SKILL.md",
@@ -276,6 +383,16 @@
       "source": "golang-project-layout/references/workspaces.md",
       "sha256": "639821384e751af76dbf3753f6953f3855e827cff39e32abe3e5b543acf645cd",
       "bytes": 2870
+    },
+    {
+      "source": "golang-project-layout/assets/.gitignore",
+      "sha256": "0620caeebf628eb7bef686419fb5ef51369efae738446aadaed43c21eecf72ff",
+      "bytes": 462
+    },
+    {
+      "source": "golang-project-layout/assets/Makefile",
+      "sha256": "1b5c8b6ec858acb2712c54d03d9f389906f96328c8e554b6e3ff3d8a7bf4a106",
+      "bytes": 2649
     },
     {
       "source": "golang-refactoring/SKILL.md",
@@ -502,20 +619,5 @@
       "sha256": "91d2d5f723f2c0732eb10b1e02bfd7be4966b3a4e8f5db605cf321ebe6b0967b",
       "bytes": 3326
     }
-  ],
-  "unified_references": [
-    "concurrency-context.md",
-    "data-structures.md",
-    "database.md",
-    "design-layout.md",
-    "documentation.md",
-    "errors-safety.md",
-    "performance-testing.md",
-    "security.md",
-    "style-naming.md",
-    "testify-swagger.md",
-    "testing.md",
-    "tooling-refactoring.md",
-    "troubleshooting.md"
   ]
 }

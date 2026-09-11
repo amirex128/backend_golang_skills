@@ -10,6 +10,8 @@
 
 The repository combines general-purpose **Golang engineering standards** with a dedicated **GoFr backend framework skill**. It is designed for API development, microservices, Clean Architecture, CQRS, concurrency, databases, testing, security, observability, performance, and production operations.
 
+The unified `golang` Skill preserves the complete non-evaluation knowledge from all 19 supplied Golang Skills: 19 source domains, 107 source knowledge and asset files, and 19 routed references. Evaluation fixtures are excluded because they are test data, not agent guidance.
+
 ## Why use Backend Golang Skills?
 
 - **Production-oriented Go guidance** for maintainable, secure, testable backend systems.

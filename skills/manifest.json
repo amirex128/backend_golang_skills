@@ -556,11 +556,12 @@
   "skills": {
     "golang": {
       "path": "skills/golang",
-      "scope": "Unified Go engineering knowledge synthesized from all 19 supplied Golang skills",
+      "scope": "Complete unified Go 1.27 engineering skill synthesized from all 19 supplied Golang skills, references, and assets",
       "source_count": 19,
-      "source_knowledge_files": 100,
-      "reference_count": 13,
-      "source_map": "docs/unified-golang-source-map.json"
+      "source_knowledge_files": 107,
+      "reference_count": 19,
+      "source_map": "docs/unified-golang-source-map.json",
+      "excluded": "Evaluation fixtures only; no source guidance excluded"
     },
     "gofr": {
       "path": "skills/gofr",
