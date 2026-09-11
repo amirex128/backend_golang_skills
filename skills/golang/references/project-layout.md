@@ -1,848 +1,635 @@
-# Project Layout, Clean Architecture, and CQRS
+# Go Clean Architecture, CQRS, Repository Pattern, and Project Layout
 
-This project uses Clean Architecture with CQRS as the default for new Go backends. The source material below is retained and normalized under that policy: domain rules point inward, application use cases own ports, adapters translate external protocols, infrastructure stays at the edge, commands change state, and queries read without hidden mutation.
+This is the architecture standard for new Go backends and structural changes in this repository. Use **Clean Architecture** for dependency direction, **CQRS** for explicit command/query responsibilities, and the **Repository Pattern** for aggregate write persistence. Keep the design proportional to real complexity, but do not weaken the boundaries silently.
 
-Use the source guidance in this file without weakening the project dependency rule. A flat or framework-first structure requires a documented exception; do not introduce it silently.
+The goal is not to create ceremony. The goal is to keep business rules independent from HTTP, SQL, brokers, frameworks, generated code, and deployment details; make use cases testable; make persistence replaceable at the boundary; and make read/write responsibilities explicit.
 
+## 1. Architectural rules
 
-## Source Skill Guidance
+### 1.1 Dependency Rule
 
-**Persona:** You are a Go project architect. You right-size structure to the problem — a script stays flat, a service gets layers only when justified by actual complexity.
+Dependencies point inward:
 
-**Questions:** Ask the user through the environment's question tool — never as plain-text prose. Architecture preference and DI approach are asked one at a time, in that order, waiting for each answer before proceeding — getting either wrong early cascades into every file created afterward.
+```text
+Delivery / Transport / Infrastructure
+                ↓
+          Interface Adapters
+                ↓
+             Application
+                ↓
+               Domain
+```
 
-# Go Project Layout
+The arrow means “may depend on.” Inner code must not import outer code.
 
-## Architecture Decision: Ask First
+- **Domain** imports no application, adapter, infrastructure, transport, ORM, SQL driver, broker, or framework package.
+- **Application** imports domain packages and standard-library contracts, but not concrete databases, HTTP frameworks, generated protobuf/OpenAPI transport types, or broker clients.
+- **Adapters** translate external representations into application inputs and map application outputs into transport responses.
+- **Infrastructure** implements ports and owns concrete databases, brokers, external clients, configuration, observability, migrations, and generated integration code.
+- **Composition root** is the only place that should know most concrete implementations and assemble the object graph.
 
-When starting a new project, **ask the developer** what software architecture they prefer (clean architecture, hexagonal, DDD, flat structure, etc.). Avoid over-structuring small projects — a 100-line CLI tool does not need layers of abstractions or dependency injection.
+Keep the rule enforceable through Go package boundaries, `internal/`, import-cycle checks, architecture tests, code review, and `go list -deps` inspection. A package called `domain` that imports `database/sql`, a web framework, or a concrete repository is an architectural defect.
 
-→ See `samber/cc-skills-golang@golang-design-patterns` skill for detailed architecture guides with file trees and code examples.
+### 1.2 CQRS scope
 
-## Dependency Injection: Ask Next
+CQRS means separating the model used to change state from the model used to read state. It does **not** automatically require event sourcing, two databases, asynchronous messaging, or a distributed system.
 
-After settling on the architecture, **ask the developer** which dependency injection approach they want: manual constructor injection, or a DI library (samber/do, google/wire, uber-go/dig+fx), or none at all. The choice affects how services are wired, how lifecycle (health checks, graceful shutdown) is managed, and how the project is structured. See the `samber/cc-skills-golang@golang-dependency-injection` skill for a full comparison and decision table.
+Apply CQRS at the bounded-context or use-case level when at least one of these is real:
 
-## 12-Factor App
+- Commands enforce invariants or workflows that do not resemble CRUD.
+- Read projections or joins have a different shape from write aggregates.
+- Read and write workloads need different optimization or scaling.
+- The domain benefits from task-oriented commands and explicit side effects.
+- Independent read models or eventual consistency are an intentional product decision.
 
-For applications (services, APIs, workers), follow [12-Factor App](https://12factor.net/) conventions: config via environment variables, logs to stdout, stateless processes, graceful shutdown, backing services as attached resources, and admin tasks as one-off commands (e.g., `cmd/migrate/`).
+Do not force CQRS on a trivial CRUD slice only to satisfy a folder diagram. A simple query may read from the same database as writes; a command and query can initially share one process and one database while keeping their contracts separate.
 
-## Quick Start: Choose Your Project Type
+### 1.3 Repository scope
 
-| Project Type | Use When | Key Directories |
-| --- | --- | --- |
-| **CLI Tool** | Building a command-line application | `cmd/{name}/`, `internal/`, optional `pkg/` |
-| **Library** | Creating reusable code for others | `pkg/{name}/`, `internal/` for private code |
-| **Service** | HTTP API, microservice, or web app | `cmd/{service}/`, `internal/`, `api/`, `web/` |
-| **Monorepo** | Multiple related packages/modules | `go.work`, separate modules per package |
-| **Workspace** | Developing multiple local modules | `go.work`, replace directives |
+A repository is an abstraction over persistence for a **domain aggregate root**, not a generic wrapper around tables or every database method.
 
-## Module Naming Conventions
+- Define a write repository contract beside the aggregate/domain concept that consumes it.
+- Implement that contract in infrastructure.
+- Use one repository per aggregate root where the aggregate controls transactional consistency.
+- Do not create repositories for every table, value object, or read DTO.
+- Keep query access separate from aggregate repositories. A query handler may use a purpose-built read port or query implementation that returns read DTOs/projections.
+- Keep repository interfaces free of SQL types, ORM entities, driver-specific options, HTTP types, and persistence-shaped DTOs.
+- Use the smallest methods required by use cases. Avoid a giant `GenericRepository` with speculative CRUD methods.
 
-### Module Name (go.mod)
+This gives command handlers a domain-safe write boundary and query handlers an efficient read boundary without pretending that all reads are aggregate loads.
 
-Your module path in `go.mod` should:
+## 2. Recommended project tree
 
-- **MUST match your repository URL**: `github.com/username/project-name`
-- **Use lowercase only**: `github.com/you/my-app` (not `MyApp`)
-- **Use hyphens for multi-word**: `user-auth` not `user_auth` or `userAuth`
-- **Be semantic**: Name should clearly express purpose
+Use this as the default for a production Go API, service, or worker. Replace `order` with a bounded context or feature name; do not create empty packages merely to match the tree.
 
-**Examples:**
+```text
+project/
+├── cmd/
+│   ├── api/
+│   │   └── main.go                    # thin process entrypoint
+│   ├── worker/
+│   │   └── main.go                    # optional async/outbox consumer
+│   └── migrate/
+│       └── main.go                    # optional migration command
+├── internal/
+│   ├── domain/
+│   │   ├── order/
+│   │   │   ├── aggregate.go           # aggregate root and invariants
+│   │   │   ├── entity.go              # child entities when needed
+│   │   │   ├── value_objects.go
+│   │   │   ├── events.go              # transport-neutral domain events
+│   │   │   ├── errors.go               # domain errors
+│   │   │   └── repository.go           # aggregate write port
+│   │   └── customer/
+│   │       └── ...
+│   ├── application/
+│   │   ├── command/
+│   │   │   └── order/
+│   │   │       ├── create.go           # command, handler, result
+│   │   │       ├── approve.go
+│   │   │       └── cancel.go
+│   │   ├── query/
+│   │   │   └── order/
+│   │   │       ├── get.go              # query, handler, read DTO
+│   │   │       └── list.go
+│   │   ├── ports/
+│   │   │   ├── clock.go
+│   │   │   ├── id_generator.go
+│   │   │   ├── transaction.go
+│   │   │   ├── event_publisher.go
+│   │   │   └── authorization.go
+│   │   └── errors.go
+│   ├── adapter/
+│   │   ├── http/
+│   │   │   ├── handler/
+│   │   │   ├── request/
+│   │   │   ├── response/
+│   │   │   ├── middleware/
+│   │   │   └── router.go
+│   │   ├── grpc/                       # optional transport
+│   │   ├── graphql/                    # optional transport
+│   │   └── messaging/                  # optional consumers/producers
+│   ├── infrastructure/
+│   │   ├── persistence/
+│   │   │   ├── postgres/
+│   │   │   │   ├── order_repository.go
+│   │   │   │   ├── order_queries.go
+│   │   │   │   ├── mapper.go
+│   │   │   │   └── migrations/
+│   │   │   ├── mysql/                  # optional alternative adapter
+│   │   │   └── transaction.go
+│   │   ├── projection/
+│   │   │   └── order_projector.go      # optional read model projector
+│   │   ├── outbox/
+│   │   │   ├── store.go
+│   │   │   └── publisher.go
+│   │   ├── client/
+│   │   ├── config/
+│   │   ├── observability/
+│   │   └── shutdown/
+│   └── composition/
+│       ├── dependencies.go             # concrete dependency graph
+│       └── server.go
+├── api/
+│   ├── openapi.yaml                    # source API contract
+│   └── proto/                          # source protobuf contracts
+├── migrations/                         # if shared rather than adapter-owned
+├── configs/                            # non-secret defaults/examples only
+├── testdata/
+├── scripts/
+├── go.mod
+├── go.sum
+├── Makefile
+├── .golangci.yml
+├── README.md
+└── LICENSE
+```
+
+### 2.1 `cmd/`: composition entrypoints only
+
+`cmd/<name>/main.go` may load configuration, construct infrastructure, assemble the application, register routes/workers, install signal handling, and call `Run`. It must not contain business rules, SQL, repository logic, request validation beyond startup configuration, or feature orchestration.
+
+Keep `main` small enough to understand the process lifecycle at a glance. Move wiring into `internal/composition` when the graph becomes difficult to read.
+
+### 2.2 `internal/domain/`: business truth
+
+Organize domain code by bounded context or aggregate, not by technical type alone. A domain package owns:
+
+- Aggregate roots and entity behavior.
+- Value objects and validation that is intrinsic to the concept.
+- Invariants and legal state transitions.
+- Domain errors that do not mention HTTP, gRPC, SQL, JSON, or framework status codes.
+- Domain events that describe facts without broker or serialization types.
+- Aggregate repository interfaces for write persistence when the aggregate/use case needs one.
+
+Keep aggregate fields private when encapsulation matters. Constructors and behavior methods must prevent invalid in-memory states. Do not expose setters that allow callers to bypass invariants.
+
+### 2.3 `internal/application/`: use cases and ports
+
+The application layer coordinates a user-visible use case. It is not a second domain and must not become a dumping ground for SQL or transport code.
+
+- Commands express intent to change state.
+- Queries express intent to read state.
+- Handlers own one use case and one transaction/read flow.
+- DTOs are application contracts, not database rows or generated HTTP models.
+- Ports are interfaces owned by the consuming application/domain side.
+- Authorization decisions that depend on the use case belong here; authentication mechanics stay at adapters/infrastructure.
+- Cross-cutting ports such as clock, ID generation, transaction, event publication, and authorization keep nondeterministic dependencies injectable.
+
+Prefer one handler per command/query. A handler should validate input shape, call ports, invoke domain behavior, persist or read, and return a stable result. It should not know whether persistence is PostgreSQL, an in-memory fake, or a remote service.
+
+### 2.4 `internal/adapter/`: translation at boundaries
+
+Adapters convert external protocols into application contracts and map results back.
+
+HTTP/gRPC handlers may perform authentication extraction, request decoding, transport validation, route binding, response serialization, and error-to-status mapping. They must not implement aggregate invariants, execute SQL, or decide transaction boundaries.
+
+Keep generated transport types at the edge. Map them into application commands/queries instead of allowing protobuf or OpenAPI types to leak into domain packages.
+
+### 2.5 `internal/infrastructure/`: concrete effects
+
+Infrastructure implements application/domain ports and owns effects:
+
+- Database drivers, SQL, ORM code, row scanning, locking, migrations, and transaction implementations.
+- External HTTP/gRPC clients and broker SDKs.
+- Read projections and outbox delivery.
+- Configuration loading, logging, metrics, tracing, and process integrations.
+- Concrete repository and query implementations.
+
+Infrastructure may depend inward on domain/application contracts. Domain and application must not import infrastructure to “save wiring time.”
+
+## 3. Feature organization and bounded contexts
+
+Use bounded-context or feature names below the architectural layer. Avoid a global layout such as `models/`, `services/`, and `repositories/` when it causes unrelated behavior to mix.
+
+```text
+internal/
+├── domain/
+│   ├── billing/
+│   └── identity/
+├── application/
+│   ├── command/
+│   │   ├── billing/
+│   │   └── identity/
+│   └── query/
+│       ├── billing/
+│       └── identity/
+└── infrastructure/
+    └── persistence/
+        ├── billing/
+        └── identity/
+```
+
+Keep a bounded context internally coherent. Share a package only when the concept is truly shared and stable; otherwise duplicate a small DTO or mapping rather than creating a dependency that couples contexts.
+
+## 4. Command side design
+
+### 4.1 Command contract
+
+A command is an immutable application input representing intent, not a generic database update.
 
 ```go
-// ✅ Good
-module github.com/jdoe/payment-processor
-module github.com/company/cli-tool
+package createorder
 
-// ❌ Bad
-module myproject
-module github.com/jdoe/MyProject
-module utils
+type Command struct {
+    CustomerID string
+    Items      []ItemInput
+    IdempotencyKey string
+}
+
+type ItemInput struct {
+    ProductID string
+    Quantity  int
+}
+
+type Result struct {
+    OrderID string
+}
 ```
 
-### Package Naming
+Validate required shape at the application boundary, then let the domain validate business invariants. Do not put transport types, JSON tags, or SQL columns in the domain command unless the command itself is a public application contract.
 
-Packages MUST be lowercase, singular, and match their directory name. → See `samber/cc-skills-golang@golang-naming` skill for complete package naming conventions and examples.
+### 4.2 Command handler flow
 
-## Directory Layout
+Use this sequence:
 
-All `main` packages must reside in `cmd/` with minimal logic — parse flags, wire dependencies, call `Run()`. Business logic belongs in `internal/` or `pkg/`. Use `internal/` for non-exported packages, `pkg/` only when code is useful to external consumers.
+1. Validate command shape and authorization.
+2. Check idempotency when the caller may retry.
+3. Begin a transaction through an application port.
+4. Load the aggregate through its repository.
+5. Invoke a domain method; let the aggregate enforce invariants.
+6. Persist the aggregate through the repository.
+7. Record domain events in an outbox within the same transaction when external publication is required.
+8. Commit and return the result.
+9. Publish from the outbox after commit with bounded retries and idempotent delivery.
 
-See [directory layout examples](references/directory-layouts.md) for universal, small project, and library layouts, plus common mistakes.
+Never publish an external event before the write transaction commits. Never make a repository method silently perform unrelated writes.
 
-## Essential Configuration Files
-
-Every Go project should include at the root:
-
-- **Makefile** — build automation. See [Makefile template](assets/Makefile)
-- **.gitignore** — git ignore patterns. See [.gitignore template](assets/.gitignore)
-- **.golangci.yml** — linter config. See the `samber/cc-skills-golang@golang-lint` skill for the recommended configuration
-
-For application configuration with Cobra + Viper, see [config reference](references/config.md).
-
-## Tests, Benchmarks, and Examples
-
-Co-locate `_test.go` files with the code they test. Use `testdata/` for fixtures. See [testing layout](references/testing-layout.md) for file naming, placement, and organization details.
-
-## Go Workspaces
-
-Use `go.work` when developing multiple related modules in a monorepo. See [workspaces](references/workspaces.md) for setup, structure, and commands.
-
-## Initialization Checklist
-
-When starting a new Go project:
-
-- [ ] Confirm preferred software architecture (clean, hexagonal, DDD, flat, etc.)
-- [ ] Confirm preferred DI approach — see `samber/cc-skills-golang@golang-dependency-injection` skill
-- [ ] Decide project type (CLI, library, service, monorepo)
-- [ ] Right-size the structure to the project scope
-- [ ] Choose module name (matches repo URL, lowercase, hyphens)
-- [ ] Run `go version` to detect the current go version
-- [ ] Run `go mod init github.com/user/project-name`
-- [ ] Create `cmd/{name}/main.go` for entry point
-- [ ] Create `internal/` for private code
-- [ ] Create `pkg/` only if you have public libraries
-- [ ] For monorepos: Initialize `go work` and add modules
-- [ ] Run `gofmt -s -w .` to ensure formatting
-- [ ] Add `.gitignore` with `/vendor/` and binary patterns
-- [ ] Write the always-load directive for `samber/cc-skills-golang@golang-how-to` into the project's agent-config file (CLAUDE.md, AGENTS.md, or equivalent) — no user confirmation needed, see that skill's Configure mode
-
-## Related Skills
-
-- → See `samber/cc-skills-golang@golang-cli` skill for CLI tool structure and Cobra/Viper patterns.
-- → See `samber/cc-skills-golang@golang-dependency-injection` skill for DI approach comparison and wiring.
-- → See `samber/cc-skills-golang@golang-lint` skill for golangci-lint configuration.
-- → See `samber/cc-skills-golang@golang-continuous-integration` skill for CI/CD pipeline setup.
-- → See `samber/cc-skills-golang@golang-design-patterns` skill for architectural patterns.
-- → See `samber/cc-skills-golang@golang-refactoring` skill for safely moving or splitting existing code into the layout above via type-alias gradual code repair and staged PRs, without a big-bang break.
-- → See `samber/cc-skills-golang@golang-how-to` skill's Configure mode for the always-load directive and optional `## Required Go skills` block written to the project's agent-config file (CLAUDE.md, AGENTS.md, or equivalent).
-
-
-## Source Reference: `golang-project-layout/references/config.md`
-
-# Application Configuration with Cobra + Viper
-
-→ See `samber/cc-skills-golang@golang-cli` skill for complete Cobra+Viper setup, flag binding, precedence rules, and configuration layering.
-
-## Where Config Lives
-
-```
-myapp/
-├── cmd/myapp/
-│   ├── main.go                # Entry point
-│   ├── root.go                # Root command + Viper init
-│   ├── serve.go               # Subcommand with flags
-│   └── config.go              # Config struct + loader
-└── configs/
-    └── config.yaml            # Default config file
-```
-
-## Config Struct
-
-Define configuration as a struct with `mapstructure` tags matching your YAML keys:
+### 4.3 Command handler example
 
 ```go
-// cmd/myapp/config.go
-package main
+package createorder
 
 import (
+    "context"
     "fmt"
 
-    "github.com/spf13/viper"
+    "example.com/project/internal/domain/order"
+    "example.com/project/internal/application/ports"
 )
 
-type Config struct {
-    Port     int    `mapstructure:"port"`
-    Host     string `mapstructure:"host"`
-    LogLevel string `mapstructure:"log-level"`
-    Database struct {
-        DSN     string `mapstructure:"dsn"`
-        MaxConn int    `mapstructure:"max-conn"`
-    } `mapstructure:"database"`
+type OrderRepository interface {
+    Save(ctx context.Context, tx ports.Tx, value *order.Order) error
 }
 
-func loadConfig() (Config, error) {
-    var cfg Config
-    if err := viper.Unmarshal(&cfg); err != nil {
-        return Config{}, fmt.Errorf("unmarshaling config: %w", err)
+type Handler struct {
+    orders OrderRepository
+    tx     ports.TransactionManager
+    ids    ports.IDGenerator
+    clock  ports.Clock
+}
+
+func (h Handler) Handle(ctx context.Context, cmd Command) (Result, error) {
+    var result Result
+    err := h.tx.Within(ctx, func(ctx context.Context, tx ports.Tx) error {
+        id, err := h.ids.New()
+        if err != nil {
+            return fmt.Errorf("generate order id: %w", err)
+        }
+        aggregate, err := order.New(id, cmd.CustomerID, cmd.Items, h.clock.Now())
+        if err != nil {
+            return fmt.Errorf("create order: %w", err)
+        }
+        if err := h.orders.Save(ctx, tx, aggregate); err != nil {
+            return fmt.Errorf("save order: %w", err)
+        }
+        result.OrderID = aggregate.ID()
+        return nil
+    })
+    if err != nil {
+        return Result{}, err
     }
-    return cfg, nil
+    return result, nil
 }
 ```
 
-Configuration MUST be loaded from env vars, files, or flags — NEVER hardcoded. Sensitive values MUST come from env vars or secret managers, NEVER config files.
+The exact transaction API may differ, but the ownership is stable: the application defines the need for atomic work; infrastructure implements the transaction.
 
+## 5. Query side design
 
-## Source Reference: `golang-project-layout/references/directory-layouts.md`
+### 5.1 Query contract
 
-# Directory Layouts
-
-## Table of Contents
-
-- [Universal Layout (Most Projects)](#universal-layout-most-projects)
-- [Small Projects (Single Binary)](#small-projects-single-binary)
-- [Libraries (Reusable Code)](#libraries-reusable-code)
-- [The cmd/ Directory Convention](#the-cmd-directory-convention)
-  - [Single Application](#single-application)
-  - [Multiple Applications](#multiple-applications)
-- [Common Mistakes to Avoid](#common-mistakes-to-avoid)
-  - [Don't Do This](#dont-do-this)
-  - [Do This Instead](#do-this-instead)
-
-## Universal Layout (Most Projects)
-
-```
-project/
-├── cmd/                    # Entry points - ONE subdirectory per main package
-│   ├── server/            # Main application #1
-│   │   └── main.go
-│   ├── client/            # Main application #2
-│   │   └── main.go
-│   └── migrate/           # Main application #3
-│       └── main.go
-│   └── cli/               # Main application #4
-│       └── main.go
-│   └── worker/            # Main application #5
-│       └── main.go
-├── internal/              # Private application code (`internal/` MUST be used for non-exported packages)
-│   ├── app/              # Application initialization
-│   ├── config/           # Configuration loading
-│   ├── handler/          # HTTP/request handlers
-│   ├── model/            # Data models/domain
-│   └── service/          # Business logic
-├── pkg/                   # Public libraries (optional - only if useful to others)
-│   └── logger/
-│       └── logger.go
-├── api/                   # API definitions (optional)
-│   └── openapi.yaml
-├── configs/               # Configuration files (optional)
-│   └── config.yaml
-├── scripts/               # Build/deployment scripts (optional)
-├── go.mod
-├── go.sum
-├── Makefile               # Build automation
-├── .gitignore             # Git ignore patterns
-├── .golangci.yml          # Linter configuration
-├── LICENSE                # License file
-└── README.md
-```
-
-## Small Projects (Single Binary)
-
-For simple tools, keep it minimal:
-
-```
-my-tool/
-├── cmd/
-│   └── my-tool/
-│       └── main.go        # Single main package
-├── internal/
-│   └── core.go            # Application logic
-├── go.mod
-├── Makefile               # Build automation (optional but recommended)
-├── .gitignore             # Git ignore patterns
-├── .golangci.yml          # Linter configuration (optional)
-├── LICENSE                # License file (recommended)
-└── README.md
-```
-
-## Libraries (Reusable Code)
-
-```
-my-library/
-├── example/               # Example
-├── logger/                # Public package
-│   ├── logger.go
-│   └── logger_test.go
-├── internal/
-│   └── impl/              # Private implementation details
-│       └── core.go
-├── go.mod
-├── go.sum
-├── Makefile               # Build automation
-├── .gitignore             # Git ignore patterns
-├── .golangci.yml          # Linter configuration
-├── LICENSE                # License file
-└── README.md
-```
-
-**Key points for libraries:**
-
-- Put public API in root-level directories (e.g., `logger/`)
-- Use `internal/` for private implementation
-- Don't use `cmd/` (unless you have example binaries)
-
-## The cmd/ Directory Convention
-
-**CRITICAL**: All `main` packages must reside in `cmd/`. `cmd/` MUST contain only `main.go` with minimal logic — parse flags, wire dependencies, call `Run()`. NEVER put business logic in `cmd/` — it belongs in `internal/` or `pkg/`.
-
-### Single Application
-
-```
-cmd/
-└── myapp/
-    └── main.go    // package main
-```
-
-### Multiple Applications
-
-When you need multiple binaries (e.g., server, CLI tool, migration utility):
-
-```
-cmd/
-├── server/
-│   └── main.go        // Runs the API server
-├── client/
-│   └── main.go        // CLI client tool
-├── worker/
-│   └── main.go        // Background worker
-└── migrate/
-    └── main.go        // Database migration utility
-```
-
-Each `main.go`:
-
-- Declares `package main`
-- Has its own `func main()`
-- Can be built independently: `go build ./cmd/...`
-
-**Building all binaries:**
-
-```bash
-go build ./cmd/...        # Build all main packages
-go build ./cmd/server     # Build specific binary
-```
-
-## Common Mistakes to Avoid
-
-### Don't Do This
-
-```
-myproject/
-├── src/              # Go doesn't use /src (Java pattern)
-├── main.go           # Don't put main at root
-├── utils/            # Generic package name
-├── helpers/          # Generic package name
-└── common/           # Generic package name
-```
-
-### Do This Instead
-
-```
-myproject/
-├── cmd/
-│   └── myapp/
-│       └── main.go   # Main in cmd/
-├── internal/
-│   ├── util/         # Specific utility names
-│   └── format/       # Or domain-specific names
-└── pkg/              # Only if useful to others
-```
-
-
-## Source Reference: `golang-project-layout/references/testing-layout.md`
-
-# Tests, Benchmarks, and Examples
-
-## Table of Contents
-
-- [File Naming Conventions](#file-naming-conventions)
-- [Where to Place Tests](#where-to-place-tests)
-- [Test Package Options](#test-package-options)
-- [Benchmarks](#benchmarks)
-- [Examples](#examples)
-- [Test Utilities](#test-utilities)
-- [Test Fixtures](#test-fixtures)
-- [Running Tests](#running-tests)
-- [Test File Summary](#test-file-summary)
-
-## File Naming Conventions
-
-Go uses suffix-based naming for test-related files:
-
-| Suffix | Purpose | Build Tag |
-| --- | --- | --- |
-| `_test.go` | Tests | Not included in normal builds |
-| `_bench_test.go` | Benchmarks | Not included in normal builds |
-| `_example_test.go` | Examples that verify output | Not included in normal builds |
-| No suffix | Regular code | Included in all builds |
-
-## Where to Place Tests
-
-**Co-locate tests with the code they test:**
-
-```
-internal/
-├── handler/
-│   ├── handler.go          # Production code
-│   ├── handler_test.go     # Tests for handler
-│   └── handler_bench_test.go  # Benchmarks (optional)
-├── service/
-│   ├── service.go
-│   └── service_test.go
-└── model/
-    ├── user.go
-    └── user_test.go
-
-pkg/
-└── logger/
-    ├── logger.go
-    └── logger_test.go
-```
-
-**Key principles:**
-
-- Tests live in the **same package** as the code (e.g., `package handler`)
-- Test files are in the **same directory** as the code they test
-- Use `_test.go` suffix for all test files
-
-## Test Package Options
-
-When writing tests, you have two options for the package declaration:
-
-**Option 1: Same package (white-box testing)**
+Queries should return read models designed for the caller. They should not load an aggregate merely because an aggregate repository exists.
 
 ```go
-package handler  // Same package, can access unexported
+package getorder
 
-import "testing"
+type Query struct {
+    OrderID string
+}
 
-func TestHandler(t *testing.T) {
-    // Can access unexported functions and types
-    internalFunction()
+type Result struct {
+    ID        string
+    Status    string
+    Total     int64
+    Currency  string
+    CreatedAt time.Time
+    Items     []Item
 }
 ```
 
-**Option 2: Package with `_test` suffix (black-box testing)**
+A query port may be defined beside the query handler or in an application `ports` package. It should expose only the read operation required by the query and return application read DTOs or a mapper-owned projection, not SQL rows.
 
 ```go
-package handler_test  // Different package, only exported API
-
-import "testing"
-
-func TestHandler(t *testing.T) {
-    // Can only access exported functions and types
-    handler.PublicMethod()
+type Reader interface {
+    Get(ctx context.Context, orderID string) (Result, error)
 }
 ```
 
-**When to use each:**
+### 5.2 Query rules
 
-- Use **same package** for unit tests that need to test internals
-- Use **`_test` suffix** for integration/behavioral tests
+- Queries must not mutate business state, publish events, or hide writes.
+- Keep pagination bounded and deterministic.
+- Allowlist sortable fields; never concatenate untrusted SQL identifiers.
+- Document consistency: strong, read-your-write, or eventually consistent.
+- Use a projection or denormalized read model when joins or response shape justify it.
+- Expose projection lag and recovery behavior when eventual consistency affects the product.
+- Map `sql.ErrNoRows` or driver errors into application-level errors at the adapter boundary.
 
-## Benchmarks
+## 6. Repository Pattern in Go
 
-Benchmarks use the `_bench_test.go` suffix and contain functions with the `Benchmark` prefix.
+### 6.1 Where interfaces belong
 
-## Examples
+Place a repository interface at the boundary that consumes it:
 
-Examples serve two purposes: documentation and verification.
+- An aggregate write repository usually belongs in the aggregate's domain package because it is part of the domain/application need to load and save that aggregate.
+- A query reader belongs with the query/application contract because it returns a query-specific read model.
+- A transaction manager, clock, ID generator, or event publisher belongs in application ports when use cases consume it.
+- Concrete SQL/ORM implementations belong in infrastructure.
 
-**In libraries** - use `*_example_test.go` files:
+The precise package can vary, but the interface must not live in the infrastructure package if that forces application code to depend outward.
 
-```
-pkg/
-└── logger/
-    ├── logger.go
-    ├── logger_test.go
-    └── logger_example_test.go     # Examples
-```
+### 6.2 Repository methods model use cases
 
-**Example function format:**
+Prefer intention-revealing methods:
 
 ```go
-package logger
+package order
 
-import "fmt"
-
-func ExampleLogger_Info() {
-    log := New()
-    log.Info("processing started")
-    log.Info("processing complete")
-    // Output:
-    // INFO: processing started
-    // INFO: processing complete
+type Repository interface {
+    Get(ctx context.Context, id ID) (*Order, error)
+    Save(ctx context.Context, tx Transaction, aggregate *Order) error
 }
 ```
 
-**Key points:**
-
-- Example functions must start with `Example`
-- The `// Output:` comment verifies the output
-- Examples are runnable tests: `go test` will fail if output doesn't match
-- `godoc` displays examples as documentation
-- File name format: `{package}_example_test.go` (e.g., `logger_example_test.go`)
-
-**For executable examples** (standalone demo programs):
-
-```
-examples/
-└── basic-usage/
-    └── main.go                    # Executable example
-```
-
-## Test Utilities
-
-When you have shared test helpers, use a dedicated package:
-
-```
-test/
-└── testutils/
-    ├── mock.go
-    └── fixtures.go
-```
-
-Or use the `internal/testutil` pattern:
-
-```
-internal/
-└── testutil/
-    ├── mock.go
-    └── fixtures.go
-```
-
-## Test Fixtures
-
-Fixtures are test data files used across multiple tests. Use one of these patterns:
-
-**Option 1: Local testdata directory** (package-specific fixtures)
-
-```
-internal/
-└── handler/
-    ├── handler.go
-    ├── handler_test.go
-    └── testdata/
-        ├── users.json
-        ├── request_valid.json
-        └── request_invalid.json
-```
-
-**Option 2: Global test directory** (shared across packages)
-
-```
-test/
-└── fixtures/
-    ├── users.json
-    ├── products.json
-    └── responses/
-        ├── success.json
-        └── error.json
-```
-
-**Option 3: Embedded fixtures** (Go 1.16+, use `//go:embed`)
-
-```
-internal/
-└── handler/
-    ├── handler.go
-    ├── handler_test.go
-    └── testdata/
-        └── users.json
-```
-
-**Important notes:**
-
-- Go ignores the `testdata` directory when building regular packages
-- Use `testdata/` for package-specific test data
-- Use `test/fixtures/` for cross-package shared fixtures
-- Don't put `.go` files in `testdata/` - they will be ignored
-
-## Running Tests
-
-```bash
-go test ./...                    # Run all tests
-go test ./internal/handler       # Test specific package
-go test -v ./...                 # Verbose output
-go test -race ./...              # Race detection
-go test -cover ./...             # Coverage report
-go test -short ./...             # Skip long-running tests
-```
-
-## Test File Summary
-
-| File Type | Suffix | Package | Purpose |
-| --- | --- | --- | --- |
-| Test | `*_test.go` | `package X` or `package X_test` | Unit/integration tests |
-| Benchmark | `*_bench_test.go` | Same as code | Performance tests |
-| Example (godoc) | `*_example_test.go` | Same as code | Documentation + verification |
-| Executable example | No suffix | `package main` | Standalone demo programs |
-| Test utilities | `*_test.go` | `package testutil` | Shared test helpers |
-
-
-## Source Reference: `golang-project-layout/references/workspaces.md`
-
-<!-- markdownlint-disable ol-prefix -->
-
-# Go Workspaces for Multi-Package Repositories
-
-## Table of Contents
-
-- [When to Use Workspaces](#when-to-use-workspaces)
-- [Workspace Structure](#workspace-structure)
-- [Creating a Workspace](#creating-a-workspace)
-- [Workspace Commands](#workspace-commands)
-
-## When to Use Workspaces
-
-Use Go workspaces (`go.work`) when:
-
-- Developing multiple related modules that import each other
-- Building a monorepo with separate Go modules
-- Testing local changes across module boundaries
-- Avoiding `replace` directives in every module
-
-**Don't use workspaces for:**
-
-- Single-module projects
-- Projects that only use external dependencies
-- Simple applications
-
-## Workspace Structure
-
-Example monorepo with multiple modules:
-
-```
-my-monorepo/
-├── go.work                    # Workspace file (see below)
-├── pkg/
-│   ├── auth/                 # Module 1: github.com/user/my-monorepo/pkg/auth
-│   │   ├── go.mod
-│   │   ├── cmd/
-│   │   │   └── auth-server/
-│   │   │       └── main.go
-│   │   └── internal/
-│   │       └── handler/
-│   │           └── auth.go
-│   └── user/                 # Module 2: github.com/user/my-monorepo/pkg/user
-│       ├── go.mod
-│       ├── cmd/
-│       │   └── user-server/
-│       │       └── main.go
-│       └── internal/
-│           └── handler/
-│               └── user.go
-├── cmd/
-│   └── api/                 # Module 3: github.com/user/my-monorepo/cmd/api
-│       ├── go.mod
-│       └── main.go
-└── tools/
-    └── cli/                  # Module 4: github.com/user/my-monorepo/tools/cli
-        ├── go.mod
-        └── cmd/
-            └── mycli/
-                └── main.go
-```
-
-## Creating a Workspace
-
-1. **Initialize the workspace:**
-
-```bash
-go work init
-```
-
-This creates `go.work`:
+Avoid this by default:
 
 ```go
-go 1.21
-
-use (
-    ./services/auth
-    ./services/user
-    ./shared/libs
-    ./tools/cli
-)
+type GenericRepository[T any] interface {
+    Create(ctx context.Context, value T) error
+    Get(ctx context.Context, id any) (T, error)
+    Update(ctx context.Context, value T) error
+    Delete(ctx context.Context, id any) error
+    List(ctx context.Context, filters map[string]any) ([]T, error)
+}
 ```
 
-2. **Add modules to workspace:**
+The generic form hides aggregate boundaries, encourages table-shaped thinking, weakens type-safe invariants, and makes every use case depend on methods it does not need.
 
-```bash
-go work use ./services/auth
-go work use ./services/user
-go work use ./shared/libs
-```
+### 6.3 One repository per aggregate root
 
-3. **Use modules without replace directives:**
+An aggregate root controls consistency for the objects inside it. Load and save the aggregate through one repository where the command must preserve its invariants. Do not create a repository for every table or child entity.
 
-In `services/user/go.mod`:
+It is valid for a query side to join tables directly through a query adapter because reads do not mutate aggregate state. It is not valid for a command to update aggregate tables through arbitrary query SQL and bypass domain behavior.
+
+### 6.4 Concrete repository implementation
+
+Infrastructure maps between persistence records and domain types:
 
 ```go
-module github.com/user/my-monorepo/services/user
+package postgres
 
-go 1.21
+type OrderRepository struct {
+    db *sql.DB
+}
 
-require github.com/user/my-monorepo/shared/libs v0.0.0
+var _ order.Repository = (*OrderRepository)(nil)
+
+func (r *OrderRepository) Get(ctx context.Context, id order.ID) (*order.Order, error) {
+    row := r.db.QueryRowContext(ctx, `
+        SELECT id, customer_id, status, created_at
+        FROM orders WHERE id = $1`, id.String())
+
+    record, err := scanOrder(row)
+    if err != nil {
+        return nil, mapDatabaseError(err)
+    }
+    return toDomainOrder(record)
+}
 ```
 
-The workspace automatically resolves `shared/libs` to the local directory.
+Keep SQL, scan structs, ORM models, column names, locks, and retry behavior in infrastructure. Mapping errors should preserve context without exposing credentials or raw database details to a public response.
 
-## Workspace Commands
+### 6.5 Concurrency and optimistic locking
 
-```bash
-go work init              # Initialize new workspace
-go work use ./path/to/mod # Add module to workspace
-go work use -rm ./path    # Remove module from workspace
-go work sync              # Sync workspace with module changes
+For concurrent commands, choose and document a consistency strategy:
+
+- Database row lock inside the command transaction.
+- Optimistic version column checked on update.
+- Aggregate-specific uniqueness constraints.
+- Idempotency key with a durable result.
+- Serialized command processing for a bounded partition.
+
+Do not rely on a process-local mutex to protect a multi-instance service. Convert a version conflict into a typed application error and let the adapter map it to the correct transport response.
+
+## 7. Transactions, Unit of Work, and Outbox
+
+### 7.1 Unit of Work
+
+Use a Unit of Work or transaction manager only when a command requires atomic changes across one or more repositories. It belongs at the application boundary as an abstraction and is implemented in infrastructure.
+
+```go
+type TransactionManager interface {
+    Within(ctx context.Context, fn func(context.Context, Tx) error) error
+}
 ```
 
+Rules:
 
-## Source Asset: `golang-project-layout/assets/.gitignore`
+- Start and commit the transaction around the complete command use case.
+- Do not expose `*sql.Tx` to domain code.
+- Do not keep a transaction open across network calls unless the design explicitly accepts the failure mode.
+- Roll back on errors and panic safely according to the driver contract.
+- Keep transactions short and bounded.
+- Use database constraints as a final invariant guard, not as a replacement for domain validation.
 
-# Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
-bin/
-dist/
+### 7.2 Transactional outbox
 
-# Test binary, built with `go test -c`
-*.test
+When a command changes state and must publish an integration event, write the domain state and an outbox record in the same transaction:
 
-# Output of the go coverage tool
-*.out
-coverage.out
-coverage.html
+```text
+command handler
+    ├── load aggregate
+    ├── apply domain behavior
+    ├── save aggregate
+    └── insert outbox event  ── same transaction ──> commit
+                                                      ↓
+                                             outbox publisher
+```
 
-# Dependency directories
-vendor/
+The publisher claims pending records, publishes with an idempotency key, marks success, and retries only retryable failures with backoff. Include attempts, next-attempt time, lease/claim ownership, and dead-letter policy when operationally required. Do not put broker SDK types in domain events.
 
-# Go workspace file
-go.work.sum
+## 8. HTTP, gRPC, and messaging flow
 
-# IDE specific files
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-.DS_Store
+Keep external flow explicit:
 
-# Environment files
-.env
-.env.local
-.env.*.local
+```text
+HTTP request
+  → adapter decodes and validates
+  → application Command or Query
+  → handler
+  → domain / ports
+  → infrastructure adapter
+  → application Result
+  → adapter presenter / transport response
+```
 
-# Build artifacts
-/tmp/
+Adapters must:
 
-# Air hot reload
-tmp/
+- Validate syntax and transport constraints.
+- Authenticate and extract identity.
+- Map transport input into an application contract.
+- Map typed application/domain errors to status codes.
+- Avoid leaking stack traces, SQL, tokens, or internal topology.
 
+Use the same application handlers from HTTP, gRPC, and messaging adapters when the use case is the same. Do not duplicate business logic per transport.
 
-## Source Asset: `golang-project-layout/assets/Makefile`
+## 9. Dependency injection and composition root
 
-# Variables
-BINARY_NAME=myapp
-GO=go
-GOFLAGS=-v
+Prefer manual constructor injection in Go:
 
-# Build variables
-VERSION?=$(shell git describe --tags --always --dirty)
-LDFLAGS=-ldflags "-X main.Version=$(VERSION)"
+```go
+func NewApplication(
+    orders order.Repository,
+    orderReader getorder.Reader,
+    tx ports.TransactionManager,
+    clock ports.Clock,
+) Application {
+    return Application{...}
+}
+```
 
-.PHONY: all build clean test lint run install help
-.PHONY: benchmark lint-fix outdated weight audit
-.PHONY: watch-test watch-build watch-run
+Construct concrete adapters in `internal/composition`:
 
-all: clean lint test build
+```go
+func Build(cfg Config) (*Server, error) {
+    db, err := postgres.Open(cfg.Database)
+    if err != nil { return nil, err }
 
-## build: Build the application
-build:
-	@echo "Building $(BINARY_NAME)..."
-	$(GO) build $(GOFLAGS) $(LDFLAGS) -o bin/$(BINARY_NAME) ./cmd/server
+    orderRepo := postgres.NewOrderRepository(db)
+    orderReader := postgres.NewOrderReader(db)
+    tx := postgres.NewTransactionManager(db)
+    app := application.New(orderRepo, orderReader, tx, systemClock{})
+    return server.New(app), nil
+}
+```
 
-## build-all: Build all binaries in cmd/
-build-all:
-	@echo "Building all binaries..."
-	$(GO) build $(GOFLAGS) $(LDFLAGS) -o bin/ ./cmd/...
+Avoid service locators, package-level mutable singletons, hidden `init()` wiring, and DI frameworks that obscure ownership. If a DI tool is introduced, generated wiring must remain at the composition boundary and dependencies must stay inspectable.
 
-## clean: Clean build artifacts
-clean:
-	@echo "Cleaning..."
-	rm -rf bin/
-	rm -f coverage.out
+## 10. Testing the architecture
 
-## test: Run all tests
-test:
-	@echo "Running tests..."
-	$(GO) test -v -race -coverprofile=coverage.out ./...
-	$(GO) tool cover -html=coverage.out -o coverage.html
+### Domain tests
 
-## test-short: Run tests without long-running ones
-test-short:
-	$(GO) test -v -short ./...
+Test aggregates, value objects, invariants, transitions, and domain errors with pure unit tests. No database, transport, clock, or broker is required unless explicitly represented by a domain port.
 
-## benchmark: Run benchmarks
-benchmark:
-	@echo "Running benchmarks..."
-	$(GO) test -bench=. -benchmem ./...
+### Application tests
 
-## lint: Run linter
-lint:
-	@echo "Running linter..."
-	golangci-lint run ./...
+Use fakes or mocks for repository, transaction, clock, authorization, and publisher ports. Assert:
 
-## lint-fix: Run linter and auto-fix issues
-lint-fix:
-	@echo "Running linter with auto-fix..."
-	golangci-lint run --fix ./...
+- Correct command/query behavior.
+- Transaction begins/commits/rolls back at the expected boundary.
+- Repository methods receive the intended aggregate.
+- Authorization is enforced.
+- Idempotent retries do not duplicate state.
+- Domain errors are preserved.
+- Query handlers do not call write ports.
 
-## fmt: Format code
-fmt:
-	$(GO) fmt ./...
-	$(GO) vet ./...
+### Adapter tests
 
-## outdated: Check for outdated dependencies
-outdated:
-	@echo "Checking for outdated dependencies..."
-	go list -u -m -json all | go-mod-outdated -update -direct
+Use `httptest`, gRPC test servers, or transport-specific harnesses to test decoding, validation, status mapping, serialization, authentication extraction, and response contracts. Do not retest domain invariants through every transport test.
 
-## weight: Analyze package dependencies
-weight:
-	@echo "Analyzing package weight..."
-	goweight
+### Infrastructure integration tests
 
-## audit: Audit dependencies for security vulnerabilities
-audit:
-	@echo "Auditing dependencies..."
-	govulncheck ./...
+Run against isolated real dependencies for SQL queries, migrations, locks, transactions, mapping, projection updates, outbox claiming, and external-client behavior. Mark integration tests with a build tag or explicit environment gate. Never run them against production.
 
-## run: Build and run the application
-run: build
-	@echo "Running $(BINARY_NAME)..."
-	./bin/$(BINARY_NAME)
+### Architecture tests
 
-## install: Install dependencies
-install:
-	$(GO) mod download
-	$(GO) mod tidy
+Add checks that enforce forbidden imports and package direction. At minimum verify:
 
-## deps-update: Update dependencies (patch only for safety)
-deps-update:
-	$(GO) get -u=patch ./...
-	$(GO) mod tidy
+- `internal/domain/...` does not import adapter or infrastructure packages.
+- `internal/application/...` does not import concrete persistence or transport packages.
+- `cmd/...` does not contain business packages or SQL imports.
+- Query packages do not depend on command handlers.
+- Generated transport code is not imported by domain packages.
 
-## watch-test: Run tests on file changes (requires air)
-watch-test:
-	@echo "Watching for changes to run tests..."
-	air -test
+Run `go list -deps`, `go vet`, tests, race tests for concurrent code, and configured lint rules in CI.
 
-## watch-build: Rebuild on file changes (requires air)
-watch-build:
-	@echo "Watching for changes to rebuild..."
-	air -build
+## 11. Common failure modes
 
-## watch-run: Rebuild and run on file changes (requires air)
-watch-run:
-	@echo "Watching for changes to run..."
-	air
+| Failure | Why it is harmful | Corrective action |
+|---|---|---|
+| `handlers/`, `services/`, `repositories/` global folders | Couples unrelated features and creates giant services | Organize by bounded context and use case |
+| Domain imports SQL/HTTP/ORM | Business rules become technology-bound | Move concrete code to infrastructure and expose a port |
+| Repository per table | Bypasses aggregate consistency | Use one write repository per aggregate root; separate read ports |
+| Generic CRUD repository | Hides intent and weakens type boundaries | Define small use-case or aggregate-specific interfaces |
+| Query loads aggregate for a list screen | Slow and couples reads to write model | Use a projection/read model and query port |
+| Command updates tables directly | Bypasses invariants and events | Load aggregate, invoke behavior, persist through repository |
+| Handler owns a transaction and broker publish | Inconsistent commits and duplicate events | Use application transaction boundary and outbox |
+| `main.go` contains wiring plus business logic | Hard to test and maintain | Keep `cmd` as composition root; move behavior inward |
+| CQRS everywhere by default | Adds complexity where CRUD is sufficient | Apply per bounded context/use case based on real benefit |
+| Shared mutable global dependencies | Hidden coupling and flaky tests | Use constructors and explicit lifecycle ownership |
 
-## help: Show this help message
-help:
-	@echo "Usage: make [target]"
-	@sed -n 's/^##//p' $(MAKEFILE_LIST) | column -t -s ':' | sed -e 's/^/ /'
+## 12. Migration from a legacy layout
+
+Do not perform a blind big-bang rewrite. Use a strangler/refactoring sequence:
+
+1. Record the current package graph and add behavior characterization tests.
+2. Identify one bounded context or use case with clear business value.
+3. Extract domain invariants from handlers/services into an aggregate or domain service.
+4. Define the smallest repository or query port at the consuming boundary.
+5. Add an infrastructure adapter and mapper behind that port.
+6. Introduce one command or query handler and route one adapter through it.
+7. Add architecture checks to prevent regression.
+8. Move adjacent behavior in small commits, preserving compatibility at each step.
+
+Do not rename every package, change the database, introduce CQRS, and replace the transport in one unreviewable change.
+
+## 13. Delivery checklist
+
+- [ ] Project type and bounded contexts are identified.
+- [ ] `cmd` is a thin composition root.
+- [ ] Domain contains business rules and no outer-layer imports.
+- [ ] Application contains explicit commands, queries, handlers, DTOs, and ports.
+- [ ] Commands and queries have separate responsibilities and contracts.
+- [ ] One write repository exists per aggregate root where needed.
+- [ ] Repository interfaces are consumer-owned and persistence-neutral.
+- [ ] Query readers return read models and do not hide mutations.
+- [ ] Transactions are owned by application use cases and implemented in infrastructure.
+- [ ] Outbox is used when state change and external publication must be atomic.
+- [ ] Adapters translate transport; they do not contain business logic or SQL.
+- [ ] Concrete dependencies are assembled in one composition root.
+- [ ] Domain, application, adapter, infrastructure, and architecture tests cover the relevant boundaries.
+- [ ] Pagination, consistency, idempotency, locking, retries, and projection lag are documented.
+- [ ] `gofmt`, `go vet`, tests, race tests, linting, and security checks pass as applicable.
+
+## 14. References
+
+This guidance is synthesized and cross-checked against:
+
+1. [Martin Fowler — CQRS](https://martinfowler.com/bliki/CQRS.html): CQRS separates update and read models, can support different scaling/read representations, and should be applied cautiously where its complexity is justified.
+2. [Three Dots Labs — Combining DDD, CQRS, and Clean Architecture in Go](https://threedots.tech/post/ddd-cqrs-clean-architecture-combined/): domain-first Go modeling, aggregate behavior, use cases, and practical Clean Architecture refactoring.
+3. [Three Dots Labs — The Repository Pattern in Go](https://threedots.tech/post/repository-pattern-in-go/): consumer-facing repository interfaces, aggregate persistence, in-memory testing adapters, and database decoupling.
+4. [Microsoft — Designing the Infrastructure Persistence Layer](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design): repository-per-aggregate guidance, unit of work, command-side persistence, query-side flexibility, and test boundaries.
+5. [Go Project Layout source material](https://github.com/golang-standards/project-layout): practical Go conventions for `cmd`, `internal`, `pkg`, configuration, tests, and operational files.
+
+Use these sources for rationale and the rules in this file for implementation decisions in this repository.
