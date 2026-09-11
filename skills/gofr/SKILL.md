@@ -119,4 +119,4 @@ This package is a documentation snapshot. Always compare the snapshot with the p
 
 ## Maintenance
 
-When refreshing this Skill, fetch `https://gofr.dev/llms.txt`, update every non-migration page reference and `skills/manifest.json`, preserve one focused reference file per page, run the Agent Skills validator and installer tests, and verify that no `migrate-*` or `comparison-*` reference remains.
+When refreshing this Skill, fetch `https://gofr.dev/llms.txt`, update every non-migration page reference and `skills/manifest.json`, preserve one focused reference file per page, run the Agent Skills validator, verify discovery with `npx skills add . --list`, test installation with `npx skills add . --skill gofr --copy --agent claude-code --yes`, and verify that no `migrate-*` or `comparison-*` reference remains.

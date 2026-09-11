@@ -4,7 +4,7 @@ This repository follows the open Agent Skills format documented at [agentskills.
 
 ## Required layout
 
-Every installable skill is a directory containing a required `SKILL.md`. Optional material belongs in `references/`, `scripts/`, and `assets/`. The current GoFr package is at `skills/gofr/`.
+Every installable skill is a directory containing a required `SKILL.md`. Optional material belongs in `references/`, `scripts/`, and `assets/`. This repository exposes `skills/golang/` and `skills/gofr/` directly to the official `npx skills` CLI.
 
 ## `SKILL.md` metadata
 
@@ -34,8 +34,8 @@ If `skills-ref` is installed, the equivalent official validator is:
 skills-ref validate skills/gofr
 ```
 
-The installer test must also verify that `SKILL.md` and at least one routed reference are copied into `.agents/skills/gofr/`.
+The native installation test must verify discovery with `npx skills add . --list` and installation of a selected skill with `npx skills add . --skill golang --copy --agent claude-code --yes`. The CLI owns agent-specific target paths and symlink/copy behavior.
 
 ## Distribution
 
-The package is distributed as a version-controlled multi-skill repository and through the GitHub-compatible npx command documented in the root README. Future skills must be added as `skills/<lowercase-name>/SKILL.md` and must not require changes to the common installer contract.
+The repository is distributed directly through the GitHub-compatible `npx skills add amirex128/backend_golang_skills` command. Future skills must be added as `skills/<lowercase-name>/SKILL.md`; no custom npm package, installer, or agent-specific installation script is required.

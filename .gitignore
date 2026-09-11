@@ -1,4 +1,22 @@
+# Dependencies and package-manager state
 node_modules/
-.DS_Store
-.agent/
+
+# Agent installation targets and local skill state
 .agents/
+.agent/
+.skills/
+skills-lock.json
+
+# Operating-system/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs and temporary files
+*.log
+*.tmp
+.tmp/
+
+# Local validation output
+coverage/
